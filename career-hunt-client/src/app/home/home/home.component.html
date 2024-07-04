@@ -1,0 +1,53 @@
+<div [ngClass]="{'dark': isDarkMode}" class="flex flex-col min-h-screen transition-colors duration-500"
+     [class.bg-dark-gray-900]="isDarkMode" [class.text-light-gray-100]="isDarkMode">
+
+  <!-- Hero Section -->
+  <section class="hero-section flex items-center justify-center bg-cover bg-center h-96 rounded-lg shadow-lg">
+    <div class="text-center text-white">
+      <h1 class="text-4xl font-bold mb-4">Welcome to Career Hunt!</h1>
+      <p class="text-lg mb-6">Your next career move starts here. Explore thousands of job listings.</p>
+      <button class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Get Started</button>
+    </div>
+  </section>
+
+  <!-- Featured Jobs Section -->
+  <section class="my-12">
+    <h2 class="text-3xl font-bold mb-8 text-center">Featured Jobs</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let job of featuredJobs" class="featured-job bg-primary-500 dark:bg-secondary-500 text-white dark:text-gray-900 p-6 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-2">{{ job.title }}</h3>
+        <p class="text-lg">{{ job.company }}</p>
+        <p class="text-md mb-4">{{ job.location }}</p>
+        <button class="bg-gray-900 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">Apply Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Company Logos Section -->
+  <section class="my-12">
+    <h2 class="text-3xl font-bold mb-8 text-center">Companies Hiring Now</h2>
+    <div class="flex justify-center flex-wrap gap-8">
+      <img *ngFor="let logo of companyLogos" [src]="logo" alt="Company Logo" class="h-16">
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="my-12">
+    <h2 class="text-3xl font-bold mb-8 text-center">What Our Users Say</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let testimonial of testimonials" class="testimonial bg-primary-500 dark:bg-secondary-500 text-white dark:text-gray-900 p-6 rounded-lg shadow-lg">
+        <p class="text-md mb-4">"{{ testimonial.message }}"</p>
+        <p class="text-lg font-bold">- {{ testimonial.name }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Random Images Section -->
+  <section class="my-12">
+    <h2 class="text-3xl font-bold mb-8 text-center">Explore Our Community</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div *ngFor="let image of randomImages" class="random-image rounded-lg shadow-lg"></div>
+    </div>
+  </section>
+
+</div>

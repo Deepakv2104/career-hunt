@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Example custom dark mode */
+.dark {
+  background-color: #1a202c;
+  color: #cbd5e0;
+}

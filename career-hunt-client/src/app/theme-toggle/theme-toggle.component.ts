@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-theme-toggle',
+  templateUrl: './theme-toggle.component.html',
+  styleUrls: ['./theme-toggle.component.css']
 })
-export class AppComponent {
-  title = 'career-hunt-client';
+export class ThemeToggleComponent {
   isDarkMode = false;
 
   toggleDarkMode() {
