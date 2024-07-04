@@ -6,19 +6,27 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
-
+import { LoginComponent } from './authpage/login/login.component';
+import { RegisterComponent } from './authpage/register/register.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ThemeToggleComponent,
+    LoginComponent,
+    RegisterComponent,
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    FormsModule,
+
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
