@@ -1,6 +1,8 @@
 package com.anurag.career_hunt_server.controllers;
 
 import com.anurag.career_hunt_server.model.Employer;
+import com.anurag.career_hunt_server.model.User;
+import com.anurag.career_hunt_server.repositories.UserRepository;
 import com.anurag.career_hunt_server.services.EmployerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,6 +14,8 @@ public class EmployerController {
 
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private UserRepository userRepository; 
 
     @PostMapping("/createProfile")
     public Employer createProfile(Authentication authentication, @RequestBody Employer employer) {
@@ -32,9 +36,15 @@ public class EmployerController {
     }
 
     @DeleteMapping("/deleteProfile")
-    public Object deleteProfile(Authentication authentication) {
-        Object credentials = authentication.getCredentials();
-        return credentials;
+    public void deleteProfile(Authentication authentication) {
+        String email = authentication.getName();
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            employerService.deleteProfile(user.getUserId());
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
     }
+
 }
 

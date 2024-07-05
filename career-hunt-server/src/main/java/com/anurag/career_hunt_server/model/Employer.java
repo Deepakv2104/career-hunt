@@ -2,12 +2,7 @@ package com.anurag.career_hunt_server.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -23,7 +18,7 @@ public class Employer {
     private String companyWebsite;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     @JsonIgnoreProperties("employer")
     private User user;
 }

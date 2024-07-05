@@ -6,6 +6,7 @@ import com.anurag.career_hunt_server.repositories.EmployerRepository;
 import com.anurag.career_hunt_server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmployerService {
@@ -28,17 +29,16 @@ public class EmployerService {
         }
     }
 
-	public Employer getProfile(String email) {
-		// TODO Auto-generated method stub
-		User user = userRepository.findByEmail(email);
-		if(user!=null) {
-			return user.getEmployer();
-		}else {
-			throw new RuntimeException("User not found with email: " + email);
-		}
-	}
-	
-	public Employer updateProfile(String email, Employer updatedEmployer) {
+    public Employer getProfile(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            return user.getEmployer();
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
+    public Employer updateProfile(String email, Employer updatedEmployer) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
             Employer employer = user.getEmployer();
@@ -55,19 +55,14 @@ public class EmployerService {
         }
     }
 
-	public void deleteProfile(Long userId) {
+    @Transactional
+    public void deleteProfile(Long userId) {
         User user = userRepository.findByUserId(userId);
         if (user != null) {
-            Employer employer = user.getEmployer();
-            if (employer != null) {
-                employerRepository.delete(employer);
-                user.setEmployer(null);
-            } else {
-                throw new RuntimeException("Employer profile not found for user with email: " + userId);
-            }
+            employerRepository.deleteById(user.getEmployer().getId());
+            userRepository.deleteById(userId);
         } else {
-            throw new RuntimeException("User not found with email: " + userId);
+            throw new RuntimeException("User not found with id: " + userId);
         }
     }
 }
-
