@@ -27,5 +27,47 @@ public class EmployerService {
             throw new RuntimeException("User not found with email: " + email);
         }
     }
+
+	public Employer getProfile(String email) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmail(email);
+		if(user!=null) {
+			return user.getEmployer();
+		}else {
+			throw new RuntimeException("User not found with email: " + email);
+		}
+	}
+	
+	public Employer updateProfile(String email, Employer updatedEmployer) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            Employer employer = user.getEmployer();
+            if (employer != null) {
+                employer.setCompanyName(updatedEmployer.getCompanyName());
+                employer.setCompanyAddress(updatedEmployer.getCompanyAddress());
+                employer.setCompanyWebsite(updatedEmployer.getCompanyWebsite());
+                return employerRepository.save(employer);
+            } else {
+                throw new RuntimeException("Employer profile not found for user with email: " + email);
+            }
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+    }
+
+	public void deleteProfile(Long userId) {
+        User user = userRepository.findByUserId(userId);
+        if (user != null) {
+            Employer employer = user.getEmployer();
+            if (employer != null) {
+                employerRepository.delete(employer);
+                user.setEmployer(null);
+            } else {
+                throw new RuntimeException("Employer profile not found for user with email: " + userId);
+            }
+        } else {
+            throw new RuntimeException("User not found with email: " + userId);
+        }
+    }
 }
 

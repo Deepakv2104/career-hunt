@@ -20,24 +20,16 @@ import org.slf4j.LoggerFactory;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MyUserDetailsService.class);
-
     @Autowired
     private UserRepository userRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        logger.debug("Loading user by username: {}", email);
-
         User user = userRepository.findByEmail(email);
         if (user == null) {
-            logger.error("User not found with Email: {}", email);
             throw new UsernameNotFoundException("User not found with Email: " + email);
         }
-
-        logger.debug("User found: {}", user.getEmail());
-
         return new org.springframework.security.core.userdetails.User(
             user.getEmail(),
             user.getPassword(),

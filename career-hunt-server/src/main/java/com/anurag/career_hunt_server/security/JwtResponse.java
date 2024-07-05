@@ -10,8 +10,9 @@ import lombok.Data;
 public class JwtResponse {
 
     private String token;
-    private String username; // Add username field
+    private String email; // Add username field
     private Role role;
+    private Long userId;
 
     // Constructor without username for compatibility
     public JwtResponse(String token) {

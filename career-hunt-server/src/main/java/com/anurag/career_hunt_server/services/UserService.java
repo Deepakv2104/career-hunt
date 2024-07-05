@@ -49,6 +49,12 @@ public class UserService implements UserDetailsService {
 	      User user = userRepository.findByEmail(email);
 	      return (user != null) ? user.getRole() : null;
 	 }
+
+	public Long getByUserId(String email) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmail(email);
+	      return (user != null) ? user.getUserId() : null;
+	}
 }
 
 

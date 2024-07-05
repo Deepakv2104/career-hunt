@@ -54,7 +54,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/authenticate", "/register").permitAll()
-                .requestMatchers(HttpMethod.POST,"/employer/createProfile").hasRole("EMPLOYER")
+                .requestMatchers(HttpMethod.POST,"/employer/createProfile").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.GET,"/employer/getProfile").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.PUT,"/employer/updateProfile").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.DELETE,"/employer/deleteProfile").hasAnyAuthority("EMPLOYER")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->

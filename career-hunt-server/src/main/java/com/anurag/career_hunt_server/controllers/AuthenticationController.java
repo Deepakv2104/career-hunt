@@ -56,7 +56,8 @@ public class AuthenticationController {
             String jwtToken = jwtTokenProvider.generateToken(userDetails);
             String email = userDetails.getUsername();
             Role role = userService.getRoleByEmail(email); // Assuming you have a method to fetch user's role
-            return ResponseEntity.ok(new JwtResponse(jwtToken,email,role));
+            Long userId=userService.getByUserId(email);
+            return ResponseEntity.ok(new JwtResponse(jwtToken,email,role,userId));
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
