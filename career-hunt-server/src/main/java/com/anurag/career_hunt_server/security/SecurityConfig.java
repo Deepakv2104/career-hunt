@@ -58,6 +58,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/employer/getProfile").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.PUT,"/employer/updateProfile").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.DELETE,"/employer/deleteProfile").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.POST,"/employer/jobs/postJob").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.GET,"/employer/jobsgetJobs").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.PUT,"/employer/jobs/updateJob/{jobId}").hasAnyAuthority("EMPLOYER")
+                .requestMatchers(HttpMethod.DELETE,"/employer/jobs/deleteJob/{jobId}").hasAnyAuthority("EMPLOYER")
+                
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->

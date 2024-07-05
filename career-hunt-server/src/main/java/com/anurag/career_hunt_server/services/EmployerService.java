@@ -59,7 +59,7 @@ public class EmployerService {
     public void deleteProfile(Long userId) {
         User user = userRepository.findByUserId(userId);
         if (user != null) {
-            employerRepository.deleteById(user.getEmployer().getId());
+            employerRepository.deleteById(user.getEmployer().getEmpId());
             userRepository.deleteById(userId);
         } else {
             throw new RuntimeException("User not found with id: " + userId);
