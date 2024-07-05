@@ -1,11 +1,9 @@
 package com.anurag.career_hunt_server.model;
 
 import com.anurag.career_hunt_server.enums.Role;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-//import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -30,5 +28,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // getters and setters
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Employer employer;
 }
+

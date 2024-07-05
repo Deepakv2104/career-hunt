@@ -16,16 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
-import java.util.Arrays;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
     @Autowired
     private MyUserDetailsService jwtUserDetailsService;
 
@@ -50,14 +50,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors().and() // Enable CORS
+            .cors().and()
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/authenticate", "/register").permitAll()
-                .requestMatchers(HttpMethod.GET, "/inventory/allComputers", "/inventory/brand/**", "/inventory/get/**").authenticated()
-                .requestMatchers(HttpMethod.POST, "/inventory/add").authenticated()
-                .requestMatchers(HttpMethod.PUT, "/inventory/edit/**").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/inventory/delete/**").authenticated()
+                .requestMatchers(HttpMethod.POST,"/employer/createProfile").hasRole("EMPLOYER")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->
@@ -72,6 +69,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-
 }
