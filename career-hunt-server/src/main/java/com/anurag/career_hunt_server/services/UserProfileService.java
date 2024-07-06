@@ -2,17 +2,20 @@ package com.anurag.career_hunt_server.services;
 
 
 
+
+
 import com.anurag.career_hunt_server.model.User;
 import com.anurag.career_hunt_server.model.UserProfile;
 import com.anurag.career_hunt_server.repositories.UserProfileRepository;
 import com.anurag.career_hunt_server.repositories.UserRepository;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserProfileService {
@@ -23,9 +26,16 @@ public class UserProfileService {
     @Autowired
     private UserRepository userRepository;
 
-    public UserProfile createProfile(String email, UserProfile userProfile) {
+    @Autowired
+    private StorageService storageService;
+
+    public UserProfile createProfile(String email, UserProfile userProfile, MultipartFile resume) throws IOException {
         User user = userRepository.findByEmail(email);
         userProfile.setUser(user);
+        if (resume != null && !resume.isEmpty()) {
+            String resumeFileName = storageService.storeFile(resume);
+            userProfile.setResumeFilePath(resumeFileName);
+        }
         return userProfileRepository.save(userProfile);
     }
 
@@ -43,8 +53,7 @@ public class UserProfileService {
         }
     }
 
-
-    public UserProfile updateProfile(String email, UserProfile userProfile) {
+    public UserProfile updateProfile(String email, UserProfile userProfile, MultipartFile resume) throws IOException {
         User user = userRepository.findByEmail(email);
         UserProfile existingUserProfile = userProfileRepository.findByUser(user);
         if (existingUserProfile == null) {
@@ -52,6 +61,10 @@ public class UserProfileService {
         }
         userProfile.setUserProfileId(existingUserProfile.getUserProfileId()); // Keep the same ID
         userProfile.setUser(user); // Keep the same user
+        if (resume != null && !resume.isEmpty()) {
+            String resumeFileName = storageService.storeFile(resume);
+            userProfile.setResumeFilePath(resumeFileName);
+        }
         return userProfileRepository.save(userProfile);
     }
 
