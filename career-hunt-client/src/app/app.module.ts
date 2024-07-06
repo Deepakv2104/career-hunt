@@ -11,6 +11,15 @@ import { RegisterComponent } from './authpage/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { FindPeopleComponent } from './userdashboard/find-people/find-people.component';
+import { FindJobsComponent } from './userdashboard/find-jobs/find-jobs.component';
+import { JobInfoComponent } from './userdashboard/job-info/job-info.component';
+import { EmployerDashbaordLayoutComponent } from './employer-dashboard/employer-dashboard-layout/employer-dashboard-layout.component';
+import { CreateCompanyProfileComponent } from './employer-dashboard/create-company-profile/create-company-profile.component';
+import { PostJobsComponent } from './employer-dashboard/post-jobs/post-jobs.component';
+import { ApplicationsComponent } from './employer-dashboard/applications/applications.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
+import { UserDashboardLayoutComponent } from './userdashboard/user-dashboard-layout/user-dashboard-layout.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,6 +29,14 @@ import { FindPeopleComponent } from './userdashboard/find-people/find-people.com
     RegisterComponent,
     
     FindPeopleComponent,
+          FindJobsComponent,
+          JobInfoComponent,
+          EmployerDashbaordLayoutComponent,
+          CreateCompanyProfileComponent,
+          PostJobsComponent,
+          ApplicationsComponent,
+          AdminDashboardComponent,
+          UserDashboardLayoutComponent,
    
   ],
   imports: [
@@ -28,6 +45,7 @@ import { FindPeopleComponent } from './userdashboard/find-people/find-people.com
     BrowserAnimationsModule,
     MatSlideToggleModule,
     FormsModule,
+    HttpClientModule,
 
     ReactiveFormsModule
   ],
