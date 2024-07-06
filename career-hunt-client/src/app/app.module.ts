@@ -10,6 +10,7 @@ import { LoginComponent } from './authpage/login/login.component';
 import { RegisterComponent } from './authpage/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { FindPeopleComponent } from './userdashboard/find-people/find-people.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +18,8 @@ import { FormsModule } from '@angular/forms';
     ThemeToggleComponent,
     LoginComponent,
     RegisterComponent,
+    
+    FindPeopleComponent,
    
   ],
   imports: [
