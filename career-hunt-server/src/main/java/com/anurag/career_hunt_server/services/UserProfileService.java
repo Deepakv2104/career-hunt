@@ -8,7 +8,9 @@ import com.anurag.career_hunt_server.repositories.UserProfileRepository;
 import com.anurag.career_hunt_server.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -27,10 +29,20 @@ public class UserProfileService {
         return userProfileRepository.save(userProfile);
     }
 
-    public UserProfile getProfile(String email) {
-        User user = userRepository.findByEmail(email);
-        return userProfileRepository.findByUser(user);
+    public UserProfile getUserProfile(Long userId) {
+        User user = userRepository.findByUserId(userId);
+        if (user != null) {
+            UserProfile userProfile = userProfileRepository.findByUser(user);
+            if (userProfile != null) {
+                return userProfile;
+            } else {
+                throw new UsernameNotFoundException("UserProfile not found for User ID: " + userId);
+            }
+        } else {
+            throw new UsernameNotFoundException("User not found with ID: " + userId);
+        }
     }
+
 
     public UserProfile updateProfile(String email, UserProfile userProfile) {
         User user = userRepository.findByEmail(email);
@@ -43,7 +55,17 @@ public class UserProfileService {
         return userProfileRepository.save(userProfile);
     }
 
+    @Transactional
     public void deleteProfile(Long userId) {
-        userProfileRepository.deleteById(userId);
+        User user = userRepository.findByUserId(userId);
+        if (user != null) {
+            UserProfile userProfile = userProfileRepository.findByUser(user);
+            if (userProfile != null) {
+                userProfileRepository.deleteById(userProfile.getUserProfileId());
+            }
+            userRepository.deleteById(userId);
+        } else {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
     }
 }
