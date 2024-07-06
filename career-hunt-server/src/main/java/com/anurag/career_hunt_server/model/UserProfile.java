@@ -44,7 +44,7 @@ public class UserProfile {
     @ElementCollection
     private List<String> certifications;
 
-    private String resumePath; // Path to the uploaded resume
+    
 
     @Embeddable
     @Data
