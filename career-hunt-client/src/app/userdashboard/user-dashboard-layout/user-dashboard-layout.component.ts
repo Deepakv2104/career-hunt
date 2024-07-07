@@ -10,12 +10,11 @@ import { Router } from '@angular/router';
 export class UserDashboardLayoutComponent implements OnInit {
   isDarkMode = false;
   sidebarOpen = true;
-
+  username = 'Deepak';
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    // Initialize theme if necessary
-    // Example: this.isDarkMode = localStorage.getItem('theme') === 'dark';
+    this.username = this.authService.getUsername() || '';
   }
 
   toggleSidebar() {
