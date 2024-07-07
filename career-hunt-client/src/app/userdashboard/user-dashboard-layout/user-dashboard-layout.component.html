@@ -1,41 +1,37 @@
 <div [ngClass]="{'dark': isDarkMode}" class="flex h-screen transition-colors duration-500 relative" 
      [class.bg-dark-gray-900]="isDarkMode" [class.text-light-gray-100]="isDarkMode">
-
+  
   <!-- Sidebar -->
-  <aside 
-         class="bg-dark-grey-100 md:w-64 w-2/3 h-full p-4 flex flex-col justify-between absolute md:relative z-20 transition-transform duration-300 ease-in-out transform" 
-         [class.translate-x-0]="sidebarOpen" [class.-translate-x-full]="!sidebarOpen"
-         [class.bg-dark-blue-500]="isDarkMode" [class.text-light-gray-100]="isDarkMode">
+  <aside class="bg-gray-100 dark:bg-gray-800 md:w-64 w-2/3 h-full p-4 flex flex-col justify-between absolute md:relative z-20 transition-transform duration-300 ease-in-out transform" 
+         [ngClass]="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen, 'bg-dark-blue-500': isDarkMode, 'text-light-gray-100': isDarkMode}">
+    <div class="flex flex-col items-center mb-4">
+      <img src="https://ui-avatars.com/api/?name=deepak&background=random&color=fff" alt="User Avatar" class="w-20 h-20 rounded-full mb-4">
+      <div class="text-2xl font-semibold">{{username}}</div>
+    </div>
+    <nav class="space-y-1">
+      <a routerLink="/user-dashboard/search-jobs" class="flex items-center px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+        <i class="fas fa-search mr-2"></i> Search Jobs
+      </a>
+      <a routerLink="/user-dashboard/search-people" class="flex items-center px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+        <i class="fas fa-users mr-2"></i> Find People
+      </a>
+      <a routerLink="/user-dashboard/settings" class="flex items-center px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600">
+        <i class="fas fa-cog mr-2"></i> Settings
+      </a>
+    </nav>
     <div>
-      <div class="flex flex-col items-center mb-6">
-        <img src="https://ui-avatars.com/api/?name=deepak&background=random&color=fff" alt="User Avatar" class="w-20 h-20 rounded-full mb-4">
-        <div class="text-2xl font-semibold">
-          <!-- Username or other content -->
-           Deepak 
-        </div>
-      </div>
-
-      <nav class="space-y-2">
-        <a routerLink="/user-dashboard/search-jobs" class="block px-4 py-2 rounded">Search Jobs</a>
-        <a routerLink="/user-dashboard/search-people" class="block px-4 py-2 rounded">Find People</a>
-        <a routerLink="/user-dashboard/settings" class="block px-4 py-2 rounded">Settings</a>
-      </nav>
-      <div>
-        <a class="block px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer" (click)="logout()">Logout</a>
-      </div>
+      <a class="flex items-center px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer" (click)="logout()">
+        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+      </a>
     </div>
   </aside>
-
+  
   <!-- Main Content Area -->
   <div class="flex-1 flex flex-col overflow-hidden">
     <!-- Toggle Button for Sidebar on Mobile -->
-    <button class="md:hidden p-4 text-white bg-gray-800 absolute top-0 left-0 z-30" (click)="toggleSidebar()">
-      ☰
-    </button>
-
+    <button class="md:hidden p-4 text-white bg-gray-800 absolute top-0 left-0 z-30" (click)="toggleSidebar()">☰</button>
     <!-- Main Content -->
-    <main 
-          class="flex-1 container mx-auto">
+    <main class="flex-1 container mx-auto p-4">
       <router-outlet></router-outlet>
     </main>
   </div>

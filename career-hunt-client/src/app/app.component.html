@@ -2,19 +2,19 @@
      [class.bg-dark-gray-900]="themeService.isDarkMode" [class.text-light-gray-100]="themeService.isDarkMode">
 
   <!-- Navigation Bar -->
-  <nav class="bg-gray-200 dark:bg-dark-blue-500 p-3"
+  <nav class="bg-gray-900 dark:bg-dark-blue-500 p-3"
        [class.bg-dark-blue-500]="themeService.isDarkMode" [class.text-light-gray-100]="themeService.isDarkMode">
     <div class="container mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
-        <div class="text-black hover:text-gray-600 dark:text-white font-bold text-3xl cursor-pointer">
+        <div class="text-gray-100 hover:text-gray-600 dark:text-white font-bold text-3xl cursor-pointer">
           CareerHunt.
         </div>
       </div>
       <div class="space-x-4 flex items-center">
-        <a *ngIf="!isLoggedIn()" href="#" class="text-black hover:text-gray-600 dark:text-white">Home</a>
-        <a *ngIf="!isLoggedIn()" href="#" class="text-black hover:text-gray-600 dark:text-white">Jobs</a>
-        <a *ngIf="!isLoggedIn()" href="/login" class="text-black hover:text-gray-600 dark:text-white">Login</a>
-        <a *ngIf="!isLoggedIn()" href="/signup" class="text-black hover:text-gray-600 dark:text-white">SignUp</a>
+        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Home</a>
+        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Jobs</a>
+        <a *ngIf="!isLoggedIn()" href="/login" class="text-gray-100 hover:text-gray-600 dark:text-white">Login</a>
+        <a *ngIf="!isLoggedIn()" href="/signup" class="text-gray-100 hover:text-gray-600 dark:text-white">SignUp</a>
         
         <!-- Conditional rendering for logged-in user with role USER -->
         <a *ngIf="isLoggedIn() && isUserRole('USER')" href="#" class="text-black hover:text-gray-600 dark:text-white">Post Jobs</a>
@@ -26,12 +26,12 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="flex-grow container mx-auto p-4">
+  <main class="flex-grow container mx-auto p-1">
     <router-outlet></router-outlet>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-200 dark:bg-dark-blue-500 p-4 text-center"
+  <footer class="bg-gray-300 dark:bg-dark-blue-500 p-4 text-center"
           [class.bg-dark-blue-500]="themeService.isDarkMode" [class.text-light-gray-300]="themeService.isDarkMode">
     <div class="container mx-auto">
       © 2024 Career Hunt. All rights reserved.

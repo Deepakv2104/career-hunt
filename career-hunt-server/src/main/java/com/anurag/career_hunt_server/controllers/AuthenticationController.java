@@ -7,6 +7,9 @@ import com.anurag.career_hunt_server.security.JwtResponse;
 import com.anurag.career_hunt_server.security.JwtTokenProvider;
 import com.anurag.career_hunt_server.services.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +38,17 @@ public class AuthenticationController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
+    public ResponseEntity<Map<String, String>> registerUser(@RequestBody User user) {
+        Map<String, String> response = new HashMap<>();
+
         if (userService.existsByEmail(user.getEmail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists");
+            response.put("message", "Username already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 
         User savedUser = userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+        response.put("message", "User registered successfully");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PostMapping("/authenticate")
