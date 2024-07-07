@@ -1,32 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth/auth.service'; // Adjust the path as needed
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-signup',
+  selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
   signupForm!: FormGroup;
-  isDarkMode: boolean = false; // Assuming this variable is used for dark mode toggling
+  isDarkMode: boolean = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      // Add more form controls as needed
     });
   }
 
   onSubmit() {
     if (this.signupForm.valid) {
-      // Implement registration logic here
-      console.log('Form submitted:', this.signupForm.value);
+      const { email, phoneNumber, password } = this.signupForm.value;
+      const role = 'USER'; // Setting role as 'USER' by default
+
+      this.authService.register(email, phoneNumber, password, role).subscribe(
+        response => {
+          console.log('Registration successful', response);
+          this.router.navigate(['/login']); // Navigate to login after successful registration
+        },
+        error => {
+          console.error('Registration failed', error);
+        }
+      );
     } else {
-      // Mark all fields as touched to display validation messages
       this.signupForm.markAllAsTouched();
     }
   }

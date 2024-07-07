@@ -1,16 +1,11 @@
-<div [ngClass]="{'dark': isDarkMode}" class="flex justify-center items-center min-h-screen transition-colors duration-500 "
+<div [ngClass]="{'dark': isDarkMode}" class="flex justify-center items-center min-h-screen transition-colors duration-500"
      [class.bg-dark-gray-900]="isDarkMode" [class.text-dark-gray-100]="isDarkMode">
   <div class="bg-white dark:bg-teal-700 p-8 rounded-lg shadow-2xl w-full max-w-md">
     <h2 class="text-3xl font-bold mb-6 text-center">Sign Up</h2>
     <form (ngSubmit)="onSubmit()" [formGroup]="signupForm" novalidate>
-      <!-- Form inputs and validation messages -->
-      <div class="mb-4">
-        <label for="fullName" class="block text-lg font-medium mb-2">Full Name</label>
-        <input id="fullName" type="text" formControlName="fullName" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
-        <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid" class="text-red-500 mt-2">
-          <div *ngIf="signupForm.get('fullName')?.errors?.['required']">Full Name is required</div>
-        </div>
-      </div>
+    
+
+      <!-- Email Field -->
       <div class="mb-4">
         <label for="email" class="block text-lg font-medium mb-2">Email</label>
         <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
@@ -19,6 +14,17 @@
           <div *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email address</div>
         </div>
       </div>
+
+      <!-- Phone Number Field -->
+      <div class="mb-4">
+        <label for="phoneNumber" class="block text-lg font-medium mb-2">Phone Number</label>
+        <input id="phoneNumber" type="tel" formControlName="phoneNumber" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid" class="text-red-500 mt-2">
+          <div *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</div>
+        </div>
+      </div>
+
+      <!-- Password Field -->
       <div class="mb-6">
         <label for="password" class="block text-lg font-medium mb-2">Password</label>
         <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
@@ -27,7 +33,8 @@
           <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long</div>
         </div>
       </div>
-      <!-- Add more fields as needed (e.g., phone number, address) -->
+
+      <!-- Submit Button -->
       <button type="submit" class="w-full bg-primary-800 hover:bg-primary-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300"
               [disabled]="signupForm.invalid">Sign Up</button>
     </form>
