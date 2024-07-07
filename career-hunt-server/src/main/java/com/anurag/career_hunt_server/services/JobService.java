@@ -68,5 +68,9 @@ public class JobService {
             throw new RuntimeException("User not found with email: " + email);
         }
     }
+    
+    public List<Job> getAllJobs() {
+        return jobRepository.findAll();
+    }
 }
 
