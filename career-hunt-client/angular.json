@@ -25,6 +25,7 @@
             "styles": [
              
               "src/styles.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/tailwindcss/base.css",
               "node_modules/tailwindcss/components.css",
               "node_modules/tailwindcss/utilities.css",
@@ -99,7 +100,8 @@
               "src/styles.css",
               "node_modules/tailwindcss/base.css",
               "node_modules/tailwindcss/components.css",
-              "node_modules/tailwindcss/utilities.css"
+              "node_modules/tailwindcss/utilities.css",
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             
             ],
             "scripts": []

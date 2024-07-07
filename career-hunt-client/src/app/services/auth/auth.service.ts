@@ -9,35 +9,59 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'http://localhost:8080'; // Adjust this to your Spring Boot API URL
   private loggedInSubject: BehaviorSubject<boolean>;
+  private currentUser: { username: string, email: string, role: string } | null = null;
 
   constructor(private http: HttpClient) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+    this.loadUser(); // Load user data from localStorage on service initialization
   }
 
-  login(email: string, password: string): Observable<{ token: string }> {
+
+  register(email: string, username: string, phoneNumber: string, password: string, role: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, { email, username, phoneNumber, password, role });
+  }
+  login(email: string, password: string): Observable<{ token: string, username: string, email: string, role: string }> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
 
-    return this.http.post<{ token: string }>(`${this.apiUrl}/authenticate`, { email, password }, { headers }).pipe(
+    return this.http.post<{ token: string, username: string, email: string, role: string }>(
+      `${this.apiUrl}/authenticate`, { email, password }, { headers }
+    ).pipe(
       tap(response => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
-          this.loggedInSubject.next(true); // Update logged in status
+          // Store user information in localStorage
+          localStorage.setItem('user', JSON.stringify({
+            username: response.username,
+            email: response.email,
+            role: response.role
+          }));
+          this.currentUser = { username: response.username, email: response.email, role: response.role };
+          this.loggedInSubject.next(true);
         }
       })
     );
   }
 
-  register(email: string, phoneNumber: string, password: string, role: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { email, phoneNumber, password, role });
+  private loadUser() {
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    if (token && userStr) {
+      this.currentUser = JSON.parse(userStr);
+      this.loggedInSubject.next(true);
+    } else {
+      this.currentUser = null;
+      this.loggedInSubject.next(false);
+    }
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    this.loggedInSubject.next(false); // Update logged in status
+    localStorage.removeItem('user');
+    this.currentUser = null;
+    this.loggedInSubject.next(false);
   }
-
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
@@ -47,43 +71,18 @@ export class AuthService {
   }
 
   getUsername(): string | null {
-    const token = this.getToken();
-    if (token) {
-      const decodedToken = this.decodeToken(token);
-      return decodedToken ? decodedToken.sub : null; // Assuming 'sub' contains the username in your JWT payload
-    }
-    return null;
+    return this.currentUser?.username || null;
+  }
+
+  getUserEmail(): string | null {
+    return this.currentUser?.email || null;
   }
 
   getUserRole(): string | null {
-    const token = this.getToken();
-    if (token) {
-      const tokenParts = token.split('.');
-      if (tokenParts.length !== 3) {
-        console.error('Invalid JWT token format');
-        return null;
-      }
-      
-      const payload = JSON.parse(atob(tokenParts[1]));
-      return payload ? payload.role : null; // Assuming 'role' is present in the JWT payload
-    }
-    return null;
-  }
-  
-  
-  
-  
-  getToken(): string | null {
-    return localStorage.getItem('token');
+    return this.currentUser?.role || null;
   }
 
-  private decodeToken(token: string): any {
-    try {
-      const jwtPayload = JSON.parse(atob(token.split('.')[1]));
-      return jwtPayload;
-    } catch (error) {
-      console.error('Error decoding token');
-      return null;
-    }
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }
