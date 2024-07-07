@@ -1,22 +1,31 @@
 package com.anurag.career_hunt_server.controllers;
 
 
-import com.anurag.career_hunt_server.model.User;
-import com.anurag.career_hunt_server.model.UserProfile;
-import com.anurag.career_hunt_server.repositories.UserRepository;
-import com.anurag.career_hunt_server.services.UserProfileService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.anurag.career_hunt_server.services.StorageService;
-
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.anurag.career_hunt_server.model.Job;
+import com.anurag.career_hunt_server.model.User;
+import com.anurag.career_hunt_server.model.UserProfile;
+import com.anurag.career_hunt_server.repositories.UserRepository;
+import com.anurag.career_hunt_server.services.JobService;
+import com.anurag.career_hunt_server.services.StorageService;
+import com.anurag.career_hunt_server.services.UserProfileService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/userProfile")
@@ -30,6 +39,9 @@ public class UserProfileController {
 
     @Autowired
     private StorageService storageService;
+    
+    @Autowired
+    private JobService jobService;
 
     @PostMapping("/createProfile")
     public UserProfile createProfile(Authentication authentication, 
@@ -76,5 +88,10 @@ public class UserProfileController {
         } else {
             throw new RuntimeException("User not found with email: " + email);
         }
+    }
+    
+    @GetMapping("/allJobs")
+    public List<Job> getAllJobs() {
+        return jobService.getAllJobs();
     }
 }

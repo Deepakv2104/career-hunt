@@ -25,7 +25,10 @@ public class Job {
     @JsonIgnoreProperties("jobs")
     private Employer employer;
 
-    @Column(updatable = false, insertable = false)
+    
     private String companyName; // This will be set from the employer's company name
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }
 
