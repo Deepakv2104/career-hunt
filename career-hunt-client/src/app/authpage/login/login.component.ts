@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service'; // Adjust the path as needed
-import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +11,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit {
   isDarkMode = false;
   loginForm: FormGroup;
-  returnUrl: string = '';
 
   constructor(
-    private fb: FormBuilder, 
-    private authService: AuthService, 
-    private router: Router,
-    private route: ActivatedRoute
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -28,7 +26,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // Initialize theme if necessary
     // Example: this.isDarkMode = localStorage.getItem('theme') === 'dark';
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/user-dashboard/search-jobs';
   }
 
   onSubmit(): void {
@@ -37,14 +34,24 @@ export class LoginComponent implements OnInit {
       this.authService.login(email, password).subscribe(
         response => {
           console.log('Login successful', response);
-          this.router.navigate([this.returnUrl]); // Navigate to returnUrl after successful login
+          // Redirect based on user role retrieved from AuthService
+          const userRole = this.authService.getUserRole();
+          if (userRole === 'USER') {
+            this.router.navigate(['/user-dashboard']);
+          } else if (userRole === 'EMPLOYER') {
+            this.router.navigate(['/employer-dashboard']);
+          } else {
+            console.error('Unknown role:', userRole);
+            // Handle unexpected roles or scenarios
+          }
         },
         error => {
           console.error('Login failed', error);
+          // Optionally handle error messages or form state here
         }
       );
     } else {
-      this.loginForm.markAllAsTouched();
+      this.loginForm.markAllAsTouched(); // Mark form fields as touched to display validation errors
     }
   }
 }

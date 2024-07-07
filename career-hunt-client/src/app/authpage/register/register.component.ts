@@ -16,18 +16,19 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
+      username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      role: ['USER', Validators.required] // Default role is USER
     });
   }
 
   onSubmit() {
     if (this.signupForm.valid) {
-      const { email, phoneNumber, password } = this.signupForm.value;
-      const role = 'USER'; // Setting role as 'USER' by default
+      const { email, username, phoneNumber, password, role } = this.signupForm.value;
 
-      this.authService.register(email, phoneNumber, password, role).subscribe(
+      this.authService.register(email, username, phoneNumber, password, role).subscribe(
         response => {
           console.log('Registration successful', response);
           this.router.navigate(['/login']); // Navigate to login after successful registration

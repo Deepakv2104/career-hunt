@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service'; // Adjust the path as needed
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,11 +10,18 @@ import { Router } from '@angular/router';
 export class UserDashboardLayoutComponent implements OnInit {
   isDarkMode = false;
   sidebarOpen = true;
-  username = 'Deepak';
+  username = '';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.username = this.authService.getUsername() || '';
+    this.authService.isLoggedInObservable().subscribe(loggedIn => {
+      if (loggedIn) {
+        this.username = this.authService.getUsername() || '';
+      } else {
+        this.username = ''; // Reset username if not logged in
+      }
+    });
   }
 
   toggleSidebar() {

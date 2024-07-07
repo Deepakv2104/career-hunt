@@ -15,10 +15,22 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (this.authService.isLoggedIn()) {
-      return true;
-    } else {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-      return false;
+      const userRole = this.authService.getUserRole();
+      if (userRole === 'USER') {
+        // Allow access to routes for USER role
+        return true;
+      } else if (userRole === 'EMPLOYER') {
+        // Allow access to routes for EMPLOYER role
+        return true;
+      } else {
+        // Redirect to unauthorized or handle other roles as needed
+        console.error('Unknown role:', userRole);
+        return false;
+      }
     }
+
+    // Not logged in, redirect to login page with returnUrl
+    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    return false;
   }
 }

@@ -1,1 +1,53 @@
-<p>employer-dashbaord-layout works!</p>
+<div [ngClass]="{'dark': isDarkMode}" class="flex h-screen transition-colors duration-500 relative" 
+     [class.bg-dark-gray-900]="isDarkMode" [class.text-light-gray-100]="isDarkMode">
+
+  <aside [class.hidden]="!sidebarOpen" class="md:w-64 w-2/3 h-full p-3 flex flex-col justify-between absolute md:relative z-20 transition-transform duration-300 ease-in-out transform md:translate-x-0" 
+         [class.translate-x-0]="sidebarOpen" [class.-translate-x-full]="!sidebarOpen" 
+         [ngClass]="{
+          'translate-x-0': sidebarOpen,
+          '-translate-x-full': !sidebarOpen,
+          'bg-dark-gray-900': isDarkMode,
+          'text-light-gray-100': isDarkMode
+         }">
+    <div>
+      <div class="flex flex-col items-center mb-6">
+        <img src="https://ui-avatars.com/api/?name={{ username }}&background=random&color=fff" alt="User Avatar" class="w-20 h-20 rounded-full mb-4">
+        <div class="text-2xl font-semibold">
+            Welcome Admin
+          {{ username }}
+        </div>
+      </div>
+      
+      <nav class="space-y-2">
+        <a href="/user-dashboard/search-jobs" class="flex items-center px-4 py-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i class="fas fa-search mr-2"></i> Add Jobs
+        </a>
+        <a href="/user-dashboard/search-people" class="flex items-center px-4 py-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i class="fas fa-users mr-2"></i> People
+        </a>
+        <a href="/user-dashboard/search-jobs" class="flex items-center px-4 py-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i class="fas fa-check-circle mr-2"></i> Applications
+        </a>
+        <a href="/user-dashboard/search-jobs" class="flex items-center px-4 py-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700">
+          <i class="fas fa-cog mr-2"></i> Settings
+        </a>
+      </nav>
+      
+      <div>
+        <a (click)="logout()" class="flex items-center px-4 py-2 text-xl rounded hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">
+          <i class="fas fa-sign-out-alt mr-2"></i> Logout
+        </a>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- Main Content Area -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- Toggle Button for Sidebar on Mobile -->
+    <button class="md:hidden p-4 text-white bg-gray-800 absolute top-0 left-0 z-30" (click)="toggleSidebar()">☰</button>
+    <!-- Main Content -->
+    <main class="flex-1 container mx-auto p-1">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
