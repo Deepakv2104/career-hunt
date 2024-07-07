@@ -13,6 +13,7 @@ public class JwtResponse {
     private String email; // Add username field
     private Role role;
     private Long userId;
+    private String username;
 
     // Constructor without username for compatibility
     public JwtResponse(String token) {

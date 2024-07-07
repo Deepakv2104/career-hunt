@@ -53,7 +53,13 @@ public class UserService implements UserDetailsService {
 	public Long getByUserId(String email) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findByEmail(email);
-	      return (user != null) ? user.getUserId() : null;
+	    return (user != null) ? user.getUserId() : null;
+	}
+
+	public String getUsername(String email) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findByEmail(email);
+	    return (user != null) ? user.getUsername() : null;
 	}
 }
 
