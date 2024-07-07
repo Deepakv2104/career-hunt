@@ -2,8 +2,6 @@ package com.anurag.career_hunt_server.services;
 
 
 
-
-
 import com.anurag.career_hunt_server.model.User;
 import com.anurag.career_hunt_server.model.UserProfile;
 import com.anurag.career_hunt_server.repositories.UserProfileRepository;
