@@ -1,4 +1,6 @@
-<div [ngClass]="{'dark': isDarkMode}" class="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+<!-- post-jobs.component.html -->
+
+<div [ngClass]="{'dark': isDarkMode}" class="py-1 px-2 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
       <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden">
         <div class="md:flex">
@@ -42,6 +44,22 @@
                   <input type="text" id="location" formControlName="location"
                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
                 </div>
+                <div class="sm:col-span-2">
+                  <label for="responsibility" class="block text-sm font-medium text-gray-800 dark:text-white">Responsibilities</label>
+                  <textarea id="responsibility" formControlName="responsibility" rows="2"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="requirements" class="block text-sm font-medium text-gray-800 dark:text-white">Requirements</label>
+                  <textarea id="requirements" formControlName="requirements" rows="2"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="lastDateToApply" class="block text-sm font-medium text-gray-800 dark:text-white">Last Date to Apply</label>
+                  <input type="date" id="lastDateToApply" formControlName="lastDateToApply"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [min]="minDate">
+                </div>
               </div>
               <div>
                 <button type="submit" [disabled]="jobForm.invalid"
@@ -55,35 +73,38 @@
           <!-- Posted Jobs List -->
           <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-8">
             <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Posted Jobs</h2>
-            <div class="space-y-4">
-              <!-- Display only first two jobs -->
-              <ng-container *ngFor="let job of jobs.slice(0, 2)">
-                <div class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800">
-                  <h3 class="text-xl font-semibold text-indigo-600">{{ job.role }}</h3>
-                  <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.type }} | {{ job.location }}</p>
-                  <div class="mt-4 flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }} years</span>
-                    <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: ${{ job.salary }}</span>
-                  </div>
-                  <p class="mt-2 text-sm text-gray-800 dark:text-gray-400  line-clamp-2">{{ job.jobDescription }}</p>
-                  <div class="mt-4">
-                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                      {{ job.eligibility }}
-                    </span>
-                  </div>
-                </div>
-              </ng-container>
-  
-              <!-- Show "See Recent Posts" if there are more than two jobs -->
-              <div *ngIf="jobs.length > 2" class="text-center py-8">
-                <button type="button" class="text-indigo-600 hover:text-indigo-800">
-                  See more
+            <div *ngFor="let job of jobs" class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 relative">
+              <!-- Edit and Delete Icons -->
+              <div class="absolute top-2 right-2">
+                <button (click)="editJob(job)" class="text-gray-400 hover:text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M14.293 2.293a1 1 0 0 1 1.414 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.183-1.183l1-3a1 1 0 0 1 .242-.39l9-9zM13 5l2-2-1-1-2 2 1 1z"
+                          clip-rule="evenodd" />
+                  </svg>
+                </button>
+                <button (click)="deleteJob(job.jobId)" class="text-gray-400 hover:text-red-600 ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M5 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6zm2 10V8h2v8H7zm4 0V8h2v8h-2z"
+                          clip-rule="evenodd" />
+                  </svg>
                 </button>
               </div>
-  
-              <!-- Show message if no jobs are posted -->
-              <div *ngIf="jobs.length === 0" class="text-center py-8">
-                <p class="text-gray-500 text-lg">No jobs posted yet. Be the first to post a job!</p>
+              
+              <!-- Job Details -->
+              <h3 class="text-xl font-semibold text-indigo-600">{{ job.role }}</h3>
+              <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.companyName }}</p>
+              <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.type }} | {{ job.location }}</p>
+              <div class="mt-4 flex items-center justify-between">
+                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }} years</span>
+                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: ${{ job.salary }}</span>
+              </div>
+              <p class="mt-2 text-sm text-gray-800 dark:text-gray-400  line-clamp-2">{{ job.jobDescription }}</p>
+              <div class="mt-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                  {{ job.type }}
+                </span>
               </div>
             </div>
           </div>

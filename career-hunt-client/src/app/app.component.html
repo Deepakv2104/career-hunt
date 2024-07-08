@@ -26,12 +26,12 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="flex-grow container mx-auto p-1">
+  <main class="flex-grow container bg-gray-200 dark:bg-dark-blue-400 mx-auto ">
     <router-outlet></router-outlet>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-gray-300 dark:bg-dark-blue-500 p-4 text-center"
+  <footer class="bg-gray-600 dark:bg-gray-800 p-4 text-center"
           [class.bg-dark-blue-500]="themeService.isDarkMode" [class.text-light-gray-300]="themeService.isDarkMode">
     <div class="container mx-auto">
       © 2024 Career Hunt. All rights reserved.

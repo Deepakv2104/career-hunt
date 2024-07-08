@@ -13,13 +13,13 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
-    this.loadUser(); // Load user data from localStorage on service initialization
+    this.loadUser(); // Load user data from sessionStorage on service initialization
   }
-
 
   register(email: string, username: string, phoneNumber: string, password: string, role: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, { email, username, phoneNumber, password, role });
   }
+
   login(email: string, password: string): Observable<{ token: string, username: string, email: string, role: string }> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
@@ -30,9 +30,9 @@ export class AuthService {
     ).pipe(
       tap(response => {
         if (response && response.token) {
-          localStorage.setItem('token', response.token);
-          // Store user information in localStorage
-          localStorage.setItem('user', JSON.stringify({
+          sessionStorage.setItem('token', response.token);
+          // Store user information in sessionStorage
+          sessionStorage.setItem('user', JSON.stringify({
             username: response.username,
             email: response.email,
             role: response.role
@@ -45,8 +45,8 @@ export class AuthService {
   }
 
   private loadUser() {
-    const token = localStorage.getItem('token');
-    const userStr = localStorage.getItem('user');
+    const token = sessionStorage.getItem('token');
+    const userStr = sessionStorage.getItem('user');
     if (token && userStr) {
       this.currentUser = JSON.parse(userStr);
       this.loggedInSubject.next(true);
@@ -57,13 +57,14 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     this.currentUser = null;
     this.loggedInSubject.next(false);
   }
+
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   isLoggedInObservable(): Observable<boolean> {
@@ -83,6 +84,6 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
   }
 }

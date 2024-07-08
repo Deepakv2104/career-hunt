@@ -31,7 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService], // Protect the employer-dashboard route
     children: [
       { path: '', redirectTo: 'post-jobs', pathMatch: 'full' },
-      { path: 'post-job', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] } // Protect child routes
 
     ]
