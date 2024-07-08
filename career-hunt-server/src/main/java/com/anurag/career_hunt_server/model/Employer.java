@@ -16,6 +16,7 @@ public class Employer {
     private Long empId;
 
     private String companyName;
+    private String companyDescription;
     private String companyAddress;
     private String companyWebsite;
 

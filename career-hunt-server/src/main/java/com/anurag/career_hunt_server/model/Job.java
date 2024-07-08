@@ -1,5 +1,7 @@
 package com.anurag.career_hunt_server.model;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,6 +21,10 @@ public class Job {
     private int experience; // years
     private double salary; // annual salary
     private String location;
+    private String responsibility;
+    private String requirements;
+    private Date dateofPosting;
+    private Date lastDateToApply;
 
     @ManyToOne
     @JoinColumn(name = "empId")

@@ -1,6 +1,7 @@
 package com.anurag.career_hunt_server.model;
 
 import com.anurag.career_hunt_server.enums.Role;
+import com.anurag.career_hunt_server.repositories.UserProfileRepository;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -36,4 +37,9 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
     private Employer employer;
+    
+ // This method fetches the userProfile from the repository
+    public UserProfile getUserProfile(UserProfileRepository userProfileRepository) {
+        return userProfileRepository.findByUser(this);
+    }
 }

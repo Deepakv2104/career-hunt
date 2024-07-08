@@ -1,12 +1,19 @@
 package com.anurag.career_hunt_server.services;
 
-import com.anurag.career_hunt_server.model.Employer;
-import com.anurag.career_hunt_server.model.User;
-import com.anurag.career_hunt_server.repositories.EmployerRepository;
-import com.anurag.career_hunt_server.repositories.UserRepository;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.anurag.career_hunt_server.model.Employer;
+import com.anurag.career_hunt_server.model.Job;
+import com.anurag.career_hunt_server.model.JobApplication;
+import com.anurag.career_hunt_server.model.User;
+import com.anurag.career_hunt_server.repositories.EmployerRepository;
+import com.anurag.career_hunt_server.repositories.JobApplicationRepository;
+import com.anurag.career_hunt_server.repositories.UserRepository;
 
 @Service
 public class EmployerService {
@@ -16,6 +23,9 @@ public class EmployerService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private JobApplicationRepository jobApplicationRepository;
 
     public Employer createProfile(String email, Employer employer) {
         User user = userRepository.findByEmail(email);
@@ -63,6 +73,25 @@ public class EmployerService {
             userRepository.deleteById(userId);
         } else {
             throw new RuntimeException("User not found with id: " + userId);
+        }
+    }
+    
+    public List<JobApplication> getApplicationsForEmployer(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            Employer employer = user.getEmployer();
+            if (employer != null) {
+                List<Job> jobs = employer.getJobs();
+                List<JobApplication> applications = new ArrayList<>();
+                for (Job job : jobs) {
+                    applications.addAll(jobApplicationRepository.findByJob(job));
+                }
+                return applications;
+            } else {
+                throw new RuntimeException("Employer profile not found for user with email: " + email);
+            }
+        } else {
+            throw new RuntimeException("User not found with email: " + email);
         }
     }
 }
