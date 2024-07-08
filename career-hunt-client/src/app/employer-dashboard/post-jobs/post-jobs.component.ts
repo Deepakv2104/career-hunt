@@ -17,6 +17,7 @@ export class PostJobsComponent implements OnInit {
   formSubmitted: boolean = false;
   showRecentPosts: boolean = false; // Flag to control recent posts display
   isDarkMode: boolean = false; // Flag to control dark mode
+  minDate: string; // Minimum date for date input
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +31,12 @@ export class PostJobsComponent implements OnInit {
       eligibility: ['', Validators.required],
       experience: [0, [Validators.required, Validators.min(0)]],
       salary: [0, [Validators.required, Validators.min(0)]],
-      location: ['', Validators.required]
+      location: ['', Validators.required],
+      responsibility: ['', Validators.required],
+      requirements: ['', Validators.required],
+      lastDateToApply: [null, Validators.required]
     });
+    this.minDate = new Date().toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -62,32 +67,34 @@ export class PostJobsComponent implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('Form submitted:', this.jobForm.valid); // Check form validity
+    console.log('Form value:', this.jobForm.value); // Log form values
     this.formSubmitted = true;
     if (this.jobForm.valid && this.employer) {
       const job: Job = {
         ...this.jobForm.value,
         empId: this.employer.empId,
         companyName: this.employer.companyName,
-        companyWebsite: this.employer.companyWebsite
+        companyWebsite: this.employer.companyWebsite,
+        dateofPosting: new Date() // Automatically set the current date
       };
-
+  
       this.jobService.postJob(job).subscribe(
         (response) => {
           console.log('Job posted successfully:', response);
-          // After posting job, refresh the job list
           this.loadJobs();
-          // Reset the form
           this.jobForm.reset();
           this.formSubmitted = false;
-          // Show recent posts section after posting a job
           this.showRecentPosts = true;
         },
         (error) => {
           console.error('Error posting job:', error);
+          // Log more details about the error for debugging
+          console.error('Error details:', error);
         }
       );
     } else {
-      this.jobForm.markAllAsTouched();
+      this.jobForm.markAllAsTouched(); // Mark all fields as touched to display validation errors
     }
   }
 
@@ -95,5 +102,38 @@ export class PostJobsComponent implements OnInit {
     this.isDarkMode = !this.isDarkMode;
     const themeClass = this.isDarkMode ? 'dark-theme' : 'light-theme';
     document.body.className = themeClass;
+  }
+
+  editJob(job: Job): void {
+    // Load job data into the form for editing
+    this.jobForm.patchValue({
+      role: job.role,
+      jobDescription: job.jobDescription,
+      type: job.type,
+      eligibility: job.eligibility,
+      experience: job.experience,
+      salary: job.salary,
+      location: job.location,
+      responsibility: job.responsibility,
+      requirements: job.requirements,
+      lastDateToApply: new Date(job.lastDateToApply).toISOString().split('T')[0] // Convert date to ISO format
+    });
+  }
+
+  deleteJob(jobId: number | undefined): void {
+    if (jobId && confirm('Are you sure you want to delete this job?')) {
+      this.jobService.deleteJob(jobId).subscribe(
+        () => {
+          // Remove job from local array after successful deletion
+          this.jobs = this.jobs.filter(job => job.jobId !== jobId);
+        },
+        (error) => {
+          console.error('Error deleting job:', error);
+          // Handle error as needed
+        }
+      );
+    } else {
+      console.error('Invalid job ID:', jobId);
+    }
   }
 }

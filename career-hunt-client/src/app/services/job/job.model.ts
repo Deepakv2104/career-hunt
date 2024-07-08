@@ -7,6 +7,10 @@ export interface Job {
     experience: number; // years
     salary: number; // annual salary
     location: string;
+    responsibility: string;
+    requirements: string;
+    dateofPosting:Date;
+    lastDateToApply:Date;
    empId: string;
    companyName: string;
    companyWebsite:string;
