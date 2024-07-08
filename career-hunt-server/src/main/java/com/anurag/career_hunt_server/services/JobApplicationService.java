@@ -1,6 +1,5 @@
 package com.anurag.career_hunt_server.services;
 
-
 import com.anurag.career_hunt_server.model.Employer;
 import com.anurag.career_hunt_server.model.Job;
 import com.anurag.career_hunt_server.model.JobApplication;
@@ -33,7 +32,7 @@ public class JobApplicationService {
 
     public JobApplication applyForJob(String email, Long jobId) {
         User user = userRepository.findByEmail(email);
-        UserProfile userProfile = user.getUserProfile(userProfileRepository);  // Fetch the userProfile
+        UserProfile userProfile = user.getUserProfile(userProfileRepository);
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
 
         JobApplication jobApplication = new JobApplication();
@@ -45,8 +44,15 @@ public class JobApplicationService {
         return jobApplicationRepository.save(jobApplication);
     }
 
-    public List<JobApplication> getApplicationsForJob(Long jobId) {
+    public List<JobApplication> getApplicationsForJob(String email, Long jobId) {
+        User user = userRepository.findByEmail(email);
+        Employer employer = user.getEmployer();
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
+
+        if (!job.getEmployer().getEmpId().equals(employer.getEmpId())) {
+            throw new RuntimeException("Unauthorized access to job applications");
+        }
+
         return jobApplicationRepository.findByJob(job);
     }
 
@@ -64,5 +70,15 @@ public class JobApplicationService {
         List<Job> jobs = employer.getJobs();
         return jobApplicationRepository.findByJobIn(jobs);
     }
+    
+    public List<JobApplication> getApplicationsByUser(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User not found with email: " + email);
+        }
+
+        return jobApplicationRepository.findByUser(user);
+    }
 }
+
 

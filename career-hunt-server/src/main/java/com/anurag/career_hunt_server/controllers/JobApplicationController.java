@@ -31,8 +31,9 @@ public class JobApplicationController {
     }
 
     @GetMapping("/job/{jobId}")
-    public List<JobApplication> getApplicationsForJob(@PathVariable Long jobId) {
-        return jobApplicationService.getApplicationsForJob(jobId);
+    public List<JobApplication> getApplicationsForJob(Authentication authentication, @PathVariable Long jobId) {
+        String email = authentication.getName();
+        return jobApplicationService.getApplicationsForJob(email, jobId);
     }
 
     @GetMapping("/allApplications")
@@ -40,4 +41,11 @@ public class JobApplicationController {
         String email = authentication.getName();
         return employerService.getApplicationsForEmployer(email);
     }
+    
+    @GetMapping("/myApplications")
+    public List<JobApplication> getMyApplications(Authentication authentication) {
+        String email = authentication.getName();
+        return jobApplicationService.getApplicationsByUser(email);
+    }
 }
+
