@@ -1,0 +1,28 @@
+/* Ensure the main content takes full height and is scrollable */
+.flex-1 {
+    flex: 1 1 auto;
+  }
+  
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  
+  .overflow-auto {
+    overflow: auto;
+  }
+  
+  /* Utility classes for Tailwind CSS (in case you are using custom Tailwind configuration) */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure the button is on top */
+  .z-30 {
+    z-index: 30;
+  }
+  

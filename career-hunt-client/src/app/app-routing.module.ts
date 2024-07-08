@@ -9,6 +9,7 @@ import { AuthGuardService } from './services/authGuard/auth-guard.service';
 import { FindPeopleComponent } from './userdashboard/find-people/find-people.component';
 import { EmployerDashbaordLayoutComponent } from './employer-dashboard/employer-dashboard-layout/employer-dashboard-layout.component';
 import { PostJobsComponent } from './employer-dashboard/post-jobs/post-jobs.component';
+import { CreateCompanyProfileComponent } from './employer-dashboard/create-company-profile/create-company-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,7 +31,9 @@ const routes: Routes = [
     canActivate: [AuthGuardService], // Protect the employer-dashboard route
     children: [
       { path: '', redirectTo: 'post-jobs', pathMatch: 'full' },
-      { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] } // Protect child routes
+      { path: 'post-job', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] } // Protect child routes
+
     ]
   }
 ];

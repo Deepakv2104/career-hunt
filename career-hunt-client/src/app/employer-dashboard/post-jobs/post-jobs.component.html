@@ -1,1 +1,94 @@
-<p>post-jobs works!</p>
+<div [ngClass]="{'dark': isDarkMode}" class="min-h-screen bg-gray-100 dark:bg-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden">
+        <div class="md:flex">
+          <!-- Job Post Form -->
+          <div class="md:w-1/2 p-8">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Post a New Job</h2>
+            <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" class="space-y-6">
+              <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                <div>
+                  <label for="role" class="block text-sm font-medium text-gray-800 dark:text-white">Job Role</label>
+                  <input type="text" id="role" formControlName="role"
+                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
+                </div>
+                <div>
+                  <label for="type" class="block text-sm font-medium text-gray-800 dark:text-white">Job Type</label>
+                  <input type="text" id="type" formControlName="type"
+                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="jobDescription" class="block text-sm font-medium text-gray-800 dark:text-white">Job Description</label>
+                  <textarea id="jobDescription" formControlName="jobDescription" rows="3"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="eligibility" class="block text-sm font-medium text-gray-800 dark:text-white">Eligibility</label>
+                  <textarea id="eligibility" formControlName="eligibility" rows="2"
+                            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"></textarea>
+                </div>
+                <div>
+                  <label for="experience" class="block text-sm font-medium text-gray-800 dark:text-white">Experience (years)</label>
+                  <input type="number" id="experience" formControlName="experience"
+                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
+                </div>
+                <div>
+                  <label for="salary" class="block text-sm font-medium text-gray-800 dark:text-white">Salary (annual)</label>
+                  <input type="number" id="salary" formControlName="salary"
+                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="location" class="block text-sm font-medium text-gray-800 dark:text-white">Location</label>
+                  <input type="text" id="location" formControlName="location"
+                         class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300">
+                </div>
+              </div>
+              <div>
+                <button type="submit" [disabled]="jobForm.invalid"
+                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  Post Job
+                </button>
+              </div>
+            </form>
+          </div>
+  
+          <!-- Posted Jobs List -->
+          <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-8">
+            <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Posted Jobs</h2>
+            <div class="space-y-4">
+              <!-- Display only first two jobs -->
+              <ng-container *ngFor="let job of jobs.slice(0, 2)">
+                <div class="bg-white shadow-md rounded-lg p-6 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800">
+                  <h3 class="text-xl font-semibold text-indigo-600">{{ job.role }}</h3>
+                  <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.type }} | {{ job.location }}</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }} years</span>
+                    <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: ${{ job.salary }}</span>
+                  </div>
+                  <p class="mt-2 text-sm text-gray-800 dark:text-gray-400  line-clamp-2">{{ job.jobDescription }}</p>
+                  <div class="mt-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                      {{ job.eligibility }}
+                    </span>
+                  </div>
+                </div>
+              </ng-container>
+  
+              <!-- Show "See Recent Posts" if there are more than two jobs -->
+              <div *ngIf="jobs.length > 2" class="text-center py-8">
+                <button type="button" class="text-indigo-600 hover:text-indigo-800">
+                  See more
+                </button>
+              </div>
+  
+              <!-- Show message if no jobs are posted -->
+              <div *ngIf="jobs.length === 0" class="text-center py-8">
+                <p class="text-gray-500 text-lg">No jobs posted yet. Be the first to post a job!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
