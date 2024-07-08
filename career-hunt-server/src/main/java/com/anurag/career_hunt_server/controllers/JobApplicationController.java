@@ -35,7 +35,7 @@ public class JobApplicationController {
         return jobApplicationService.getApplicationsForJob(jobId);
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/allApplications")
     public List<JobApplication> getApplicationsForEmployer(Authentication authentication) {
         String email = authentication.getName();
         return employerService.getApplicationsForEmployer(email);

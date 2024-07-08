@@ -1,6 +1,5 @@
 package com.anurag.career_hunt_server.repositories;
 
-
 import com.anurag.career_hunt_server.model.Job;
 import com.anurag.career_hunt_server.model.JobApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
