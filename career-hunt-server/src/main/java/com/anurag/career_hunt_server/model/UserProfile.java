@@ -1,8 +1,6 @@
 package com.anurag.career_hunt_server.model;
 
 
-
-
 import jakarta.persistence.*;
 import lombok.Data;
 

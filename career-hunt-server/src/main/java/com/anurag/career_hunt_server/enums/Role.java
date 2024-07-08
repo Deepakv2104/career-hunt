@@ -5,10 +5,5 @@ public enum Role {
 	
 	EMPLOYER,
 	
-	USER;
-
-//	public Object stream() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	USER;	
 }

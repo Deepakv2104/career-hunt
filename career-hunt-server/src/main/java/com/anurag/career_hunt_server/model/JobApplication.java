@@ -26,8 +26,6 @@ public class JobApplication {
     private UserProfile userProfile;
 
     private Date applicationDate;
-
-    // Additional fields like status, cover letter, etc.
 }
 
 
