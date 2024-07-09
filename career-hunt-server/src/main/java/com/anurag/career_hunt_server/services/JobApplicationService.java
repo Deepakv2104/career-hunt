@@ -33,7 +33,7 @@ public class JobApplicationService {
 
     public JobApplication applyForJob(String email, Long jobId) {
         User user = userRepository.findByEmail(email);
-        UserProfile userProfile = user.getUserProfile(userProfileRepository);  // Fetch the userProfile
+        UserProfile userProfile = user.getUserProfile(userProfileRepository);
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
 
         JobApplication jobApplication = new JobApplication();
@@ -41,12 +41,20 @@ public class JobApplicationService {
         jobApplication.setUser(user);
         jobApplication.setUserProfile(userProfile);
         jobApplication.setApplicationDate(new Date());
+        jobApplication.setStatus("Pending"); // Default status
 
         return jobApplicationRepository.save(jobApplication);
     }
 
-    public List<JobApplication> getApplicationsForJob(Long jobId) {
+    public List<JobApplication> getApplicationsForJob(String email, Long jobId) {
+        User user = userRepository.findByEmail(email);
+        Employer employer = user.getEmployer();
         Job job = jobRepository.findById(jobId).orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
+
+        if (!job.getEmployer().getEmpId().equals(employer.getEmpId())) {
+            throw new RuntimeException("Unauthorized access to job applications");
+        }
+
         return jobApplicationRepository.findByJob(job);
     }
 
@@ -64,5 +72,30 @@ public class JobApplicationService {
         List<Job> jobs = employer.getJobs();
         return jobApplicationRepository.findByJobIn(jobs);
     }
-}
 
+    public List<JobApplication> getApplicationsForUser(String email) {
+        User user = userRepository.findByEmail(email);
+        return jobApplicationRepository.findByUser(user);
+    }
+
+    public JobApplication updateApplicationStatus(String email, Long applicationId, String status) {
+        User user = userRepository.findByEmail(email);
+        Employer employer = user.getEmployer();
+        
+        if (employer == null) {
+            throw new RuntimeException("User is not an employer.");
+        }
+
+        JobApplication jobApplication = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Job application not found with id: " + applicationId));
+        
+        Job job = jobApplication.getJob();
+        
+        if (!job.getEmployer().getEmpId().equals(employer.getEmpId())) {
+            throw new RuntimeException("Unauthorized access to update job application status.");
+        }
+
+        jobApplication.setStatus(status);
+        return jobApplicationRepository.save(jobApplication);
+    }
+}

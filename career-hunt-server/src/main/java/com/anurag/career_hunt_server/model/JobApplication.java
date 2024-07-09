@@ -26,6 +26,8 @@ public class JobApplication {
     private UserProfile userProfile;
 
     private Date applicationDate;
+    
+    private String status; // New field to store the status of the application
 }
 
 
