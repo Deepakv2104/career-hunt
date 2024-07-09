@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';
 import { UserProfile } from '../../services/userProfile/user-profile.model'; // Adjust path based on your actual structure
 
@@ -12,6 +12,7 @@ export class UserProfileComponent {
   userProfile: UserProfile = {} as UserProfile; // Initialize userProfile
   profileForm!: FormGroup; // Declare profileForm as FormGroup
   resumeFile: File | undefined;
+
   constructor(
     private profileService: UserProfileService,
     private fb: FormBuilder
@@ -35,7 +36,6 @@ export class UserProfileComponent {
       resumeFilePath: ['']
     });
   }
-
 
   createProfile() {
     const profileData = this.profileForm.value;
@@ -70,14 +70,52 @@ export class UserProfileComponent {
       // Handle case where no resume file is selected
     }
   }
-  // Implement other methods like getProfile, updateProfile, deleteProfile as needed
 
+    // Getter for achievements FormArray
+    get achievementsForms() {
+      return this.profileForm.get('achievements') as FormArray;
+    }
+  
+    // Function to add a new achievement entry
+    addAchievement() {
+      this.achievementsForms.push(this.fb.control(''));
+    }
+  
+    // Getter for keySkills FormArray
+    get keySkillsForms() {
+      return this.profileForm.get('keySkills') as FormArray;
+    }
+  
+    // Function to add a new key skill entry
+    addKeySkill() {
+      this.keySkillsForms.push(this.fb.control(''));
+    }
+  
+    // Getter for languagesKnown FormArray
+    get languagesKnownForms() {
+      return this.profileForm.get('languagesKnown') as FormArray;
+    }
+  
+    // Function to add a new language known entry
+    addLanguageKnown() {
+      this.languagesKnownForms.push(this.fb.control(''));
+    }
+  
+  // Getter for certifications FormArray
+ // Getter for certifications FormArray
+ get certificationsForms() {
+  return this.profileForm.get('certifications') as FormArray;
+}
 
+// Function to add a new certification entry
+addCertification() {
+  this.certificationsForms.push(this.fb.control(''));
+}
+
+  // Method to add a new education entry
   get educationForms() {
     return this.profileForm.get('education') as FormArray;
   }
-
-  // Method to add a new education entry
   addEducation() {
     const educationFormGroup = this.fb.group({
       level: [''],
@@ -88,5 +126,34 @@ export class UserProfileComponent {
     });
 
     this.educationForms.push(educationFormGroup);
+  }
+
+  // Method to add a new internship entry
+  get internshipsForms() {
+    return this.profileForm.get('internships') as FormArray;
+  }
+  addInternships() {
+    const internshipFormGroup = this.fb.group({
+      companyName: [''],
+      role: [''],
+      duration: [''],
+      description: ['']
+    });
+
+    this.internshipsForms.push(internshipFormGroup);
+  }
+
+  // Method to add a new project entry
+  get projectsForms() {
+    return this.profileForm.get('projects') as FormArray;
+  }
+  addProjects() {
+    const projectFormGroup = this.fb.group({
+      projectName: [''],
+      description: [''],
+      duration: ['']
+    });
+
+    this.projectsForms.push(projectFormGroup);
   }
 }
