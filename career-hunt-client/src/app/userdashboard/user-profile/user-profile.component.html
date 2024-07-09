@@ -30,13 +30,24 @@
       <div class="form-group">
         <label for="education">Education</label>
         <div formArrayName="education">
-          <div *ngFor="let i=index" [formGroupName]="i">
+          <div *ngFor="let edu of educationForms.controls; let i=index" [formGroupName]="i">
             <label>Level</label>
             <input type="text" class="form-control" formControlName="level">
-  
-            <!-- Repeat similar structures for other fields within education -->
+            
+            <label>School/College Name</label>
+            <input type="text" class="form-control" formControlName="schoolCollegeName">
+            
+            <label>Specialization</label>
+            <input type="text" class="form-control" formControlName="specialization">
+            
+            <label>Year of Passing</label>
+            <input type="text" class="form-control" formControlName="yearOfPassing">
+            
+            <label>CGPA</label>
+            <input type="number" class="form-control" formControlName="cgpa">
           </div>
         </div>
+        <button type="button" class="btn btn-primary" (click)="addEducation()">Add Education</button>
       </div>
   
       <!-- Repeat similar structures for other formArrayName sections -->

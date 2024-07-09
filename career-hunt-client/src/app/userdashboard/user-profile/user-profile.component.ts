@@ -71,4 +71,22 @@ export class UserProfileComponent {
     }
   }
   // Implement other methods like getProfile, updateProfile, deleteProfile as needed
+
+
+  get educationForms() {
+    return this.profileForm.get('education') as FormArray;
+  }
+
+  // Method to add a new education entry
+  addEducation() {
+    const educationFormGroup = this.fb.group({
+      level: [''],
+      schoolCollegeName: [''],
+      specialization: [''],
+      yearOfPassing: [''],
+      cgpa: ['']
+    });
+
+    this.educationForms.push(educationFormGroup);
+  }
 }
