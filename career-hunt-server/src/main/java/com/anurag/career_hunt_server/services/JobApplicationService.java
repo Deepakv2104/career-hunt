@@ -1,5 +1,6 @@
 package com.anurag.career_hunt_server.services;
 
+
 import com.anurag.career_hunt_server.model.Employer;
 import com.anurag.career_hunt_server.model.Job;
 import com.anurag.career_hunt_server.model.JobApplication;
@@ -40,6 +41,7 @@ public class JobApplicationService {
         jobApplication.setUser(user);
         jobApplication.setUserProfile(userProfile);
         jobApplication.setApplicationDate(new Date());
+        jobApplication.setStatus("Pending"); // Default status
 
         return jobApplicationRepository.save(jobApplication);
     }
@@ -70,15 +72,30 @@ public class JobApplicationService {
         List<Job> jobs = employer.getJobs();
         return jobApplicationRepository.findByJobIn(jobs);
     }
-    
-    public List<JobApplication> getApplicationsByUser(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new RuntimeException("User not found with email: " + email);
-        }
 
+    public List<JobApplication> getApplicationsForUser(String email) {
+        User user = userRepository.findByEmail(email);
         return jobApplicationRepository.findByUser(user);
     }
+
+    public JobApplication updateApplicationStatus(String email, Long applicationId, String status) {
+        User user = userRepository.findByEmail(email);
+        Employer employer = user.getEmployer();
+        
+        if (employer == null) {
+            throw new RuntimeException("User is not an employer.");
+        }
+
+        JobApplication jobApplication = jobApplicationRepository.findById(applicationId)
+                .orElseThrow(() -> new RuntimeException("Job application not found with id: " + applicationId));
+        
+        Job job = jobApplication.getJob();
+        
+        if (!job.getEmployer().getEmpId().equals(employer.getEmpId())) {
+            throw new RuntimeException("Unauthorized access to update job application status.");
+        }
+
+        jobApplication.setStatus(status);
+        return jobApplicationRepository.save(jobApplication);
+    }
 }
-
-

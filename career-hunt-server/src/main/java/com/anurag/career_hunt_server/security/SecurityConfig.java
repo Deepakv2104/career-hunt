@@ -71,6 +71,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/applications/job/{jobId}").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.GET,"/applications/allApplications").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.GET,"/applications/myApplications").hasAnyAuthority("USER")
+                .requestMatchers(HttpMethod.PUT,"/applications/updateStatus/{applicationId}/{status}").hasAnyAuthority("EMPLOYER")
+
+                
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->

@@ -1,14 +1,12 @@
 package com.anurag.career_hunt_server.controllers;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.anurag.career_hunt_server.model.JobApplication;
 import com.anurag.career_hunt_server.services.JobApplicationService;
@@ -41,11 +39,17 @@ public class JobApplicationController {
         String email = authentication.getName();
         return employerService.getApplicationsForEmployer(email);
     }
-    
+
     @GetMapping("/myApplications")
-    public List<JobApplication> getMyApplications(Authentication authentication) {
+    public List<JobApplication> getApplicationsForUser(Authentication authentication) {
         String email = authentication.getName();
-        return jobApplicationService.getApplicationsByUser(email);
+        return jobApplicationService.getApplicationsForUser(email);
+    }
+
+    @PutMapping("/updateStatus/{applicationId}/{status}")
+    public JobApplication updateApplicationStatus(Authentication authentication, @PathVariable Long applicationId, @PathVariable String status) {
+       // return jobApplicationService.updateApplicationStatus(applicationId, status);
+        String email = authentication.getName();
+        return jobApplicationService.updateApplicationStatus(email, applicationId,status);
     }
 }
-
