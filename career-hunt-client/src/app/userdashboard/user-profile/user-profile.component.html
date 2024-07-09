@@ -1,27 +1,53 @@
 <div class="container">
-    <h2>Create User Profile</h2>
-    <form #profileForm="ngForm" (ngSubmit)="createUserProfile()">
+    <h2>User Profile</h2>
+    
+    <form [formGroup]="profileForm" (ngSubmit)="createProfile()">
+      <!-- Gender -->
       <div class="form-group">
-        <label for="gender">Gender:</label>
-        <input type="text" id="gender" class="form-control" required [(ngModel)]="userProfile.gender" name="gender">
+        <label for="gender">Gender</label>
+        <input type="text" id="gender" class="form-control" formControlName="gender">
       </div>
+  
+      <!-- Date of Birth -->
       <div class="form-group">
-        <label for="dateOfBirth">Date of Birth:</label>
-        <input type="date" id="dateOfBirth" class="form-control" required [(ngModel)]="userProfile.dateOfBirth" name="dateOfBirth">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" id="dateOfBirth" class="form-control" formControlName="dateOfBirth">
       </div>
+  
+      <!-- Address -->
       <div class="form-group">
-        <label for="address">Address:</label>
-        <input type="text" id="address" class="form-control" required [(ngModel)]="userProfile.address" name="address">
+        <label for="address">Address</label>
+        <input type="text" id="address" class="form-control" formControlName="address">
       </div>
+  
+      <!-- Location -->
       <div class="form-group">
-        <label for="location">Location:</label>
-        <input type="text" id="location" class="form-control" required [(ngModel)]="userProfile.location" name="location">
+        <label for="location">Location</label>
+        <input type="text" id="location" class="form-control" formControlName="location">
       </div>
+  
+      <!-- Education -->
       <div class="form-group">
-        <label for="resume">Resume:</label>
-        <input type="file" id="resume" class="form-control" required (change)="onFileChange($event)">
+        <label for="education">Education</label>
+        <div formArrayName="education">
+          <div *ngFor="let i=index" [formGroupName]="i">
+            <label>Level</label>
+            <input type="text" class="form-control" formControlName="level">
+  
+            <!-- Repeat similar structures for other fields within education -->
+          </div>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+  
+      <!-- Repeat similar structures for other formArrayName sections -->
+  
+      <!-- Resume (PDF) -->
+      <div class="form-group">
+        <label for="resume">Resume (PDF)</label>
+        <input type="file" id="resume" (change)="onFileChange($event)">
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Create Profile</button>
     </form>
   </div>
   
