@@ -32,12 +32,35 @@ export class UserProfileService {
       .pipe(catchError(this.handleError));
   }
 
-  saveUserProfile(userProfileData: UserProfile): Observable<any> {
-    const headers = this.getAuthHeaders();
+  // saveUserProfile(userProfileData: UserProfile): Observable<any> {
+  //   const headers = this.getAuthHeaders();
 
-    // Assuming your backend expects the entire userProfileData object in JSON format
-    return this.http.post(`${this.apiUrl}/createProfile`, userProfileData, { headers })
-      .pipe(catchError(this.handleError));
+  //   // Assuming your backend expects the entire userProfileData object in JSON format
+  //   return this.http.post(`${this.apiUrl}/createProfile`, userProfileData, { headers })
+  //     .pipe(catchError(this.handleError));
+  // }
+  // saveUserProfile(userProfile: UserProfile): Observable<UserProfile> {
+  //   const token = sessionStorage.getItem('token');  // Retrieve the token from local storage or wherever you have stored it
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+  //   return this.http.post<UserProfile>(`${this.apiUrl}/createProfile`, userProfile, { headers });
+  // }
+  
+  // saveUserProfile(formData: FormData): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/createProfile`, formData, {
+  //     headers: new HttpHeaders({
+  //       'Accept': 'multipart/form-data'
+  //     })
+  //   });
+  // }
+  saveUserProfile(formData: FormData): Observable<any> {
+    const token = sessionStorage.getItem('token'); // Assuming you store the token in local storage
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'multipart/form-data'
+    });
+
+    return this.http.post(`${this.apiUrl}/createProfile`, formData, { headers });
   }
 
   updateProfile(userProfileData: UserProfile): Observable<UserProfile> {

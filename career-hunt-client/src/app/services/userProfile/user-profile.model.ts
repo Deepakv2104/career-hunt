@@ -1,5 +1,5 @@
 export interface UserProfile {
-  userProfileId: number;
+  userProfileId?: number;
   user: User;
   gender: string;
   dateOfBirth: string;
@@ -23,7 +23,7 @@ export interface User {
 }
 
 export interface Education {
-  level: string; 
+  level: string;
   schoolCollegeName: string;
   specialization: string;
   yearOfPassing: string;
