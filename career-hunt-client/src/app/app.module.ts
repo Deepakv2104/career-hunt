@@ -20,6 +20,7 @@ import { ApplicationsComponent } from './employer-dashboard/applications/applica
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
 import { UserDashboardLayoutComponent } from './userdashboard/user-dashboard-layout/user-dashboard-layout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { UserProfileComponent } from './userdashboard/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +38,7 @@ import { HttpClientModule } from '@angular/common/http';
           ApplicationsComponent,
           AdminDashboardComponent,
           UserDashboardLayoutComponent,
+          UserProfileComponent,
    
   ],
   imports: [

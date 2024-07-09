@@ -18,11 +18,12 @@ export interface UserProfile {
 export interface User {
   userId: number;
   email: string;
-  // Add other properties from your User entity as needed
+  username:string;
+  phoneNumber:string
 }
 
 export interface Education {
-  level: string; // 10th, Intermediate, B.Tech
+  level: string; 
   schoolCollegeName: string;
   specialization: string;
   yearOfPassing: string;
