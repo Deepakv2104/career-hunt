@@ -21,7 +21,7 @@ public class FeedbackController {
     private FeedbackService feedbackService;
 
     @PostMapping("/post")
-    public ResponseEntity<Feedback> postFeedback(Authentication authentication, @RequestBody Feedback feedback) {
+    public Feedback postFeedback(Authentication authentication, @RequestBody Feedback feedback) {
         String email = authentication.getName();
         return feedbackService.postFeedback(email, feedback);
     }
