@@ -1,1 +1,173 @@
-<h1>hello</h1>
+<div class="container mx-auto px-4 py-8 bg-gray-50">
+    <h2 class="text-3xl font-bold mb-8 text-center text-indigo-600">User Profile</h2>
+  
+    <form [formGroup]="profileForm" (ngSubmit)="createProfile()" class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Basic Information -->
+        <div>
+          <label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+          <input type="text" id="gender" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="gender">
+        </div>
+  
+        <div>
+          <label for="dateOfBirth" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+          <input type="date" id="dateOfBirth" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="dateOfBirth">
+        </div>
+  
+        <div>
+          <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <input type="text" id="address" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="address">
+        </div>
+  
+        <div>
+          <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+          <input type="text" id="location" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="location">
+        </div>
+      </div>
+  
+      <!-- Education -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Education</h3>
+        <div formArrayName="education">
+          <div *ngFor="let edu of educationForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-md">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Level</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="level">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">School/College Name</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="schoolCollegeName">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Specialization</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="specialization">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Year of Passing</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="yearOfPassing">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">CGPA</label>
+              <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="cgpa">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addEducation()">Add Education</button>
+      </div>
+  
+      <!-- Internships -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Internships</h3>
+        <div formArrayName="internships">
+          <div *ngFor="let intern of internshipsForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-md">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="companyName">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="role">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addInternships()">Add Internship</button>
+      </div>
+  
+      <!-- Projects -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Projects</h3>
+        <div formArrayName="projects">
+          <div *ngFor="let project of projectsForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-50 rounded-md">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Project Name</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="projectName">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+              <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
+            </div>
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addProjects()">Add Project</button>
+      </div>
+  
+      <!-- Key Skills -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Key Skills</h3>
+        <div formArrayName="keySkills" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div *ngFor="let skill of keySkillsForms.controls; let i=index">
+            <input [formControlName]="i" placeholder="Key Skill" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addKeySkill()">Add Key Skill</button>
+      </div>
+  
+      <!-- Achievements -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Achievements</h3>
+        <div formArrayName="achievements" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div *ngFor="let achievement of achievementsForms.controls; let i=index">
+            <input [formControlName]="i" placeholder="Achievement" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addAchievement()">Add Achievement</button>
+      </div>
+  
+      <!-- Certifications -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Certifications</h3>
+        <div formArrayName="certifications" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div *ngFor="let certification of certificationsForms.controls; let i=index">
+            <input [formControlName]="i" placeholder="Certification" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addCertification()">Add Certification</button>
+      </div>
+  
+      <!-- Languages Known -->
+      <div class="mt-8">
+        <h3 class="text-lg font-semibold mb-4 text-indigo-600">Languages Known</h3>
+        <div formArrayName="languagesKnown" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div *ngFor="let language of languagesKnownForms.controls; let i=index">
+            <input [formControlName]="i" placeholder="Language" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          </div>
+        </div>
+        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addLanguageKnown()">Add Language</button>
+      </div>
+  <!-- Resume Upload (continued) -->
+  <div class="mt-8">
+    <h3 class="text-lg font-semibold mb-4 text-indigo-600">Resume Upload</h3>
+    <div class="flex items-center justify-center w-full">
+      <label for="resume" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+          </svg>
+          <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+          <p class="text-xs text-gray-500">PDF (MAX. 2MB)</p>
+        </div>
+        <input id="resume" type="file" class="hidden" (change)="onFileChange($event)" accept=".pdf"/>
+      </label>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mt-8">
+    <button type="submit" class="w-full px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+      Create Profile
+    </button>
+  </div>
+</form>
+</div>

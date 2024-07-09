@@ -1,6 +1,5 @@
 export interface UserProfile {
-  userProfileId: number;
-  user: User;
+
   gender: string;
   dateOfBirth: string;
   address: string;
@@ -13,17 +12,12 @@ export interface UserProfile {
   achievements: string[];
   certifications: string[];
   resumeFilePath: string;
-}
 
-export interface User {
-  userId: number;
-  email: string;
-  username:string;
-  phoneNumber:string
+
 }
 
 export interface Education {
-  level: string; 
+  level: string;
   schoolCollegeName: string;
   specialization: string;
   yearOfPassing: string;
@@ -42,3 +36,4 @@ export interface Project {
   description: string;
   duration: string;
 }
+
