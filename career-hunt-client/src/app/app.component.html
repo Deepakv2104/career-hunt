@@ -11,10 +11,10 @@
         </div>
       </div>
       <div class="space-x-4 flex items-center">
-        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Home</a>
-        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Jobs</a>
-        <a *ngIf="!isLoggedIn()" href="/login" class="text-gray-100 hover:text-gray-600 dark:text-white">Login</a>
-        <a *ngIf="!isLoggedIn()" href="/signup" class="text-gray-100 hover:text-gray-600 dark:text-white">SignUp</a>
+        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-pink-600 dark:text-white dark:hover:text-pink-600">Home</a>
+        <a *ngIf="!isLoggedIn()" href="#" class="text-gray-100 hover:text-pink-600 dark:text-white dark:hover:text-pink-600">Jobs</a>
+        <a *ngIf="!isLoggedIn()" href="/login" class="text-gray-100 hover:text-pink-600 dark:text-white dark:hover:text-pink-600">Login</a>
+        <a *ngIf="!isLoggedIn()" href="/signup" class="text-gray-100 hover:text-pink-600 dark:text-white dark:hover:text-pink-600">SignUp</a>
         
         <!-- Conditional rendering for logged-in user with role USER -->
         <a *ngIf="isLoggedIn() && isUserRole('USER')" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Post Jobs</a>
