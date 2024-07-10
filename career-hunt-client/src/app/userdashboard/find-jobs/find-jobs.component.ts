@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';  // Adjust the import path as needed
 import { Job } from '../../services/job/job.model';  // Adjust the import path as needed
+import { JobApplicationService } from 'src/app/services/job-application/job-application.service';
+import { JobApplication } from '../../services/job-application/job-application.model'; // Adjust the import path as needed
 
 @Component({
   selector: 'app-find-jobs',
@@ -22,7 +24,7 @@ export class FindJobsComponent implements OnInit {
   experiences: string[] = [];
   domains: string[] = [];
 
-  constructor(private userProfileService: UserProfileService) { }
+  constructor(private userProfileService: UserProfileService,private jobApplicationService: JobApplicationService) { }
 
   ngOnInit(): void {
     this.fetchJobs();
@@ -90,4 +92,26 @@ export class FindJobsComponent implements OnInit {
       .toUpperCase()
       .substring(0, 2);
   }
+  applyForJob(jobId?: number) {
+    if (jobId===undefined) {
+      console.error('Job ID is undefined');
+      alert('Invalid job selection. Please try again.');
+      return;
+    }
+  
+    this.jobApplicationService.applyForJob(jobId).subscribe(
+      response => {
+        console.log('Job application successful', response);
+        alert('You have successfully applied for the job!');
+        // Optionally, update UI or handle application success
+      },
+      error => {
+        console.error('you already applied for this role', error);
+        alert('you already applied for this role.');
+        // Optionally, update UI or handle application error
+      }
+    );
+  }
+  
+  
 }

@@ -1,0 +1,116 @@
+<div class="overflow-y-auto max-h-[80vh] overflow-x-hidden">
+    <h2 class="text-2xl font-bold mb-4">Application Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div>
+            <p class="font-bold">Application ID:</p>
+            <p>{{ data.applicationId }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Job Role:</p>
+            <p>{{ data.job.role }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Location:</p>
+            <p>{{ data.job.location }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Applicant Name:</p>
+            <p>{{ data.user.username }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Applicant Email:</p>
+            <p>{{ data.user.email }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Applicant Phone:</p>
+            <p>{{ data.user.phoneNumber }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Applicant Gender:</p>
+            <p>{{ data.userProfile.gender }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Date of Birth:</p>
+            <p>{{ data.userProfile.dateOfBirth | date }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Address:</p>
+            <p>{{ data.userProfile.address }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Education:</p>
+            <ul>
+                <li *ngFor="let education of data.userProfile.education">
+                    {{ education.level }} in {{ education.specialization }} from {{ education.schoolCollegeName }},
+                    {{ education.yearOfPassing }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Key Skills:</p>
+            <ul>
+                <li *ngFor="let skill of data.userProfile.keySkills">{{ skill }}</li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Languages Known:</p>
+            <ul>
+                <li *ngFor="let language of data.userProfile.languagesKnown">{{ language }}</li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Internships:</p>
+            <ul>
+                <li *ngFor="let internship of data.userProfile.internships">
+                    {{ internship.role }} at {{ internship.companyName }} ({{ internship.duration }}): {{ internship.description }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Projects:</p>
+            <ul>
+                <li *ngFor="let project of data.userProfile.projects">
+                    {{ project.projectName }} ({{ project.duration }}): {{ project.description }}
+                </li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Achievements:</p>
+            <ul>
+                <li *ngFor="let achievement of data.userProfile.achievements">{{ achievement }}</li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Certifications:</p>
+            <ul>
+                <li *ngFor="let certification of data.userProfile.certifications">{{ certification }}</li>
+            </ul>
+        </div>
+        <div>
+            <p class="font-bold">Resume:</p>
+            <a href="{{ data.userProfile.resumeFilePath }}" target="_blank">View Resume</a>
+        </div>
+        <div>
+            <p class="font-bold">Application Date:</p>
+            <p>{{ data.applicationDate | date }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Application Status:</p>
+            <p>{{ data.status }}</p>
+        </div>
+        <div>
+            <p class="font-bold">Application Status:</p>
+            <select [(ngModel)]="selectedStatus" class="p-2 border rounded">
+                <option value="in-progress">in-progress</option>
+                <option value="Shortlisted">Shortlisted</option>
+                <option value="Rejected">Rejected</option>
+                <!-- Add other statuses as needed -->
+            </select>
+        </div>
+        <div>
+            <button (click)="updateStatus()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                Update Status
+            </button>
+        </div>
+    </div>
+</div>

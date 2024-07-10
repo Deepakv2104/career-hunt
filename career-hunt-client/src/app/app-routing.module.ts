@@ -11,6 +11,8 @@ import { EmployerDashbaordLayoutComponent } from './employer-dashboard/employer-
 import { PostJobsComponent } from './employer-dashboard/post-jobs/post-jobs.component';
 import { CreateCompanyProfileComponent } from './employer-dashboard/create-company-profile/create-company-profile.component';
 import { UserProfileComponent } from './userdashboard/user-profile/user-profile.component';
+import { MyApplicationsComponent } from './userdashboard/my-applications/my-applications.component';
+import { ApplicationsComponent } from './employer-dashboard/applications/applications.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +27,7 @@ const routes: Routes = [
       { path: 'search-jobs', component: FindJobsComponent, canActivate: [AuthGuardService] }, 
       { path: 'search-people', component: FindPeopleComponent, canActivate: [AuthGuardService] }, 
       { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
 
     ]
   },
@@ -35,7 +38,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'post-jobs', pathMatch: 'full' },
       { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] } // Protect child routes
+      { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
 
     ]
   }

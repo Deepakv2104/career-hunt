@@ -41,7 +41,7 @@ public class JobApplicationService {
         jobApplication.setUser(user);
         jobApplication.setUserProfile(userProfile);
         jobApplication.setApplicationDate(new Date());
-        jobApplication.setStatus("Pending"); // Default status
+        jobApplication.setStatus("Applied"); // Default status
 
         return jobApplicationRepository.save(jobApplication);
     }

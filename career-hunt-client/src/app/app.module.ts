@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppRoutingModule } from './app-routing.module';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +22,8 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin
 import { UserDashboardLayoutComponent } from './userdashboard/user-dashboard-layout/user-dashboard-layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './userdashboard/user-profile/user-profile.component';
+import { MyApplicationsComponent } from './userdashboard/my-applications/my-applications.component';
+import { ApplicationDetailsDialogComponent } from './employer-dashboard/application-details-dialog/application-details-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,8 @@ import { UserProfileComponent } from './userdashboard/user-profile/user-profile.
           AdminDashboardComponent,
           UserDashboardLayoutComponent,
           UserProfileComponent,
+          MyApplicationsComponent,
+          ApplicationDetailsDialogComponent,
    
   ],
   imports: [
@@ -48,7 +53,7 @@ import { UserProfileComponent } from './userdashboard/user-profile/user-profile.
     MatSlideToggleModule,
     FormsModule,
     HttpClientModule,
-
+    MatDialogModule,
     ReactiveFormsModule
   ],
   providers: [],
