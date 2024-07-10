@@ -66,14 +66,21 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/userProfile/getProfile").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.PUT,"/userProfile/updateProfile").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.DELETE,"/userProfile/deleteProfile").hasAnyAuthority("USER")
+                .requestMatchers(HttpMethod.GET,"/userProfile/resume").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.GET,"/userProfile/allJobs").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.POST,"/applications/apply/{jobId}").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.GET,"/applications/job/{jobId}").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.GET,"/applications/allApplications").hasAnyAuthority("EMPLOYER")
                 .requestMatchers(HttpMethod.GET,"/applications/myApplications").hasAnyAuthority("USER")
                 .requestMatchers(HttpMethod.PUT,"/applications/updateStatus/{applicationId}/{status}").hasAnyAuthority("EMPLOYER")
-
-                
+                .requestMatchers(HttpMethod.GET,"/admin/allUsers").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/allUserProfiles").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/allEmployers").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/allJobs").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/allJobApplications").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/allFeedbacks").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST,"/feedback/post").hasAnyAuthority("USER","EMPLOYER")
+                .requestMatchers(HttpMethod.GET,"/resume/view/{userId}").hasAnyAuthority("USER","EMPLOYER")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->
