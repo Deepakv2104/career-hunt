@@ -66,4 +66,23 @@ public class ResumeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+    
+    @GetMapping("/viewResume/{resumeFilePath}")
+    public ResponseEntity<Resource> viewResume(@PathVariable String resumeFilePath) {
+        try {
+            Resource resource = storageService.loadFileAsResource(resumeFilePath);
+
+            if (resource.exists() || resource.isReadable()) {
+                String contentType = "application/pdf";
+                return ResponseEntity.ok()
+                        .contentType(MediaType.parseMediaType(contentType))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                        .body(resource);
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 }

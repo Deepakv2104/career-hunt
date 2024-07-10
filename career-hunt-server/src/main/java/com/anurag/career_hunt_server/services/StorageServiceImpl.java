@@ -12,6 +12,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+
 @Service
 public class StorageServiceImpl implements StorageService {
 
@@ -54,5 +57,20 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public Path getFileLocation(String fileName) {
         return this.fileStorageLocation.resolve(fileName).normalize();
+    }
+    
+    @Override
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new RuntimeException("Could not read the file!");
+            }
+        } catch (IOException ex) {
+            throw new RuntimeException("Could not read the file!", ex);
+        }
     }
 }
