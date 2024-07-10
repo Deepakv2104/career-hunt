@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JobApplication } from '../../services/job-application/job-application.model';
 import { JobApplicationService } from '../../services/job-application/job-application.service';
 import { NgModel } from '@angular/forms';
+import { ResumeService } from '../../services/resume/resume.service';
 
 @Component({
   selector: 'app-application-details-dialog',
@@ -13,7 +14,8 @@ export class ApplicationDetailsDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: JobApplication,
-    private jobApplicationService: JobApplicationService
+    private jobApplicationService: JobApplicationService,
+    private resumeService: ResumeService
   ) {
     this.selectedStatus = data.status;  // Initialize with the current status
   }
@@ -26,6 +28,17 @@ export class ApplicationDetailsDialogComponent {
       },
       error => {
         console.error('Error updating application status:', error);
+      }
+    );
+  }
+  viewResume() {
+    this.resumeService.viewResume(this.data.userProfile.resumeFilePath).subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        console.error('Error fetching resume:', error);
       }
     );
   }

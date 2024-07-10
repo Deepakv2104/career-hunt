@@ -80,7 +80,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/admin/allJobApplications").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/admin/allFeedbacks").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST,"/feedback/post").hasAnyAuthority("USER","EMPLOYER")
-                .requestMatchers(HttpMethod.GET,"/resume/view/{userId}").hasAnyAuthority("USER","EMPLOYER")
+                .requestMatchers(HttpMethod.GET,"/resume/viewResume/{resumeFilePath}").hasAnyAuthority("USER","EMPLOYER")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->

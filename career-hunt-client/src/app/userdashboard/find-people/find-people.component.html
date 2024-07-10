@@ -1,1 +1,76 @@
-<p>find-people works!</p>
+<!-- src/app/find-people/find-people.component.html -->
+
+<div class="min-h-screen mt-0 p-1 relative bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
+  <div class="max-w-7xl mx-auto">
+    <!-- Search and Filter Section -->
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <input
+          type="text"
+          placeholder="Search for people"
+          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
+          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Any Location</option>
+          <option>New York</option>
+          <option>San Francisco</option>
+          <option>London</option>
+          <option>Tokyo</option>
+        </select>
+        <select
+          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Any Skill</option>
+          <option>JavaScript</option>
+          <option>Python</option>
+          <option>React</option>
+          <option>Data Science</option>
+        </select>
+        <select
+          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Any Experience</option>
+          <option>0-2 years</option>
+          <option>3-5 years</option>
+          <option>6-10 years</option>
+          <option>10+ years</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- People Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          *ngFor="let person of peopleList"
+          class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6 hover:shadow-xl overflow-hidden transition-all duration-300 hover:transform hover:scale-105"
+          (click)="openSidebar()"
+        >
+          <div class="flex items-center mb-4">
+            <img
+            [src]="person.img ? person.img : getDefaultImage()"
+            alt="{{ person.name }}"
+            class="w-16 h-16 rounded-full mr-4"
+          />
+            <div>
+              <h2 class="text-2xl font-semibold mb-1">{{ person.name }}</h2>
+              <p class="text-gray-600 dark:text-gray-300">{{ person.role }}</p>
+            </div>
+          </div>
+          <p class="text-gray-600 dark:text-gray-300 mb-3">{{ person.location }}</p>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">{{ person.bio }}</p>
+          <div class="flex flex-wrap gap-2">
+            <span
+              *ngFor="let skill of person.skills"
+              class="px-3 py-1 bg-blue-500 text-white rounded-full text-sm"
+            >{{ skill }}</span>
+          </div>
+        </div>
+      </div>
+      
+      
+  </div>
+
+
+</div>

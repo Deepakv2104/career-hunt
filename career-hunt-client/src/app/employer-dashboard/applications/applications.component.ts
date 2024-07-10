@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { JobApplication } from '../../services/job-application/job-application.model';
 import { JobApplicationService } from '../../services/job-application/job-application.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../../services/auth/auth.service';
 import { ApplicationDetailsDialogComponent } from '../application-details-dialog/application-details-dialog.component';
+import { ResumeService } from '../../services/resume/resume.service';
+
 @Component({
   selector: 'app-applications',
   templateUrl: './applications.component.html',
@@ -11,11 +14,18 @@ import { ApplicationDetailsDialogComponent } from '../application-details-dialog
 export class ApplicationsComponent implements OnInit {
   applications: JobApplication[] = [];
 
-  constructor(private jobApplicationService: JobApplicationService,private dialog: MatDialog) { }
+  constructor(
+    private jobApplicationService: JobApplicationService,
+    private dialog: MatDialog,
+    private resumeService: ResumeService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadApplicationsForEmployer();
   }
+
+
 
   loadApplicationsForEmployer() {
     this.jobApplicationService.getApplicationsForEmployer().subscribe(
@@ -28,6 +38,7 @@ export class ApplicationsComponent implements OnInit {
       }
     );
   }
+
   openApplicationDetailsDialog(application: JobApplication): void {
     const dialogRef = this.dialog.open(ApplicationDetailsDialogComponent, {
       width: '500px',
@@ -38,5 +49,17 @@ export class ApplicationsComponent implements OnInit {
       console.log('The dialog was closed');
       // Handle dialog close if needed
     });
+  }
+
+  viewResume(resumeFilePath: string) {
+    this.resumeService.viewResume(resumeFilePath).subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        console.error('Error fetching resume:', error);
+      }
+    );
   }
 }

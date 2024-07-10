@@ -78,6 +78,8 @@ public class JobApplicationService {
         return jobApplicationRepository.findByUser(user);
     }
 
+    
+    
     public JobApplication updateApplicationStatus(String email, Long applicationId, String status) {
         User user = userRepository.findByEmail(email);
         Employer employer = user.getEmployer();

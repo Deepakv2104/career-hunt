@@ -88,7 +88,9 @@
         </div>
         <div>
             <p class="font-bold">Resume:</p>
-            <a href="{{ data.userProfile.resumeFilePath }}" target="_blank">View Resume</a>
+            <button (click)="viewResume()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                View Resume
+            </button>
         </div>
         <div>
             <p class="font-bold">Application Date:</p>

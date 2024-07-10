@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';
 import { UserProfile } from '../../services/userProfile/user-profile.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ResumeService } from 'src/app/services/resume/resume.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,18 +11,22 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+
   userProfile: UserProfile = {} as UserProfile;
   profileForm!: FormGroup;
   resumeFile: File | undefined;
   selectedFileName: string = '';
   isEditMode = false;
   username = '';
-phoneNumber='';
-email='';
+  phoneNumber = '';
+  email = '';
+  resumeFilePath: string = '';
+
   constructor(
     private profileService: UserProfileService,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private resumeService: ResumeService
   ) {
     this.createForm();
   }
@@ -46,6 +51,10 @@ email='';
           this.userProfile = data;
           this.setFormValues(data);
           this.isEditMode = true;
+          this.resumeFilePath = data.resumeFilePath || '';
+          if (this.resumeFilePath) {
+            this.selectedFileName = this.resumeFilePath.split('/').pop() || '';
+          }
           console.log(this.userProfile);
         }
       },
@@ -73,15 +82,6 @@ email='';
     this.setFormArrayValues('projects', data.projects);
     this.setFormArrayValues('achievements', data.achievements);
     this.setFormArrayValues('certifications', data.certifications);
-
-    // if (data.user) {
-    //   this.profileForm.patchValue({
-    //     username: data.user.username,
-    //     email: data.user.email,
-    //     phoneNumber: data.user.phoneNumber,
-    //     role: data.user.role
-    //   });
-    // }
   }
 
   setFormArrayValues(arrayName: string, values: any[]) {
@@ -134,11 +134,7 @@ email='';
       projects: this.fb.array([]),
       achievements: this.fb.array([]),
       certifications: this.fb.array([]),
-      resumeFilePath: [''],
-      // username: [''],
-      // email: [''],
-      // phoneNumber: [''],
-      // role: ['']
+      resumeFilePath: ['']
     });
   }
 
@@ -147,6 +143,7 @@ email='';
 
     if (!this.resumeFile) {
       console.error('No resume file selected');
+      alert('No resume file selected');
       return;
     }
 
@@ -154,14 +151,17 @@ email='';
       .subscribe(
         (response: UserProfile) => {
           console.log('Profile created successfully:', response);
+          alert('Profile created successfully');
           this.profileForm.reset();
           this.resumeFile = undefined;
         },
         (error) => {
           console.error('Error creating profile:', error);
+          alert('Error creating profile');
         }
       );
   }
+
   onSubmit() {
     if (this.isEditMode) {
       this.updateProfile();
@@ -170,7 +170,6 @@ email='';
     }
   }
 
-  
   updateProfile() {
     const profileData = this.profileForm.value;
 
@@ -183,14 +182,44 @@ email='';
       .subscribe(
         (response: UserProfile) => {
           console.log('Profile updated successfully:', response);
+          alert('Profile updated successfully');
           this.profileForm.reset();
           this.resumeFile = undefined;
+          this.selectedFileName = '';
+             // Optionally, reload or fetch updated profile data
+        this.loadProfile();
+
         },
         (error) => {
           console.error('Error updating profile:', error);
+          alert('Error updating profile');
         }
       );
   }
+
+
+  deleteProject(index: number): void {
+    this.projectsForms.removeAt(index);
+  }
+  deleteInternship(index: number): void {
+    this.internshipsForms.removeAt(index);
+  }
+  deleteEducation(index: number): void {
+    this.educationForms.removeAt(index);
+  }
+  deleteKeySkill(index: number): void {
+    this.keySkillsForms.removeAt(index);
+  }
+  deleteAchievement(index: number): void {
+    this.achievementsForms.removeAt(index);
+  }
+  deleteCertification(index: number): void {
+    this.certificationsForms.removeAt(index);
+  }
+  deleteLanguage(index: number): void {
+    this.languagesKnownForms.removeAt(index);
+  }
+
 
   onFileChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -271,5 +300,17 @@ email='';
     });
 
     this.projectsForms.push(projectFormGroup);
+  }
+
+  viewResume(resumeFilePath: string) {
+    this.resumeService.viewResume(resumeFilePath).subscribe(
+      (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        window.open(url);
+      },
+      (error) => {
+        console.error('Error fetching resume:', error);
+      }
+    );
   }
 }

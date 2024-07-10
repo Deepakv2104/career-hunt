@@ -34,13 +34,18 @@ export class UserProfileService {
     return this.http.post<UserProfile>(`${this.apiUrl}/createProfile`, formData, { headers });
   }
   
-  updateProfile(profile: any, resume: File): Observable<UserProfile> {
-    const formData: FormData = new FormData();
-    formData.append('profile', JSON.stringify(profile));
+updateProfile(profile: any, resume: File | null): Observable<UserProfile> {
+  const formData: FormData = new FormData();
+  formData.append('profile', JSON.stringify(profile));
+
+  if (resume) {
     formData.append('resume', resume);
-    const headers = this.getAuthHeaders();
-    return this.http.put<UserProfile>(`${this.apiUrl}/updateProfile`, formData, { headers });
   }
+
+  const headers = this.getAuthHeaders();
+  return this.http.put<UserProfile>(`${this.apiUrl}/updateProfile`, formData, { headers });
+}
+
 
   deleteProfile(): Observable<void> {
     const headers = this.getAuthHeaders();

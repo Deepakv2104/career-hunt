@@ -51,8 +51,9 @@
                 </td>
                 
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <a href="{{ application.userProfile.resumeFilePath }}" target="_blank">View Resume</a>
-                </td>
+                    <button (click)="viewResume(application.userProfile.resumeFilePath)" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                        View Resume
+                      </button></td>
               </tr>
             </tbody>
           </table>

@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { LoginComponent } from './authpage/login/login.component';
 import { RegisterComponent } from './authpage/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +46,7 @@ import { ApplicationDetailsDialogComponent } from './employer-dashboard/applicat
           UserProfileComponent,
           MyApplicationsComponent,
           ApplicationDetailsDialogComponent,
+
    
   ],
   imports: [
@@ -54,7 +57,8 @@ import { ApplicationDetailsDialogComponent } from './employer-dashboard/applicat
     FormsModule,
     HttpClientModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

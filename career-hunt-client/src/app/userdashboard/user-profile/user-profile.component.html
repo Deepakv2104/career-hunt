@@ -48,140 +48,240 @@
         </div>
       </div>
   
-       <!-- Education -->
-       <div class="mt-8">
+      <div class="mt-8">
         <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Education</h3>
-        <div formArrayName="education" >
-          <div *ngFor="let edu of educationForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Education {{i + 1}}</h4>
+        <div formArrayName="education">
+          <div *ngFor="let edu of educationForms.controls; let i=index" [formGroupName]="i"
+               class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
+            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Education {{i + 1}}
+              <button type="button" class="float-right text-red-600 dark:text-red-400" (click)="deleteEducation(i)">
+                <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+              </button>
+            </h4>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Level</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="level">
+              <input type="text"
+                     class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     formControlName="level">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">School/College Name</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="schoolCollegeName">
+              <input type="text"
+                     class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     formControlName="schoolCollegeName">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Specialization</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="specialization">
+              <input type="text"
+                     class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     formControlName="specialization">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Year of Passing</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="yearOfPassing">
+              <input type="text"
+                     class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     formControlName="yearOfPassing">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">CGPA</label>
-              <input type="number" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="cgpa">
+              <input type="number"
+                     class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                     formControlName="cgpa">
             </div>
           </div>
         </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addEducation()">Add Education</button>
+        <button type="button"
+                class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                (click)="addEducation()">Add Education
+        </button>
       </div>
+      
+      
+      
   
       <!-- Internships -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Internships</h3>
-        <div formArrayName="internships">
-          <div *ngFor="let intern of internshipsForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Internship {{i + 1}}</h4>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Company Name</label>
-              <input type="text" class="w-full px-3 py-2  border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="companyName">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Role</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="role">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Duration</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Description</label>
-              <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
-            </div>
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addInternships()">Add Internship</button>
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Internships</h3>
+  <div formArrayName="internships">
+    <div *ngFor="let intern of internshipsForms.controls; let i=index" [formGroupName]="i"
+         class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md relative">
+
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Internship {{i + 1}}</h4>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Company Name</label>
+        <input type="text"
+               class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+               formControlName="companyName">
       </div>
+      <!-- Add other fields as needed -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Role</label>
+        <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="role">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Duration</label>
+        <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Description</label>
+        <input type="text" class="w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
+      </div>
+
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteInternship(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addInternships()">Add Internship
+  </button>
+</div>
+
+
   
-      <!-- Projects -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Projects</h3>
-        <div formArrayName="projects">
-          <div *ngFor="let project of projectsForms.controls; let i=index" [formGroupName]="i" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Project {{i + 1}}</h4>
+ <!-- Projects -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Projects</h3>
+  <div formArrayName="projects">
+    <div *ngFor="let project of projectsForms.controls; let i=index" [formGroupName]="i"
+         class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md relative">
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Project Name</label>
-              <input type="text" class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="projectName">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Description</label>
-              <input type="text" class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Duration</label>
-              <input type="text" class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
-            </div>
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addProjects()">Add Project</button>
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Project {{i + 1}}</h4>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Project Name</label>
+        <input type="text"
+               class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+               formControlName="projectName">
       </div>
+      <!-- Add other fields as needed -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Description</label>
+        <input type="text" class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="description">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">Duration</label>
+        <input type="text" class="w-full px-3 py-2 border text-gray-900 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="duration">
+      </div>
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteProject(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addProjects()">Add Project
+  </button>
+</div>
+
+
   
       <!-- Key Skills -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Key Skills</h3>
-        <div formArrayName="keySkills" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div *ngFor="let skill of keySkillsForms.controls; let i=index">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Skill {{i + 1}}</h4>
+   <!-- Key Skills -->
+<!-- Key Skills -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Key Skills</h3>
+  <div formArrayName="keySkills" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div *ngFor="let skill of keySkillsForms.controls; let i=index" class="relative">
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Skill {{i + 1}}</h4>
 
-            <input [formControlName]="i" placeholder="Key Skill" class="w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addKeySkill()">Add Key Skill</button>
-      </div>
+      <input [formControlName]="i" placeholder="Key Skill"
+             class="w-full px-3 py-2 text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteKeySkill(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addKeySkill()">Add Key Skill
+  </button>
+</div>
+
   
-      <!-- Achievements -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Achievements</h3>
-        <div formArrayName="achievements" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div *ngFor="let achievement of achievementsForms.controls; let i=index">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Achievement {{i + 1}}</h4>
+<!-- Achievements -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Achievements</h3>
+  <div formArrayName="achievements" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div *ngFor="let achievement of achievementsForms.controls; let i=index" class="relative">
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Achievement {{i + 1}}</h4>
 
-            <input [formControlName]="i" placeholder="Achievement" class="w-full px-3 text-gray-900 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addAchievement()">Add Achievement</button>
-      </div>
+      <input [formControlName]="i" placeholder="Achievement"
+             class="w-full px-3 text-gray-900 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteAchievement(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addAchievement()">Add Achievement
+  </button>
+</div>
+
   
-      <!-- Certifications -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Certifications</h3>
-        <div formArrayName="certifications" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div *ngFor="let certification of certificationsForms.controls; let i=index">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Certification {{i + 1}}</h4>
+<!-- Certifications -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Certifications</h3>
+  <div formArrayName="certifications" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div *ngFor="let certification of certificationsForms.controls; let i=index" class="relative">
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Certification {{i + 1}}</h4>
 
-            <input [formControlName]="i" placeholder="Certification" class="w-full px-3 text-gray-900 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addCertification()">Add Certification</button>
-      </div>
+      <input [formControlName]="i" placeholder="Certification"
+             class="w-full px-3 text-gray-900 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteCertification(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addCertification()">Add Certification
+  </button>
+</div>
+
   
-      <!-- Languages Known -->
-      <div class="mt-8">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Languages Known</h3>
-        <div formArrayName="languagesKnown" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div *ngFor="let language of languagesKnownForms.controls; let i=index">
-            <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Language {{i + 1}}</h4>
+<!-- Languages Known -->
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Languages Known</h3>
+  <div formArrayName="languagesKnown" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div *ngFor="let language of languagesKnownForms.controls; let i=index" class="relative">
+      <h4 class="col-span-2 text-md font-semibold text-gray-900 dark:text-gray-200">Language {{i + 1}}</h4>
 
-            <input [formControlName]="i" placeholder="Language" class="w-full px-3 py-2  text-gray-900 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-        </div>
-        <button type="button" class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" (click)="addLanguageKnown()">Add Language</button>
-      </div>
+      <input [formControlName]="i" placeholder="Language"
+             class="w-full px-3 text-gray-900 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+
+      <button type="button"
+              class="absolute top-0 right-0 mt-2 mr-2 text-red-600 dark:text-red-400"
+              (click)="deleteLanguage(i)">
+        <i class="fas fa-trash-alt"></i> <!-- FontAwesome icon for delete -->
+      </button>
+    </div>
+  </div>
+  <button type="button"
+          class="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          (click)="addLanguageKnown()">Add Language
+  </button>
+</div>
+
+
+
   <!-- Resume Upload (continued) -->
   <div class="mt-8">
     <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-200">Resume Upload</h3>
@@ -201,9 +301,14 @@
         </div>
         <input id="resume" type="file" class="hidden" (change)="onFileChange($event)" accept=".pdf"/>
       </label>
+     
     </div>
   </div>
   
+  <div *ngIf="selectedFileName" class="mt-4">
+    <button *ngIf="resumeFilePath" (click)="viewResume(resumeFilePath)" class="text-blue-500 hover:underline">View older Resume</button>
+  </div>
+ 
 
   <!-- Submit Button -->
   <div class="mt-8">
