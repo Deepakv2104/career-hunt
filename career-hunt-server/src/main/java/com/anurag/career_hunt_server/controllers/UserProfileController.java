@@ -27,6 +27,14 @@ import com.anurag.career_hunt_server.services.StorageService;
 import com.anurag.career_hunt_server.services.UserProfileService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import java.nio.file.Path;
+import org.springframework.http.MediaType;
+
+
 @RestController
 @RequestMapping("/userProfile")
 public class UserProfileController {
@@ -94,4 +102,69 @@ public class UserProfileController {
     public List<Job> getAllJobs() {
         return jobService.getAllJobs();
     }
+    
+    
+    @GetMapping("/resume")
+    public ResponseEntity<Resource> getResume(Authentication authentication) {
+        try {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email);
+            if (user != null) {
+                UserProfile userProfile = userProfileService.getUserProfile(user.getUserId());
+                if (userProfile.getResumeFilePath() != null) {
+                    Path filePath = storageService.getFileLocation(userProfile.getResumeFilePath());
+                    Resource resource = new UrlResource(filePath.toUri());
+
+                    if (resource.exists() || resource.isReadable()) {
+                        String contentType = "application/pdf";
+                        return ResponseEntity.ok()
+                                .contentType(MediaType.parseMediaType(contentType))
+                                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                                .body(resource);
+                    } else {
+                        throw new RuntimeException("Could not read the file!");
+                    }
+                } else {
+                    throw new RuntimeException("Resume not found for user");
+                }
+            } else {
+                throw new UsernameNotFoundException("User not found with Email: " + email);
+            }
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    
+//    @GetMapping("/resume")
+//    public ResponseEntity<Resource> getResume(Authentication authentication) {
+//        try {
+//            String email = authentication.getName();
+//            User user = userRepository.findByEmail(email);
+//            if (user != null) {
+//                UserProfile userProfile = userProfileService.getUserProfile(user.getUserId());
+//                if (userProfile.getResumeFilePath() != null) {
+//                    Path filePath = storageService.getFileLocation(userProfile.getResumeFilePath());
+//                    Resource resource = new UrlResource(filePath.toUri());
+//
+//                    if (resource.exists() || resource.isReadable()) {
+//                        return ResponseEntity.ok()
+//                                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+//                                .body(resource);
+//                    } else {
+//                        throw new RuntimeException("Could not read the file!");
+//                    }
+//                } else {
+//                    throw new RuntimeException("Resume not found for user");
+//                }
+//            } else {
+//                throw new UsernameNotFoundException("User not found with Email: " + email);
+//            }
+//        } catch (UsernameNotFoundException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//        }
+//    }
 }

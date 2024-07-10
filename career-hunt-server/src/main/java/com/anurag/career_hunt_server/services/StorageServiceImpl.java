@@ -50,4 +50,9 @@ public class StorageServiceImpl implements StorageService {
             throw new RuntimeException("Could not store file " + fileName + ". Please try again!", ex);
         }
     }
+    
+    @Override
+    public Path getFileLocation(String fileName) {
+        return this.fileStorageLocation.resolve(fileName).normalize();
+    }
 }
