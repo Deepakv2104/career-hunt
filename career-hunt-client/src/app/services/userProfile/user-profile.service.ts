@@ -31,7 +31,6 @@ export class UserProfileService {
     formData.append('profile', JSON.stringify(profile));
     formData.append('resume', resume);
     const headers = this.getAuthHeaders();
-    console.log('Headers:', headers); // Check headers before sending request
     return this.http.post<UserProfile>(`${this.apiUrl}/createProfile`, formData, { headers });
   }
   
@@ -52,4 +51,5 @@ export class UserProfileService {
     const headers = this.getAuthHeaders();
     return this.http.get<Job[]>(`${this.apiUrl}/allJobs`, { headers });
   }
+
 }

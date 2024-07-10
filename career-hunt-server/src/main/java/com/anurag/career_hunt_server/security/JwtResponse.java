@@ -14,6 +14,7 @@ public class JwtResponse {
     private Role role;
     private Long userId;
     private String username;
+    private String phoneNumber;
 
     // Constructor without username for compatibility
     public JwtResponse(String token) {

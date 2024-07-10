@@ -7,7 +7,7 @@
       <!-- Username Field -->
       <div class="mb-4">
         <label for="username" class="block text-lg font-medium mb-2">Username</label>
-        <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</div>
         </div>
@@ -16,7 +16,7 @@
       <!-- Email Field -->
       <div class="mb-4">
         <label for="email" class="block text-lg font-medium mb-2">Email</label>
-        <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <input id="email" type="email" formControlName="email" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</div>
           <div *ngIf="signupForm.get('email')?.errors?.['email']">Invalid email address</div>
@@ -26,7 +26,7 @@
       <!-- Phone Number Field -->
       <div class="mb-4">
         <label for="phoneNumber" class="block text-lg font-medium mb-2">Phone Number</label>
-        <input id="phoneNumber" type="tel" formControlName="phoneNumber" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <input id="phoneNumber" type="tel" formControlName="phoneNumber" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</div>
         </div>
@@ -35,7 +35,7 @@
       <!-- Password Field -->
       <div class="mb-4">
         <label for="password" class="block text-lg font-medium mb-2">Password</label>
-        <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <input id="password" type="password" formControlName="password" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</div>
           <div *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long</div>
@@ -45,7 +45,7 @@
       <!-- Role Selection Dropdown -->
       <div class="mb-6">
         <label for="role" class="block text-lg font-medium mb-2">Role</label>
-        <select id="role" formControlName="role" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-100">
+        <select id="role" formControlName="role" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
           <option value="USER">User</option>
           <option value="EMPLOYER">Employer</option>
         </select>

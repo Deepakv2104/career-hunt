@@ -12,6 +12,12 @@ export interface UserProfile {
   achievements: string[];
   certifications: string[];
   resumeFilePath: string;
+  // user?: {
+  //   email: string;
+  //   username: string;
+  //   phoneNumber: string;
+  //   role: string;
+  // };
 
 
 }

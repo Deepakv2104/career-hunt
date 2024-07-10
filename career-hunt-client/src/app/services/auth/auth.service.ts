@@ -9,7 +9,7 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   private apiUrl = 'http://localhost:8080'; // Adjust this to your Spring Boot API URL
   private loggedInSubject: BehaviorSubject<boolean>;
-  private currentUser: { username: string, email: string, role: string } | null = null;
+  private currentUser: { username: string, email: string, role: string , phoneNumber: string} | null = null;
 
   constructor(private http: HttpClient) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
@@ -26,7 +26,7 @@ export class AuthService {
       
     });
 
-    return this.http.post<{ token: string, username: string, email: string, role: string }>(
+    return this.http.post<{ token: string, username: string, email: string, role: string, phoneNumber: string }>(
       `${this.apiUrl}/authenticate`, { email, password }, { headers }
     ).pipe(
       tap(response => {
@@ -36,9 +36,10 @@ export class AuthService {
           sessionStorage.setItem('user', JSON.stringify({
             username: response.username,
             email: response.email,
-            role: response.role
+            role: response.role,
+            phoneNumber: response.phoneNumber
           }));
-          this.currentUser = { username: response.username, email: response.email, role: response.role };
+          this.currentUser = { username: response.username, email: response.email, role: response.role, phoneNumber: response.phoneNumber };
           this.loggedInSubject.next(true);
         }
       })
@@ -82,6 +83,9 @@ export class AuthService {
 
   getUserRole(): string | null {
     return this.currentUser?.role || null;
+  }
+  getUserPhone(): string | null {
+    return this.currentUser?.phoneNumber || null;
   }
 
   getToken(): string | null {
