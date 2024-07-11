@@ -43,15 +43,18 @@ export class LoginComponent implements OnInit {
           } else {
             console.error('Unknown role:', userRole);
             // Handle unexpected roles or scenarios
+            alert('Unknown role: ' + userRole);
           }
         },
         error => {
           console.error('Login failed', error);
+          alert('Login failed: ' + error.message);
           // Optionally handle error messages or form state here
         }
       );
     } else {
       this.loginForm.markAllAsTouched(); // Mark form fields as touched to display validation errors
+      alert('Please fill out the form correctly.');
     }
   }
 }
