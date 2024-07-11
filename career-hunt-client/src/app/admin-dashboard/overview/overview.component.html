@@ -1,0 +1,86 @@
+<div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-8">Admin Dashboard Overview</h1>
+    
+        <!-- Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div class="bg-white rounded-lg shadow p-6" *ngFor="let stat of stats">
+            <h2 class="text-xl font-semibold mb-2">{{stat.title}}</h2>
+            <p class="text-3xl font-bold text-blue-600">{{stat.value}}</p>
+            <div class="w-full bg-gray-200 rounded-full h-2.5 mt-4">
+              <div class="bg-blue-600 h-2.5 rounded-full" [style.width.%]="stat.percentage"></div>
+            </div>
+          </div>
+        </div>
+      
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- User Growth Chart -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">User Growth</h3>
+            <div class="flex items-end h-64 space-x-2">
+              <div *ngFor="let month of userGrowth; let i = index" 
+                   class="flex-1 bg-blue-500 hover:bg-blue-600 transition-all duration-300"
+                   [style.height.%]="(month / maxUserGrowth) * 100">
+                <div class="text-xs text-white text-center mt-2">{{month}}</div>
+              </div>
+            </div>
+            <div class="flex justify-between mt-4">
+              <span *ngFor="let month of last6Months" class="text-sm text-gray-600">{{month}}</span>
+            </div>
+          </div>
+      
+          <!-- Job Distribution Pie Chart -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">Job Distribution</h3>
+            <div class="relative w-64 h-64 mx-auto">
+              <svg viewBox="0 0 36 36" class="w-full h-full">
+                <path *ngFor="let category of jobCategories; let i = index"
+                      [attr.d]="getPieSlice(i)"
+                      [attr.fill]="getColor(i)"
+                      class="hover:opacity-80 transition-opacity duration-300">
+                </path>
+              </svg>
+            </div>
+            <div class="mt-6 grid grid-cols-2 gap-4">
+              <div *ngFor="let category of jobCategories; let i = index" class="flex items-center">
+                <div class="w-4 h-4 mr-2" [style.background-color]="getColor(i)"></div>
+                <span class="text-sm">{{category}}: {{getJobCount(category)}}</span>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Application Status Chart -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">Application Status</h3>
+            <div class="space-y-4">
+              <div *ngFor="let status of applicationStatus" class="flex items-center">
+                <span class="text-sm w-24">{{status.label}}</span>
+                <div class="flex-grow bg-gray-200 rounded-full h-2.5 ml-2">
+                  <div class="h-2.5 rounded-full" 
+                       [style.width.%]="status.percentage"
+                      >
+                  </div>
+                </div>
+                <span class="text-sm ml-2">{{status.percentage}}%</span>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Employer Activity Timeline -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">Employer Activity Timeline</h3>
+            <div class="space-y-6">
+              <div *ngFor="let activity of employerActivities" class="flex">
+                <div class="flex flex-col items-center mr-4">
+                  <div class="w-3 h-3 bg-blue-500 rounded-full"></div>
+                  <div class="w-0.5 h-full bg-blue-300"></div>
+                </div>
+                <div>
+                  <p class="text-sm font-medium">{{activity.action}}</p>
+                  <p class="text-xs text-gray-500">{{activity.date}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

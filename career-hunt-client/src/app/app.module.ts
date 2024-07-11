@@ -7,8 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+// import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginComponent } from './authpage/login/login.component';
 import { RegisterComponent } from './authpage/register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,6 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './userdashboard/user-profile/user-profile.component';
 import { MyApplicationsComponent } from './userdashboard/my-applications/my-applications.component';
 import { ApplicationDetailsDialogComponent } from './employer-dashboard/application-details-dialog/application-details-dialog.component';
+import { OverviewComponent } from './admin-dashboard/overview/overview.component';
+import { FeedbackComponent } from './userdashboard/feedback/feedback.component';
+import { FeedbackService } from './services/feedback/feedback.service';
+import { MatInputModule } from '@angular/material/input';
+import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,10 +50,15 @@ import { ApplicationDetailsDialogComponent } from './employer-dashboard/applicat
           UserProfileComponent,
           MyApplicationsComponent,
           ApplicationDetailsDialogComponent,
+          OverviewComponent,
+          FeedbackComponent,
+          FeedbacksComponent
+         
 
    
   ],
   imports: [
+    // BaseChartDirective,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -58,9 +67,10 @@ import { ApplicationDetailsDialogComponent } from './employer-dashboard/applicat
     HttpClientModule,
     MatDialogModule,
     ReactiveFormsModule,
-    
+    MatInputModule
+  
   ],
-  providers: [],
+  providers: [FeedbackService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

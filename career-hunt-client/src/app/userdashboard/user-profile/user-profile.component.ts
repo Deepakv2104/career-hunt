@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';
-import { UserProfile } from '../../services/userProfile/user-profile.model';
+import { UserProfile } from '../../model/user-profile.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ResumeService } from 'src/app/services/resume/resume.service';
 

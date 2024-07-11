@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
-
+import { MatDialog } from '@angular/material/dialog';
+import { FeedbackComponent } from '../feedback/feedback.component';
 @Component({
   selector: 'app-user-dashboard-layout',
   templateUrl: './user-dashboard-layout.component.html',
@@ -12,8 +13,17 @@ export class UserDashboardLayoutComponent implements OnInit {
   sidebarOpen = true;
   username = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,public dialog: MatDialog) {}
+  openDialog(): void {
+    const dialogRef = this.dialog.open(FeedbackComponent, {
+      width: '400px'
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  
   ngOnInit() {
     this.authService.isLoggedInObservable().subscribe(loggedIn => {
       if (loggedIn) {
@@ -32,4 +42,5 @@ export class UserDashboardLayoutComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+  
 }

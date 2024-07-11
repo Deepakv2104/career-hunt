@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EmployerService } from '../../services/employer/employer.service';
-import { Employer } from '../../services/employer/employer.model';
+import { Employer } from '../../model/employer.model';
 
 @Component({
   selector: 'app-create-company-profile',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { JobApplicationService } from '../../services/job-application/job-application.service'; // Adjust the import path as needed
-import { JobApplication } from '../../services/job-application/job-application.model'; // Adjust the import path as needed
+import { JobApplication } from '../../model/job-application.model'; // Adjust the import path as needed
 
 @Component({
   selector: 'app-my-applications',

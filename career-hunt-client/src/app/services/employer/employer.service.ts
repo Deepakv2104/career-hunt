@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employer } from '../../services/employer/employer.model'; // Adjust the path and model as needed
+import { Employer } from '../../model/employer.model'; // Adjust the path and model as needed
 import { AuthService } from '../auth/auth.service'; // Adjust the path as needed
 
 @Injectable({

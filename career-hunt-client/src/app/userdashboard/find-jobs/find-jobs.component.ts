@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';  // Adjust the import path as needed
-import { Job } from '../../services/job/job.model';  // Adjust the import path as needed
+import { Job } from '../../model/job.model';  // Adjust the import path as needed
 import { JobApplicationService } from 'src/app/services/job-application/job-application.service';
-import { JobApplication } from '../../services/job-application/job-application.model'; // Adjust the import path as needed
+import { JobApplication } from '../../model/job-application.model'; // Adjust the import path as needed
 
 @Component({
   selector: 'app-find-jobs',

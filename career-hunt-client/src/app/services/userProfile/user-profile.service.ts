@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { UserProfile } from './user-profile.model';  // Adjust the import path as needed
-import { Job } from '../job/job.model';  // Adjust the import path as needed
+import { UserProfile } from '../../model/user-profile.model';  // Adjust the import path as needed
+import { Job } from '../../model/job.model';  // Adjust the import path as needed
 
 @Injectable({
   providedIn: 'root'

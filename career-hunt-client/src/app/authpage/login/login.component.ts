@@ -40,7 +40,10 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/user-dashboard']);
           } else if (userRole === 'EMPLOYER') {
             this.router.navigate(['/employer-dashboard']);
-          } else {
+
+          }  else if (userRole === 'ADMIN') {
+            this.router.navigate(['/admin-dashboard'])}
+            else {
             console.error('Unknown role:', userRole);
             // Handle unexpected roles or scenarios
             alert('Unknown role: ' + userRole);

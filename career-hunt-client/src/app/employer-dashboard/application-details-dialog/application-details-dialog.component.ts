@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { JobApplication } from '../../services/job-application/job-application.model';
+import { JobApplication } from '../../model/job-application.model';
 import { JobApplicationService } from '../../services/job-application/job-application.service';
 import { NgModel } from '@angular/forms';
 import { ResumeService } from '../../services/resume/resume.service';

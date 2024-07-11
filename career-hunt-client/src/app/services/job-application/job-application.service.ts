@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, switchMap, throwError } from 'rxjs';
-import { JobApplication } from './job-application.model';
+import { JobApplication } from '../../model/job-application.model';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({

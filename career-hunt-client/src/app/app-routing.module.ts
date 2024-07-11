@@ -13,6 +13,10 @@ import { CreateCompanyProfileComponent } from './employer-dashboard/create-compa
 import { UserProfileComponent } from './userdashboard/user-profile/user-profile.component';
 import { MyApplicationsComponent } from './userdashboard/my-applications/my-applications.component';
 import { ApplicationsComponent } from './employer-dashboard/applications/applications.component';
+import { OverviewComponent } from './admin-dashboard/overview/overview.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
+import { FeedbackComponent } from './userdashboard/feedback/feedback.component';
+import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,6 +32,7 @@ const routes: Routes = [
       { path: 'search-people', component: FindPeopleComponent, canActivate: [AuthGuardService] }, 
       { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
+      { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService] },
 
     ]
   },
@@ -40,6 +45,20 @@ const routes: Routes = [
       { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
+
+    ]
+  },
+  {
+    path: 'admin-dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuardService], // Protect the employer-dashboard route
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: OverviewComponent, canActivate: [AuthGuardService] }, 
+      { path: 'feedbacks', component: FeedbacksComponent, canActivate: [AuthGuardService] }, 
+
+      // { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      // { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
 
     ]
   }

@@ -22,7 +22,11 @@ export class AuthGuardService implements CanActivate {
       } else if (userRole === 'EMPLOYER') {
         // Allow access to routes for EMPLOYER role
         return true;
-      } else {
+      }else if (userRole === 'ADMIN') {
+        // Allow access to routes for EMPLOYER role
+        return true;
+      }
+       else {
         // Redirect to unauthorized or handle other roles as needed
         console.error('Unknown role:', userRole);
         return false;

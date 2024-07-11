@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { JobApplication } from '../../services/job-application/job-application.model';
+import { JobApplication } from '../../model/job-application.model';
 import { JobApplicationService } from '../../services/job-application/job-application.service';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth/auth.service';
