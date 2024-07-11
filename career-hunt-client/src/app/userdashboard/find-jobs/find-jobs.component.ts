@@ -39,6 +39,7 @@ export class FindJobsComponent implements OnInit {
         this.user = userProfile;
       },
       (error) => {
+        
         console.error('Error fetching user details:', error);
       }
     );
@@ -106,27 +107,35 @@ export class FindJobsComponent implements OnInit {
       .substring(0, 2);
   }
   applyForJob(jobId?: number) {
-    if (jobId===undefined) {
+    if (!jobId) {
       console.error('Job ID is undefined');
       alert('Invalid job selection. Please try again.');
       return;
     }
-    if (!this.user) {
-      // Show alert or notification to update profile
-      alert('Please update your profile before applying the job.');
-      return;
-    }
   
-    this.jobApplicationService.applyForJob(jobId).subscribe(
-      response => {
-        console.log('Job application successful', response);
-        alert('You have successfully applied for the job!');
-        // Optionally, update UI or handle application success
+    // Check if the user profile exists
+    this.userProfileService.getProfile().subscribe(
+      (userProfile) => {
+        if (userProfile) {
+          // User profile exists, proceed with job application
+          this.jobApplicationService.applyForJob(jobId).subscribe(
+            (response) => {
+              console.log('Job application successful', response);
+              alert('You have successfully applied for the job!');
+            },
+            (error) => {
+              console.error('Error applying for the job', error);
+              alert('You have already applied for this role.');
+            }
+          );
+        } else {
+          // User profile does not exist, show alert
+          alert('Please update your profile before applying for a job.');
+        }
       },
-      error => {
-        console.error('you already applied for this role', error);
-        alert('you already applied for this role.');
-        // Optionally, update UI or handle application error
+      (error) => {
+        console.error('Error fetching user profile', error);
+        alert('Please update your profile before applying for a job.');
       }
     );
   }
