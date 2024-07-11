@@ -15,13 +15,16 @@ public class Job {
     private Long jobId;
 
     private String role;
+    @Column(length=100000)
     private String jobDescription;
     private String type; // Full/Internship
     private String eligibility;
     private int experience; // years
     private double salary; // annual salary
     private String location;
+    @Column(length=100000)
     private String responsibility;
+    @Column(length=100000)
     private String requirements;
     private Date dateofPosting;
     private Date lastDateToApply;
