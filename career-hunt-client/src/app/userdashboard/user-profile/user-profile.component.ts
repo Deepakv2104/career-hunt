@@ -186,9 +186,8 @@ export class UserProfileComponent implements OnInit {
           this.profileForm.reset();
           this.resumeFile = undefined;
           this.selectedFileName = '';
-             // Optionally, reload or fetch updated profile data
-        this.loadProfile();
-
+          // Optionally, reload or fetch updated profile data
+          this.loadProfile();
         },
         (error) => {
           console.error('Error updating profile:', error);
@@ -197,29 +196,33 @@ export class UserProfileComponent implements OnInit {
       );
   }
 
-
   deleteProject(index: number): void {
     this.projectsForms.removeAt(index);
   }
+
   deleteInternship(index: number): void {
     this.internshipsForms.removeAt(index);
   }
+
   deleteEducation(index: number): void {
     this.educationForms.removeAt(index);
   }
+
   deleteKeySkill(index: number): void {
     this.keySkillsForms.removeAt(index);
   }
+
   deleteAchievement(index: number): void {
     this.achievementsForms.removeAt(index);
   }
+
   deleteCertification(index: number): void {
     this.certificationsForms.removeAt(index);
   }
+
   deleteLanguage(index: number): void {
     this.languagesKnownForms.removeAt(index);
   }
-
 
   onFileChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
@@ -235,6 +238,7 @@ export class UserProfileComponent implements OnInit {
   get achievementsForms() {
     return this.profileForm.get('achievements') as FormArray;
   }
+
   addAchievement() {
     this.achievementsForms.push(this.fb.control(''));
   }
@@ -242,6 +246,7 @@ export class UserProfileComponent implements OnInit {
   get keySkillsForms() {
     return this.profileForm.get('keySkills') as FormArray;
   }
+
   addKeySkill() {
     this.keySkillsForms.push(this.fb.control(''));
   }
@@ -249,6 +254,7 @@ export class UserProfileComponent implements OnInit {
   get languagesKnownForms() {
     return this.profileForm.get('languagesKnown') as FormArray;
   }
+
   addLanguageKnown() {
     this.languagesKnownForms.push(this.fb.control(''));
   }
@@ -256,6 +262,7 @@ export class UserProfileComponent implements OnInit {
   get certificationsForms() {
     return this.profileForm.get('certifications') as FormArray;
   }
+
   addCertification() {
     this.certificationsForms.push(this.fb.control(''));
   }
@@ -263,6 +270,7 @@ export class UserProfileComponent implements OnInit {
   get educationForms() {
     return this.profileForm.get('education') as FormArray;
   }
+
   addEducation() {
     const educationFormGroup = this.fb.group({
       level: [''],
@@ -278,6 +286,7 @@ export class UserProfileComponent implements OnInit {
   get internshipsForms() {
     return this.profileForm.get('internships') as FormArray;
   }
+
   addInternships() {
     const internshipFormGroup = this.fb.group({
       companyName: [''],
@@ -292,6 +301,7 @@ export class UserProfileComponent implements OnInit {
   get projectsForms() {
     return this.profileForm.get('projects') as FormArray;
   }
+
   addProjects() {
     const projectFormGroup = this.fb.group({
       projectName: [''],

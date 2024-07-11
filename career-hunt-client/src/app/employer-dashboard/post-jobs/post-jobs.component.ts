@@ -72,7 +72,11 @@ export class PostJobsComponent implements OnInit {
     console.log('Form submitted:', this.jobForm.valid); // Check form validity
     console.log('Form value:', this.jobForm.value); // Log form values
     this.formSubmitted = true;
-    
+    if (!this.employer) {
+      // Show alert or notification to update profile
+      alert('Please update your profile before posting a job.');
+      return;
+    }
     if (this.jobForm.valid && this.employer) {
       const formData = this.jobForm.value;
       const job: Job = {

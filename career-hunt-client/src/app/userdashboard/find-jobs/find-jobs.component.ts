@@ -3,6 +3,7 @@ import { UserProfileService } from '../../services/userProfile/user-profile.serv
 import { Job } from '../../model/job.model';  // Adjust the import path as needed
 import { JobApplicationService } from 'src/app/services/job-application/job-application.service';
 import { JobApplication } from '../../model/job-application.model'; // Adjust the import path as needed
+import { UserProfile } from 'src/app/model/user-profile.model';
 
 @Component({
   selector: 'app-find-jobs',
@@ -10,6 +11,8 @@ import { JobApplication } from '../../model/job-application.model'; // Adjust th
   styleUrls: ['./find-jobs.component.css']
 })
 export class FindJobsComponent implements OnInit {
+  user: UserProfile | null = null;
+
   isDarkMode = false;
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
@@ -30,6 +33,16 @@ export class FindJobsComponent implements OnInit {
     this.fetchJobs();
   }
 
+  loadProfileDetails(): void {
+    this.userProfileService.getProfile().subscribe(
+      (userProfile) => {
+        this.user = userProfile;
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
   fetchJobs() {
     this.userProfileService.getAllJobs().subscribe(
       (data: Job[]) => {
@@ -96,6 +109,11 @@ export class FindJobsComponent implements OnInit {
     if (jobId===undefined) {
       console.error('Job ID is undefined');
       alert('Invalid job selection. Please try again.');
+      return;
+    }
+    if (!this.user) {
+      // Show alert or notification to update profile
+      alert('Please update your profile before applying the job.');
       return;
     }
   
