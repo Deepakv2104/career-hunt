@@ -62,10 +62,12 @@
                 </div>
               </div>
               <div>
-                <button type="submit" [disabled]="jobForm.invalid"
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                  Post Job
-                </button>
+                <button type="submit"
+                [disabled]="jobForm.invalid"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          {{ editMode ? 'Update Job' : 'Post Job' }}
+        </button>
+        
               </div>
             </form>
           </div>

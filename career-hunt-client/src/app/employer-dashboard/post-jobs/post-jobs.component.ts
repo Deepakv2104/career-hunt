@@ -18,6 +18,8 @@ export class PostJobsComponent implements OnInit {
   showRecentPosts: boolean = false; // Flag to control recent posts display
   isDarkMode: boolean = false; // Flag to control dark mode
   minDate: string; // Minimum date for date input
+  editMode: boolean = false; // Flag to track if editing mode is active
+  editingJobId: number | undefined; // ID of the job being edited
 
   constructor(
     private fb: FormBuilder,
@@ -70,34 +72,57 @@ export class PostJobsComponent implements OnInit {
     console.log('Form submitted:', this.jobForm.valid); // Check form validity
     console.log('Form value:', this.jobForm.value); // Log form values
     this.formSubmitted = true;
+    
     if (this.jobForm.valid && this.employer) {
+      const formData = this.jobForm.value;
       const job: Job = {
-        ...this.jobForm.value,
+        ...formData,
         empId: this.employer.empId,
         companyName: this.employer.companyName,
         companyWebsite: this.employer.companyWebsite,
         dateofPosting: new Date() // Automatically set the current date
       };
   
-      this.jobService.postJob(job).subscribe(
-        (response) => {
-          console.log('Job posted successfully:', response);
-          this.loadJobs();
-          this.jobForm.reset();
-          this.formSubmitted = false;
-          this.showRecentPosts = true;
-        },
-        (error) => {
-          console.error('Error posting job:', error);
-          // Log more details about the error for debugging
-          console.error('Error details:', error);
-        }
-      );
+      if (this.editMode && this.editingJobId) {
+        // If editMode is true and editingJobId is defined, update the job
+        this.jobService.updateJob(this.editingJobId, job).subscribe(
+          (response) => {
+            console.log('Job updated successfully:', response);
+            this.loadJobs();
+            this.jobForm.reset();
+            this.formSubmitted = false;
+            this.showRecentPosts = true;
+            this.editMode = false; // Exit edit mode
+            this.editingJobId = undefined; // Clear editing job ID
+          },
+          (error) => {
+            console.error('Error updating job:', error);
+            // Log more details about the error for debugging
+            console.error('Error details:', error);
+          }
+        );
+      } else {
+        // Otherwise, post a new job
+        this.jobService.postJob(job).subscribe(
+          (response) => {
+            console.log('Job posted successfully:', response);
+            this.loadJobs();
+            this.jobForm.reset();
+            this.formSubmitted = false;
+            this.showRecentPosts = true;
+          },
+          (error) => {
+            console.error('Error posting job:', error);
+            // Log more details about the error for debugging
+            console.error('Error details:', error);
+          }
+        );
+      }
     } else {
       this.jobForm.markAllAsTouched(); // Mark all fields as touched to display validation errors
     }
   }
-
+  
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;
     const themeClass = this.isDarkMode ? 'dark-theme' : 'light-theme';
@@ -106,6 +131,8 @@ export class PostJobsComponent implements OnInit {
 
   editJob(job: Job): void {
     // Load job data into the form for editing
+    this.editMode = true;
+    this.editingJobId = job.jobId; // Set the editing job ID
     this.jobForm.patchValue({
       role: job.role,
       jobDescription: job.jobDescription,
