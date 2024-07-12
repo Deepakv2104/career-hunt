@@ -49,6 +49,13 @@ export class ApplicationDetailsDialogComponent {
       }
     );
   }
+
+  getTomorrowDate(): string {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+  }
   
 
   sendShortlisted(){
@@ -70,7 +77,7 @@ export class ApplicationDetailsDialogComponent {
       to_name: this.data.userProfile.user.username,
       jobRole: this.data.job.role,
       companyName: this.data.job.employer.companyName,
-      date: "bv",
+      date: this.getTomorrowDate(),
       time: "02:00 PM",
       link: "https://meet.google.com/zes-ubej-gce",
       to_email: this.data.userProfile.user.email,
