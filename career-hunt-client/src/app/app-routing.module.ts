@@ -17,6 +17,7 @@ import { OverviewComponent } from './admin-dashboard/overview/overview.component
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin-dashboard.component';
 import { FeedbackComponent } from './userdashboard/feedback/feedback.component';
 import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
+import { SearchComponent } from './admin-dashboard/search/search.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -56,6 +57,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: OverviewComponent, canActivate: [AuthGuardService] }, 
       { path: 'feedbacks', component: FeedbacksComponent, canActivate: [AuthGuardService] }, 
+      { path: 'search', component: SearchComponent, canActivate: [AuthGuardService] }, 
 
       // { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       // { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
