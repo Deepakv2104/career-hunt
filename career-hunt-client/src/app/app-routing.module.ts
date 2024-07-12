@@ -45,8 +45,8 @@ const routes: Routes = [
       { path: '', redirectTo: 'post-jobs', pathMatch: 'full' },
       { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
-
+      { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'search-people', component: FindPeopleComponent , canActivate: [AuthGuardService] } // Protect child routes
     ]
   },
   {

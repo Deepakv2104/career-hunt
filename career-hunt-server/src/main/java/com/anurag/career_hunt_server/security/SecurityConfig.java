@@ -81,6 +81,12 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,"/admin/allFeedbacks").hasAnyAuthority("ADMIN")
                 .requestMatchers(HttpMethod.POST,"/feedback/post").hasAnyAuthority("USER","EMPLOYER")
                 .requestMatchers(HttpMethod.GET,"/resume/viewResume/{resumeFilePath}").hasAnyAuthority("USER","EMPLOYER")
+                .requestMatchers(HttpMethod.GET,"/admin/user/{id}").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/userProfile/{id}").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/employer/{id}").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/job/{id}").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/jobApplication/{id}").hasAnyAuthority("ADMIN")
+                .requestMatchers(HttpMethod.GET,"/admin/feedback/{id}").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
             )
             .exceptionHandling(exceptionHandling ->
