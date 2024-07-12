@@ -66,6 +66,7 @@ export class PostJobsComponent implements OnInit {
       (jobs) => {
         this.jobs = jobs;
         this.loading = false;
+        this.updatePaginatedJobs(); // Update paginated jobs after loading
       },
       (error) => {
         console.error('Error fetching jobs:', error);
@@ -75,23 +76,19 @@ export class PostJobsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Submitting form...');
-    console.log('Form validity:', this.jobForm.valid);
-    console.log('Form value:', this.jobForm.value);
-  
     if (this.jobForm.invalid) {
       console.error('Form invalid. Cannot submit.');
       alert('Please fill out all required fields correctly.');
       return;
     }
-  
+
     this.formSubmitted = true;
-  
+
     if (!this.employer) {
       alert('Please update your profile before posting a job.');
       return;
     }
-  
+
     const formData = this.jobForm.value;
     const job: Job = {
       ...formData,
@@ -100,15 +97,14 @@ export class PostJobsComponent implements OnInit {
       companyWebsite: this.employer.companyWebsite,
       dateofPosting: new Date()
     };
-  
+
     if (this.editMode && this.editingJobId) {
       this.updateJob(job);
     } else {
       this.postNewJob(job);
     }
   }
-  
-  
+
   postNewJob(job: Job): void {
     if (this.jobForm.invalid) {
       console.error('Form invalid. Cannot submit.');
@@ -126,11 +122,10 @@ export class PostJobsComponent implements OnInit {
       (error) => {
         console.error('Error posting job:', error);
         alert('Error posting job. Please try again.');
-        console.error('Error details:', error);
       }
     );
   }
-  
+
   updateJob(job: Job): void {
     if (this.editingJobId !== undefined) {
       this.jobService.updateJob(this.editingJobId, job).subscribe(
@@ -147,7 +142,6 @@ export class PostJobsComponent implements OnInit {
         (error) => {
           console.error('Error updating job:', error);
           alert('Error updating job. Please try again.');
-          console.error('Error details:', error);
         }
       );
     } else {
@@ -155,11 +149,7 @@ export class PostJobsComponent implements OnInit {
       alert('Error updating job. Invalid editing job ID.');
     }
   }
-  
-  
-  
-  
-  
+
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;
     const themeClass = this.isDarkMode ? 'dark-theme' : 'light-theme';
@@ -167,7 +157,6 @@ export class PostJobsComponent implements OnInit {
   }
 
   editJob(job: Job): void {
-    // Load job data into the form for editing
     this.editMode = true;
     this.editingJobId = job.jobId; // Set the editing job ID
     this.jobForm.patchValue({
@@ -188,20 +177,20 @@ export class PostJobsComponent implements OnInit {
     if (jobId && confirm('Are you sure you want to delete this job?')) {
       this.jobService.deleteJob(jobId).subscribe(
         () => {
-          // Remove job from local array after successful deletion
           this.jobs = this.jobs.filter(job => job.jobId !== jobId);
+          this.updatePaginatedJobs(); // Update paginated jobs after deletion
         },
         (error) => {
           console.error('Error deleting job:', error);
-          // Handle error as needed
         }
       );
     } else {
       console.error('Invalid job ID:', jobId);
     }
   }
+
   updatePaginatedJobs(): void {
-    const startIndex = (this.currentPage-1) * this.itemsPerPage;
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.paginatedJobs = this.jobs.slice(startIndex, endIndex);
   }
