@@ -6,10 +6,11 @@
     
       <!-- Username Field -->
       <div class="mb-4">
-        <label for="username" class="block text-lg font-medium mb-2">Username</label>
+        <label for="username" class="block text-lg font-medium mb-2">Full Name</label>
         <input id="username" type="text" formControlName="username" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</div>
+          <div *ngIf="signupForm.get('username')?.errors?.['pattern']">Username must contain only letters</div>
         </div>
       </div>
 
@@ -29,6 +30,7 @@
         <input id="phoneNumber" type="tel" formControlName="phoneNumber" class="w-full p-2 border rounded-lg bg-gray-100 dark:bg-dark-gray-100 dark:text-dark-gray-900">
         <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid" class="text-red-500 mt-2">
           <div *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</div>
+          <div *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Phone number must be exactly 10 digits</div>
         </div>
       </div>
 

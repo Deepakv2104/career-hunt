@@ -1,3 +1,5 @@
+import { Employer } from "./job-application.model";
+
 export interface Job {
     jobId?: number;
     role: string;
@@ -11,6 +13,7 @@ export interface Job {
     requirements: string;
     dateofPosting:Date;
     lastDateToApply:Date;
+    employer: Employer
    empId: string;
    companyName: string;
    companyWebsite:string;
