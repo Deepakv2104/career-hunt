@@ -69,63 +69,90 @@ export class PostJobsComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log('Form submitted:', this.jobForm.valid); // Check form validity
-    console.log('Form value:', this.jobForm.value); // Log form values
+    console.log('Submitting form...');
+    console.log('Form validity:', this.jobForm.valid);
+    console.log('Form value:', this.jobForm.value);
+  
+    if (this.jobForm.invalid) {
+      console.error('Form invalid. Cannot submit.');
+      alert('Please fill out all required fields correctly.');
+      return;
+    }
+  
     this.formSubmitted = true;
+  
     if (!this.employer) {
-      // Show alert or notification to update profile
       alert('Please update your profile before posting a job.');
       return;
     }
-    if (this.jobForm.valid && this.employer) {
-      const formData = this.jobForm.value;
-      const job: Job = {
-        ...formData,
-        empId: this.employer.empId,
-        companyName: this.employer.companyName,
-        companyWebsite: this.employer.companyWebsite,
-        dateofPosting: new Date() // Automatically set the current date
-      };
   
-      if (this.editMode && this.editingJobId) {
-        // If editMode is true and editingJobId is defined, update the job
-        this.jobService.updateJob(this.editingJobId, job).subscribe(
-          (response) => {
-            console.log('Job updated successfully:', response);
-            this.loadJobs();
-            this.jobForm.reset();
-            this.formSubmitted = false;
-            this.showRecentPosts = true;
-            this.editMode = false; // Exit edit mode
-            this.editingJobId = undefined; // Clear editing job ID
-          },
-          (error) => {
-            console.error('Error updating job:', error);
-            // Log more details about the error for debugging
-            console.error('Error details:', error);
-          }
-        );
-      } else {
-        // Otherwise, post a new job
-        this.jobService.postJob(job).subscribe(
-          (response) => {
-            console.log('Job posted successfully:', response);
-            this.loadJobs();
-            this.jobForm.reset();
-            this.formSubmitted = false;
-            this.showRecentPosts = true;
-          },
-          (error) => {
-            console.error('Error posting job:', error);
-            // Log more details about the error for debugging
-            console.error('Error details:', error);
-          }
-        );
-      }
+    const formData = this.jobForm.value;
+    const job: Job = {
+      ...formData,
+      empId: this.employer.empId,
+      companyName: this.employer.companyName,
+      companyWebsite: this.employer.companyWebsite,
+      dateofPosting: new Date()
+    };
+  
+    if (this.editMode && this.editingJobId) {
+      this.updateJob(job);
     } else {
-      this.jobForm.markAllAsTouched(); // Mark all fields as touched to display validation errors
+      this.postNewJob(job);
     }
   }
+  
+  
+  postNewJob(job: Job): void {
+    if (this.jobForm.invalid) {
+      console.error('Form invalid. Cannot submit.');
+      return;
+    }
+    this.jobService.postJob(job).subscribe(
+      (response) => {
+        console.log('Job posted successfully:', response);
+        alert('Job posted successfully.');
+        this.loadJobs();
+        this.jobForm.reset();
+        this.formSubmitted = false;
+        this.showRecentPosts = true;
+      },
+      (error) => {
+        console.error('Error posting job:', error);
+        alert('Error posting job. Please try again.');
+        console.error('Error details:', error);
+      }
+    );
+  }
+  
+  updateJob(job: Job): void {
+    if (this.editingJobId !== undefined) {
+      this.jobService.updateJob(this.editingJobId, job).subscribe(
+        (response) => {
+          console.log('Job updated successfully:', response);
+          alert('Job updated successfully.');
+          this.loadJobs();
+          this.jobForm.reset();
+          this.formSubmitted = false;
+          this.showRecentPosts = true;
+          this.editMode = false;
+          this.editingJobId = undefined;
+        },
+        (error) => {
+          console.error('Error updating job:', error);
+          alert('Error updating job. Please try again.');
+          console.error('Error details:', error);
+        }
+      );
+    } else {
+      console.error('Invalid editingJobId:', this.editingJobId);
+      alert('Error updating job. Invalid editing job ID.');
+    }
+  }
+  
+  
+  
+  
   
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;

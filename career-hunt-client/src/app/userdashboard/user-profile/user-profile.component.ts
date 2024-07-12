@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { UserProfileService } from '../../services/userProfile/user-profile.service';
 import { UserProfile } from '../../model/user-profile.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -87,46 +87,48 @@ export class UserProfileComponent implements OnInit {
   setFormArrayValues(arrayName: string, values: any[]) {
     const formArray = this.profileForm.get(arrayName) as FormArray;
     formArray.clear();
-
+  
     values.forEach(value => {
       if (arrayName === 'education') {
         const educationFormGroup = this.fb.group({
-          level: [value.level],
-          schoolCollegeName: [value.schoolCollegeName],
-          specialization: [value.specialization],
-          yearOfPassing: [value.yearOfPassing],
-          cgpa: [value.cgpa]
+          level: [value.level, Validators.required],
+          schoolCollegeName: [value.schoolCollegeName, Validators.required],
+          specialization: [value.specialization, Validators.required],
+          yearOfPassing: [value.yearOfPassing, [Validators.required, Validators.pattern(/^\d{4}$/)]],
+          cgpa: [value.cgpa, [Validators.required, Validators.min(0), Validators.max(10)]]
         });
         formArray.push(educationFormGroup);
       } else if (arrayName === 'keySkills' || arrayName === 'languagesKnown' || arrayName === 'achievements' || arrayName === 'certifications') {
-        formArray.push(this.fb.control(value));
+        formArray.push(this.fb.control(value, Validators.required));
       } else if (arrayName === 'internships') {
         const internshipFormGroup = this.fb.group({
-          companyName: [value.companyName],
-          role: [value.role],
-          duration: [value.duration],
-          description: [value.description]
+          companyName: [value.companyName, Validators.required],
+          role: [value.role, Validators.required],
+          duration: [value.duration, Validators.required],
+          description: [value.description, Validators.required]
         });
         formArray.push(internshipFormGroup);
       } else if (arrayName === 'projects') {
         const projectFormGroup = this.fb.group({
-          projectName: [value.projectName],
-          description: [value.description],
-          duration: [value.duration]
+          projectName: [value.projectName, Validators.required],
+          description: [value.description, Validators.required],
+          duration: [value.duration, Validators.required]
         });
         formArray.push(projectFormGroup);
       } else {
-        formArray.push(this.fb.control(value));
+        formArray.push(this.fb.control(value, Validators.required));
       }
     });
   }
+  
+  
 
   createForm() {
     this.profileForm = this.fb.group({
-      gender: [''],
-      dateOfBirth: [''],
-      address: [''],
-      location: [''],
+      gender: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      address: ['', [Validators.required, Validators.minLength(10)]],
+      location: ['', Validators.required],
       education: this.fb.array([]),
       keySkills: this.fb.array([]),
       languagesKnown: this.fb.array([]),
@@ -134,19 +136,25 @@ export class UserProfileComponent implements OnInit {
       projects: this.fb.array([]),
       achievements: this.fb.array([]),
       certifications: this.fb.array([]),
-      resumeFilePath: ['']
+      resumeFilePath: ['', Validators.required]
     });
   }
+  
 
   createProfile() {
+    // if (this.profileForm.invalid) {
+    //   console.error('Form invalid. Cannot submit.');
+    //   return;
+    // }
+  
     const profileData = this.profileForm.value;
-
+  
     if (!this.resumeFile) {
       console.error('No resume file selected');
       alert('No resume file selected');
       return;
     }
-
+  
     this.profileService.createProfile(profileData, this.resumeFile)
       .subscribe(
         (response: UserProfile) => {
@@ -170,14 +178,32 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  updateProfile() {
-    const profileData = this.profileForm.value;
 
+  updateProfile() {
+    if (this.profileForm.invalid) {
+      console.error('Form invalid. Cannot submit.');
+      alert('Form invalid. Cannot submit.');
+
+      // Log errors for each form control
+      Object.keys(this.profileForm.controls).forEach(key => {
+        const controlErrors = this.profileForm.get(key)?.errors;
+        if (controlErrors != null) {
+          Object.keys(controlErrors).forEach(keyError => {
+            console.error(`Control '${key}' has error '${keyError}' with value '${controlErrors[keyError]}'`);
+          });
+        }
+      });
+  
+      return;
+    }
+  
+    const profileData = this.profileForm.value;
+  
     if (!this.resumeFile) {
       console.error('No resume file selected');
       return;
     }
-
+  
     this.profileService.updateProfile(profileData, this.resumeFile)
       .subscribe(
         (response: UserProfile) => {
@@ -195,7 +221,7 @@ export class UserProfileComponent implements OnInit {
         }
       );
   }
-
+  
   deleteProject(index: number): void {
     this.projectsForms.removeAt(index);
   }
@@ -243,14 +269,14 @@ export class UserProfileComponent implements OnInit {
     this.achievementsForms.push(this.fb.control(''));
   }
 
+  // Methods for adding skills and projects
   get keySkillsForms() {
     return this.profileForm.get('keySkills') as FormArray;
   }
 
   addKeySkill() {
-    this.keySkillsForms.push(this.fb.control(''));
+    this.keySkillsForms.push(this.fb.control('', Validators.required));
   }
-
   get languagesKnownForms() {
     return this.profileForm.get('languagesKnown') as FormArray;
   }
@@ -271,28 +297,29 @@ export class UserProfileComponent implements OnInit {
     return this.profileForm.get('education') as FormArray;
   }
 
+  
   addEducation() {
     const educationFormGroup = this.fb.group({
-      level: [''],
-      schoolCollegeName: [''],
-      specialization: [''],
-      yearOfPassing: [''],
-      cgpa: ['']
+      level: ['', Validators.required],
+      schoolCollegeName: ['', Validators.required],
+      specialization: ['', Validators.required],
+      yearOfPassing: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
+      cgpa: ['', [Validators.required, Validators.min(0), Validators.max(10)]]
     });
-
+  
     this.educationForms.push(educationFormGroup);
   }
+  
 
   get internshipsForms() {
     return this.profileForm.get('internships') as FormArray;
   }
-
   addInternships() {
     const internshipFormGroup = this.fb.group({
-      companyName: [''],
-      role: [''],
-      duration: [''],
-      description: ['']
+      companyName: ['', Validators.required],
+      role: ['', Validators.required],
+      duration: ['', Validators.required],
+      description: ['', Validators.required]
     });
 
     this.internshipsForms.push(internshipFormGroup);
@@ -304,9 +331,9 @@ export class UserProfileComponent implements OnInit {
 
   addProjects() {
     const projectFormGroup = this.fb.group({
-      projectName: [''],
-      description: [''],
-      duration: ['']
+      projectName: ['', Validators.required],
+      description: ['',Validators.required],
+      duration: ['', Validators.required]
     });
 
     this.projectsForms.push(projectFormGroup);

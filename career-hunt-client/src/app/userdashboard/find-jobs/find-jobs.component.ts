@@ -4,6 +4,9 @@ import { Job } from '../../model/job.model';  // Adjust the import path as neede
 import { JobApplicationService } from 'src/app/services/job-application/job-application.service';
 import { JobApplication } from '../../model/job-application.model'; // Adjust the import path as needed
 import { UserProfile } from 'src/app/model/user-profile.model';
+import { EmailJSResponseStatus } from '@emailjs/browser';
+import emailjs from '@emailjs/browser'
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-find-jobs',
@@ -26,11 +29,22 @@ export class FindJobsComponent implements OnInit {
   types: string[] = [];
   experiences: string[] = [];
   domains: string[] = [];
-
-  constructor(private userProfileService: UserProfileService,private jobApplicationService: JobApplicationService) { }
+  username = '';
+  email = ''
+  constructor(private userProfileService: UserProfileService,private jobApplicationService: JobApplicationService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.fetchJobs();
+    this.authService.isLoggedInObservable().subscribe(loggedIn => {
+      if (loggedIn) {
+        this.username = this.authService.getUsername() || '';
+        this.email = this.authService.getUserEmail() || '';
+      } else {
+        this.username = ''; // Reset username if not logged in
+        this.email = '';
+      }
+    });
+    
   }
 
   loadProfileDetails(): void {
@@ -106,10 +120,16 @@ export class FindJobsComponent implements OnInit {
       .toUpperCase()
       .substring(0, 2);
   }
-  applyForJob(jobId?: number) {
+
+
+
+  applyForJob(jobId?: number,companyName?:string,companyEmail?:string,role?:string) {
     if (!jobId) {
       console.error('Job ID is undefined');
       alert('Invalid job selection. Please try again.');
+     
+     
+        
       return;
     }
   
@@ -122,6 +142,16 @@ export class FindJobsComponent implements OnInit {
             (response) => {
               console.log('Job application successful', response);
               alert('You have successfully applied for the job!');
+              emailjs.init('mUxPgkv6Rehc984Rf')
+            emailjs.send("service_ci0g3a5","template_ifwkf9o",{
+              from_name:"CareerHunt",
+              to_name: this.username,
+              jobrole:role,
+              to_email: this.email,
+              companyName:companyName,
+              reply_to: "",
+              });
+          
             },
             (error) => {
               console.error('Error applying for the job', error);

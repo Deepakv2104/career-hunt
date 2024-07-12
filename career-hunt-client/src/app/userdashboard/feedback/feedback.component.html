@@ -2,10 +2,33 @@
 <div>
   <div class="mb-4">
     <label for="feedbackText" class="block text-sm font-medium text-gray-700">Feedback</label>
-    <textarea id="feedbackText" [(ngModel)]="feedbackText" placeholder="Enter your feedback" rows="5" class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+    <textarea id="feedbackText"
+              [(ngModel)]="feedbackText"
+              name="feedbackText"
+              #feedbackTextRef="ngModel"
+              placeholder="Enter your feedback"
+              rows="5"
+              class="mt-1 p-2 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              required
+              minlength="10"
+              maxlength="500"></textarea>
+    <div *ngIf="feedbackTextRef.invalid && (feedbackTextRef.dirty || feedbackTextRef.touched)"
+         class="text-red-600 text-sm mt-1">
+      <div *ngIf="feedbackTextRef.errors?.['required']">
+        Feedback is required.
+      </div>
+      <div *ngIf="feedbackTextRef.errors?.['minlength']">
+        Feedback must be at least 10 characters long.
+      </div>
+      <div *ngIf="feedbackTextRef.errors?.['maxlength']">
+        Feedback cannot exceed 500 characters.
+      </div>
+    </div>
   </div>
 </div>
 <div class="flex justify-end space-x-2">
   <button mat-button (click)="onCancel()" class="px-4 py-2 bg-gray-200 rounded-md">Cancel</button>
-  <button mat-button color="primary" (click)="submitFeedback()" class="px-4 py-2 bg-indigo-600 text-white rounded-md">Submit</button>
+  <button mat-button color="primary" (click)="submitFeedback()"
+          [disabled]="feedbackTextRef.invalid"
+          class="px-4 py-2 bg-indigo-600 text-white rounded-md">Submit</button>
 </div>
