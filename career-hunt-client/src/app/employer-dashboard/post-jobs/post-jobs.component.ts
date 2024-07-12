@@ -20,6 +20,10 @@ export class PostJobsComponent implements OnInit {
   minDate: string; // Minimum date for date input
   editMode: boolean = false; // Flag to track if editing mode is active
   editingJobId: number | undefined; // ID of the job being edited
+  paginatedJobs: Job[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 3;
+  loading: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -61,9 +65,11 @@ export class PostJobsComponent implements OnInit {
     this.jobService.getJobs().subscribe(
       (jobs) => {
         this.jobs = jobs;
+        this.loading = false;
       },
       (error) => {
         console.error('Error fetching jobs:', error);
+        this.loading = false;
       }
     );
   }
@@ -192,6 +198,25 @@ export class PostJobsComponent implements OnInit {
       );
     } else {
       console.error('Invalid job ID:', jobId);
+    }
+  }
+  updatePaginatedJobs(): void {
+    const startIndex = (this.currentPage-1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedJobs = this.jobs.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage * this.itemsPerPage < this.jobs.length) {
+      this.currentPage++;
+      this.updatePaginatedJobs();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedJobs();
     }
   }
 }

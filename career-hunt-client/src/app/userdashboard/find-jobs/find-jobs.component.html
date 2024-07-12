@@ -44,18 +44,20 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       <div
         *ngFor="let job of filteredJobs"
-        class="bg-white dark:bg-gray-700 shadow-lg rounded-lg p-6 hover:shadow-xl overflow-hidden transition-all duration-300 hover:transform hover:scale-105"
+        class="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-6 hover:shadow-xl overflow-hidden transition-all duration-300 hover:transform hover:scale-105"
         (click)="handleCardClick(job)"
       >
         <h2 class="text-2xl font-semibold mb-2">{{ job.role }}</h2>
         <p class="text-gray-600 dark:text-gray-300 mb-1">{{ job.companyName }}</p>
         <p class="text-gray-600 dark:text-gray-300 mb-3">{{ job.location }}</p>
-        <p class="text-gray-600 dark:text-gray-300 mb-4">{{ job.jobDescription }}</p>
-        <div class="flex justify-between items-center">
-          <div style="display: inline;">
-            <div class="text-sm text-gray-600 dark:text-gray-300">Eligibility: {{ job.eligibility}}</div>
-            <div class="text-sm text-gray-600 dark:text-gray-300">Last Date to Apply: {{ job.lastDateToApply| date:'dd-MM-yyyy' }}</div>
-          </div>
+        <!-- <p class="text-gray-600 dark:text-gray-300 mb-4">{{ job.jobDescription }}</p> -->
+        <div class="text-sm text-gray-600 dark:text-gray-300">Eligibility: {{ job.eligibility}}</div>
+
+        <div class="flex justify-between items-center mt-2">
+          <!-- <div style="display: inline;"> -->
+            <span class="text-sm text-gray-600 dark:text-gray-300">Last Date to Apply: {{ job.lastDateToApply| date:'dd-MM-yyyy' }}</span>
+
+          <!-- </div> -->
           <span class="px-3 py-1 bg-blue-500 text-white rounded-full">{{ job.type }}</span>
         </div>
       </div>
@@ -67,12 +69,17 @@
       <button class="text-gray-800 text-2xl font-bold mb-4 focus:outline-none" (click)="closeSidebar()">
         &times;
       </button>
+      <div class="flex justify-between items-center">
+
       <h2 class="text-3xl font-bold mb-4 text-gray-600 dark:text-gray-200"> {{ selectedJob.role }}</h2>
+      <span class="px-3 py-1 bg-blue-500 text-white rounded-full">{{ selectedJob.type }}</span>
+    </div>
+
       <p class="text-gray-600 dark:text-gray-300 mb-2">Company: {{ selectedJob.companyName }}</p>
       <p class="text-gray-600 dark:text-gray-300 mb-4">Location: {{ selectedJob.location }}</p>
       <p class="text-gray-600 dark:text-gray-300 mb-4">Eligibility: {{ selectedJob.eligibility }}</p>
       <p class="text-gray-600 dark:text-gray-300 mb-4">Experience: {{ selectedJob.experience }} years</p>
-      <p class="text-gray-600 dark:text-gray-300 mb-4">Salary: {{ selectedJob.salary }} years</p>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">Salary: {{ selectedJob.salary }} LPA</p>
 
       <h3 class="text-xl font-semibold mb-2 text-gray-600 dark:text-gray-200">Job Description</h3>
       <p class="text-gray-600 dark:text-gray-300 mb-4">{{ selectedJob.jobDescription }}</p>
@@ -82,7 +89,6 @@
       <p class="text-gray-600 dark:text-gray-300 mb-4">{{ selectedJob.requirements }}</p>
       <div class="flex justify-between items-center">
         <span class="text-sm text-gray-600 dark:text-gray-300">Last Date to Apply: {{ selectedJob.lastDateToApply| date:'dd-MM-yyyy' }}</span>
-        <span class="px-3 py-1 bg-blue-500 text-white rounded-full">{{ selectedJob.type }}</span>
       </div>
        <button 
         class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
