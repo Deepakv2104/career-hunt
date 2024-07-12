@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,15 @@ export class AuthService {
   }
 
   register(email: string, username: string, phoneNumber: string, password: string, role: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { email, username, phoneNumber, password, role });
+    return this.http.post(`${this.apiUrl}/register`, { email, username, phoneNumber, password, role }).pipe(
+      catchError(error => {
+        // Handle specific error cases
+        if (error.status === 409) {  // Assuming 409 Conflict for duplicate email
+          return throwError(() => new Error('Email already exists.'));
+        }
+        return throwError(() => new Error('Registration failed.'));
+      })
+    );
   }
 
   login(email: string, password: string): Observable<{ token: string, username: string, email: string, role: string }> {
