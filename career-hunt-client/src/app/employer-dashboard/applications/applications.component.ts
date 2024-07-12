@@ -13,6 +13,16 @@ import { ResumeService } from '../../services/resume/resume.service';
 })
 export class ApplicationsComponent implements OnInit {
   applications: JobApplication[] = [];
+  filteredApplications: JobApplication[] = [];
+
+  searchText: string = '';
+  selectedRole: string = '';
+  selectedLocation: string = '';
+  selectedStatus: string = '';
+
+  uniqueRoles: string[] = [];
+  uniqueLocations: string[] = [];
+  uniqueStatuses: string[] = [];
 
   constructor(
     private jobApplicationService: JobApplicationService,
@@ -25,12 +35,28 @@ export class ApplicationsComponent implements OnInit {
     this.loadApplicationsForEmployer();
   }
 
-
+  filterApplications(): void {
+    this.filteredApplications = this.applications.filter(app => {
+      return (
+        (this.searchText === '' || app.job.role.toLowerCase().includes(this.searchText.toLowerCase()) || 
+         app.user.username.toLowerCase().includes(this.searchText.toLowerCase())) &&
+        (this.selectedRole === '' || app.job.role === this.selectedRole) &&
+        (this.selectedLocation === '' || app.job.location === this.selectedLocation) &&
+        (this.selectedStatus === '' || app.status === this.selectedStatus)
+      );
+    });
+  }
 
   loadApplicationsForEmployer() {
     this.jobApplicationService.getApplicationsForEmployer().subscribe(
       (applications: JobApplication[]) => {
         this.applications = applications;
+        this.filteredApplications = applications;
+
+        // Extract unique roles, locations, and statuses
+        this.uniqueRoles = [...new Set(applications.map(app => app.job.role))];
+        this.uniqueLocations = [...new Set(applications.map(app => app.job.location))];
+        this.uniqueStatuses = [...new Set(applications.map(app => app.status))];
       },
       (error) => {
         console.log('Error fetching applications:', error);
@@ -41,7 +67,7 @@ export class ApplicationsComponent implements OnInit {
 
   openApplicationDetailsDialog(application: JobApplication): void {
     const dialogRef = this.dialog.open(ApplicationDetailsDialogComponent, {
-      width: '500px',
+      width: '800px',
       data: application
     });
 

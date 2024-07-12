@@ -1,120 +1,140 @@
-<div class="overflow-y-auto max-h-[80vh] overflow-x-hidden">
-    <h2 class="text-2xl font-bold mb-4">Application Details</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div>
-            <p class="font-bold">Application ID:</p>
-            <p>{{ data.applicationId }}</p>
+<div class="h-auto flex items-center justify-center rounded-xl  overflow-y-auto">
+    <div class="max-w-4xl w-full mx-auto  rounded-xl shadow-md  max-h-[100vh] flex flex-col">
+        <!-- Header -->
+
+        <div class="bg-gray-600 p-2 text-white flex flex-col items-start space-y-2">
+            <p class="text-lg m-2">Application ID  {{ data.applicationId }}</p>
         </div>
-        <div>
-            <p class="font-bold">Job Role:</p>
-            <p>{{ data.job.role }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Location:</p>
-            <p>{{ data.job.location }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Applicant Name:</p>
-            <p>{{ data.user.username }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Applicant Email:</p>
-            <p>{{ data.user.email }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Applicant Phone:</p>
-            <p>{{ data.user.phoneNumber }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Applicant Gender:</p>
-            <p>{{ data.userProfile.gender }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Date of Birth:</p>
-            <p>{{ data.userProfile.dateOfBirth | date }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Address:</p>
-            <p>{{ data.userProfile.address }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Education:</p>
-            <ul>
-                <li *ngFor="let education of data.userProfile.education">
-                    {{ education.level }} in {{ education.specialization }} from {{ education.schoolCollegeName }},
-                    {{ education.yearOfPassing }}
-                </li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Key Skills:</p>
-            <ul>
-                <li *ngFor="let skill of data.userProfile.keySkills">{{ skill }}</li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Languages Known:</p>
-            <ul>
-                <li *ngFor="let language of data.userProfile.languagesKnown">{{ language }}</li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Internships:</p>
-            <ul>
-                <li *ngFor="let internship of data.userProfile.internships">
-                    {{ internship.role }} at {{ internship.companyName }} ({{ internship.duration }}): {{ internship.description }}
-                </li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Projects:</p>
-            <ul>
-                <li *ngFor="let project of data.userProfile.projects">
-                    {{ project.projectName }} ({{ project.duration }}): {{ project.description }}
-                </li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Achievements:</p>
-            <ul>
-                <li *ngFor="let achievement of data.userProfile.achievements">{{ achievement }}</li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Certifications:</p>
-            <ul>
-                <li *ngFor="let certification of data.userProfile.certifications">{{ certification }}</li>
-            </ul>
-        </div>
-        <div>
-            <p class="font-bold">Resume:</p>
-            <button (click)="viewResume()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                View Resume
-            </button>
-        </div>
-        <div>
-            <p class="font-bold">Application Date:</p>
-            <p>{{ data.applicationDate | date }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Application Status:</p>
-            <p>{{ data.status }}</p>
-        </div>
-        <div>
-            <p class="font-bold">Application Status:</p>
-            <select [(ngModel)]="selectedStatus" class="p-2 border rounded">
-                <!-- <option value="in-progress">in-progress</option> -->
-                <option value="Shortlisted">Shortlisted</option>
-                <option value="ScheduleInterview">Schedule Interview</option>
-                <option value="Selected">Selected</option>
-                <option value="Rejected">Rejected</option>
-                <!-- Add other statuses as needed -->
-            </select>
-        </div>
-        <div>
-            <button (click)="updateStatus()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Update Status
-            </button>
+        <!-- Content -->
+        <div class="p-6">
+
+            <!-- Job and Applicant Info -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <h3 class="text-xl text-bold font-semibold mb-4">Job Information</h3>
+                    <p><span class="font-medium">Role:</span> {{ data.job.role }}</p>
+                    <p><span class="font-medium">Location:</span> {{ data.job.location }}</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Applicant Information</h3>
+                    <p><span class="font-medium">Name:</span> {{ data.user.username }}</p>
+                    <p><span class="font-medium">Email:</span> {{ data.user.email }}</p>
+                    <p><span class="font-medium">Phone:</span> {{ data.user.phoneNumber }}</p>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="mb-6">
+                <ul class="flex border-b cursor-pointer">
+                    <li class="mr-1" *ngFor="let tab of ['Profile', 'Education', 'Skills', 'Experience', 'Documents']">
+                        <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+                            [ngClass]="{'border-l border-t border-r rounded-t text-blue-800': activeTab === tab}"
+                            (click)="activeTab = tab">{{ tab }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tab Content -->
+            <div [ngSwitch]="activeTab">
+                <!-- Profile -->
+                <div *ngSwitchCase="'Profile'">
+                    <h3 class="text-xl font-semibold mb-4">Personal Details</h3>
+                    <p><span class="font-medium">Gender:</span> {{ data.userProfile.gender }}</p>
+                    <p><span class="font-medium">Date of Birth:</span> {{ data.userProfile.dateOfBirth | date }}</p>
+                    <p><span class="font-medium">Address:</span> {{ data.userProfile.address }}</p>
+                </div>
+
+                <!-- Education -->
+                <div *ngSwitchCase="'Education'">
+                    <h3 class="text-xl font-semibold mb-4">Education</h3>
+                    <div *ngFor="let education of data.userProfile.education" class="mb-4">
+                        <p class="font-medium">{{ education.level }} in {{ education.specialization }}</p>
+                        <p>{{ education.schoolCollegeName }}, {{ education.yearOfPassing }}</p>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div *ngSwitchCase="'Skills'">
+                    <h3 class="text-xl font-semibold mb-4">Skills and Languages</h3>
+                    <div class="mb-4">
+                        <h4 class="font-medium">Key Skills</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span *ngFor="let skill of data.userProfile.keySkills"
+                                class="bg-blue-100 text-blue-800 px-2 py-1 rounded">{{ skill }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-medium">Languages</h4>
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            <span *ngFor="let language of data.userProfile.languagesKnown"
+                                class="bg-green-100 text-green-800 px-2 py-1 rounded">{{ language }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div *ngSwitchCase="'Experience'">
+                    <h3 class="text-xl font-semibold mb-4">Experience</h3>
+                    <div class="mb-6">
+                        <h4 class="font-medium mb-2">Internships</h4>
+                        <div *ngFor="let internship of data.userProfile.internships" class="mb-4">
+                            <p class="font-medium">{{ internship.role }} at {{ internship.companyName }}</p>
+                            <p class="text-sm text-gray-600">{{ internship.duration }}</p>
+                            <p>{{ internship.description }}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2">Projects</h4>
+                        <div *ngFor="let project of data.userProfile.projects" class="mb-4">
+                            <p class="font-medium">{{ project.projectName }}</p>
+                            <p class="text-sm text-gray-600">{{ project.duration }}</p>
+                            <p>{{ project.description }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documents -->
+                <div *ngSwitchCase="'Documents'">
+                    <h3 class="text-xl font-semibold mb-4">Documents</h3>
+                    <button (click)="viewResume()"
+                        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">
+                        View Resume
+                    </button>
+                </div>
+            </div>
+
+            <!-- Application Status -->
+            <div class="mt-8 border-t pt-6">
+                <h3 class="text-xl font-semibold mb-4">Application Status</h3>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p><span class="font-medium">Current Status:</span>
+                            <span [ngClass]="{
+                  'text-yellow-600': data.status === 'Pending',
+                  'text-blue-500': data.status === 'Shortlisted',
+                  'text-green-600': data.status === 'Selected',
+                  'text-red-600': data.status === 'Rejected'
+                }">{{ data.status }}</span>
+                        </p>
+                        <p><span class="font-medium">Application Date:</span> {{ data.applicationDate | date }}</p>
+                    </div>
+                    <div>
+                        <select [(ngModel)]="selectedStatus" id="status"
+        class="border rounded px-3 py-2 mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="" disabled>Select status</option>
+    <option value="Shortlisted">Shortlisted</option>
+    <option value="ScheduleInterview">Schedule Interview</option>
+    <option value="Selected">Selected</option>
+    <option value="Rejected">Rejected</option>
+</select>
+
+                        <button (click)="updateStatus()"
+                            class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">
+                            Update Status
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { JobApplication } from '../../model/job-application.model';
 import { JobApplicationService } from '../../services/job-application/job-application.service';
@@ -12,9 +12,9 @@ import emailjs from '@emailjs/browser'
   selector: 'app-application-details-dialog',
   templateUrl: './application-details-dialog.component.html',
 })
-export class ApplicationDetailsDialogComponent {
+export class ApplicationDetailsDialogComponent implements OnInit {
   selectedStatus: string;
-
+    activeTab: string = 'Profile';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: JobApplication,
     private jobApplicationService: JobApplicationService,
@@ -23,7 +23,9 @@ export class ApplicationDetailsDialogComponent {
   ) {
     this.selectedStatus = data.status;  // Initialize with the current status
   }
-
+  ngOnInit(): void {
+    this.selectedStatus = ""; // Initialize selectedStatus with an empty string
+  }
   updateStatus() {
     this.jobApplicationService.updateApplicationStatus(this.data.applicationId, this.selectedStatus).subscribe(
       updatedApplication => {
