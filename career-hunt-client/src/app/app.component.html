@@ -17,7 +17,7 @@
         <a *ngIf="!isLoggedIn()" href="/signup" class="text-gray-100 hover:text-pink-600 dark:text-white dark:hover:text-pink-600">SignUp</a>
         
         <!-- Conditional rendering for logged-in user with role USER -->
-        <a *ngIf="isLoggedIn() && isUserRole('USER')" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Post Jobs</a>
+        <!-- <a *ngIf="isLoggedIn() && isUserRole('USER')" href="#" class="text-gray-100 hover:text-gray-600 dark:text-white">Post Jobs</a> -->
         
         <!-- Include Theme Toggle Component -->
         <app-theme-toggle></app-theme-toggle>

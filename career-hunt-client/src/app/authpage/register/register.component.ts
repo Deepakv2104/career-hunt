@@ -60,7 +60,11 @@ export class RegisterComponent implements OnInit {
         },
         error => {
           console.error('Registration failed', error);
-          alert('Registration failed: ' + error.message); // Show error message
+          if (error.message === 'Email already exists.') {
+            alert('The email address is already in use. Please use a different email.');
+          } else {
+            alert('Registration failed: ' + error.message); // Show a general error message
+          }
         }
       );
     } else {
