@@ -1,0 +1,175 @@
+<div class="container mx-auto px-4 py-8">
+    <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Search Page for Admin</h2>
+    
+    <!-- Search Bar -->
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4 mb-8">
+      <input type="text" placeholder="Search..." class="p-2 w-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    </div>
+  
+    <!-- Data Sections -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <!-- Users -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Users</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="users.length > 0; else noUsersFound">
+              <tr *ngFor="let user of users">
+                <td class="px-6 py-4 whitespace-nowrap">{{ user.username }}</td>
+                <!-- Add more table cells for additional user details -->
+              </tr>
+            </ng-container>
+            <ng-template #noUsersFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No users found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Employers -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Employers</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="employers.length > 0; else noEmployersFound">
+              <tr *ngFor="let employer of employers">
+                <td class="px-6 py-4 whitespace-nowrap">{{ employer.companyName }}</td>
+                <!-- Add more table cells for additional employer details -->
+              </tr>
+            </ng-container>
+            <ng-template #noEmployersFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No employers found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Jobs -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Jobs</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="jobs.length > 0; else noJobsFound">
+              <tr *ngFor="let job of jobs">
+                <td class="px-6 py-4 whitespace-nowrap">{{ job.role }}</td>
+                <!-- Add more table cells for additional job details -->
+              </tr>
+            </ng-container>
+            <ng-template #noJobsFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No jobs found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Job Applications -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Job Applications</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Application ID</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="jobApplications.length > 0; else noJobApplicationsFound">
+              <tr *ngFor="let application of jobApplications">
+                <td class="px-6 py-4 whitespace-nowrap">{{ application.applicationId }}</td>
+                <!-- Add more table cells for additional job application details -->
+              </tr>
+            </ng-container>
+            <ng-template #noJobApplicationsFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No job applications found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- User Profiles -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">User Profiles</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="userProfiles.length > 0; else noUserProfilesFound">
+              <tr *ngFor="let profile of userProfiles">
+                <td class="px-6 py-4 whitespace-nowrap">{{ profile.user.username }}</td>
+                <!-- Add more table cells for additional user profile details -->
+              </tr>
+            </ng-container>
+            <ng-template #noUserProfilesFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No user profiles found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Employer Profiles -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Employer Profiles</h3>
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
+              <!-- Add more table headers if needed -->
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <ng-container *ngIf="employers.length > 0; else noEmployerProfilesFound">
+              <tr *ngFor="let profile of employers">
+                <td class="px-6 py-4 whitespace-nowrap">{{ profile.companyName }}</td>
+                <!-- Add more table cells for additional employer profile details -->
+              </tr>
+            </ng-container>
+            <ng-template #noEmployerProfilesFound>
+              <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" colspan="1">No employer profiles found</td>
+              </tr>
+            </ng-template>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Total Selected Candidates -->
+      <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-4">
+        <h3 class="text-xl font-semibold text-indigo-600 mb-4">Total Selected Candidates</h3>
+        <p class="text-gray-800 dark:text-white">Count: 100</p>
+        <!-- Display more details or additional counts as needed -->
+      </div>
+    </div>
+  </div>
+  

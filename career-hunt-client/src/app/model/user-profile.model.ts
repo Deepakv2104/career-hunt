@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export interface UserProfile {
 
   gender: string;
@@ -12,6 +14,7 @@ export interface UserProfile {
   achievements: string[];
   certifications: string[];
   resumeFilePath: string;
+  user:User
   // user?: {
   //   email: string;
   //   username: string;

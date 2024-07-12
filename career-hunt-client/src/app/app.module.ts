@@ -30,6 +30,7 @@ import { FeedbackComponent } from './userdashboard/feedback/feedback.component';
 import { FeedbackService } from './services/feedback/feedback.service';
 import { MatInputModule } from '@angular/material/input';
 import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
+import { SearchComponent } from './admin-dashboard/search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.compon
           ApplicationDetailsDialogComponent,
           OverviewComponent,
           FeedbackComponent,
-          FeedbacksComponent
+          FeedbacksComponent,
+          SearchComponent,
          
 
    
