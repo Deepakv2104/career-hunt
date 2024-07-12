@@ -32,6 +32,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
 import { SearchComponent } from './admin-dashboard/search/search.component';
 import { ReplyDialogComponent } from './admin-dashboard/reply-dialog/reply-dialog/reply-dialog.component';
+import { SupportPageComponent } from './admin-dashboard/support-page/support-page/support-page.component';
+import { HelpDeskComponent } from './userdashboard/help-desk/help-desk/help-desk.component';
+import { MaintenanceComponent } from './admin-dashboard/maintenance/maintenance/maintenance.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +60,9 @@ import { ReplyDialogComponent } from './admin-dashboard/reply-dialog/reply-dialo
           FeedbacksComponent,
           SearchComponent,
           ReplyDialogComponent,
+          SupportPageComponent,
+          HelpDeskComponent,
+          MaintenanceComponent,
          
 
    

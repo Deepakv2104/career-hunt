@@ -18,6 +18,9 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard/admin
 import { FeedbackComponent } from './userdashboard/feedback/feedback.component';
 import { FeedbacksComponent } from './admin-dashboard/feedbacks/feedbacks.component';
 import { SearchComponent } from './admin-dashboard/search/search.component';
+import { SupportPageComponent } from './admin-dashboard/support-page/support-page/support-page.component';
+import { HelpDeskComponent } from './userdashboard/help-desk/help-desk/help-desk.component';
+import { MaintenanceComponent } from './admin-dashboard/maintenance/maintenance/maintenance.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,6 +37,7 @@ const routes: Routes = [
       { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
       { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService] },
+      { path: 'support', component: HelpDeskComponent , canActivate: [AuthGuardService] } // Protect child routes
 
     ]
   },
@@ -46,7 +50,9 @@ const routes: Routes = [
       { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'search-people', component: FindPeopleComponent , canActivate: [AuthGuardService] } // Protect child routes
+      { path: 'search-people', component: FindPeopleComponent , canActivate: [AuthGuardService] }, // Protect child routes
+      { path: 'help', component: HelpDeskComponent , canActivate: [AuthGuardService] } // Protect child routes
+
     ]
   },
   {
@@ -58,6 +64,9 @@ const routes: Routes = [
       { path: 'overview', component: OverviewComponent, canActivate: [AuthGuardService] }, 
       { path: 'feedbacks', component: FeedbacksComponent, canActivate: [AuthGuardService] }, 
       { path: 'search', component: SearchComponent, canActivate: [AuthGuardService] }, 
+      { path: 'support', component: SupportPageComponent, canActivate: [AuthGuardService] }, 
+      { path: 'maintenance', component: MaintenanceComponent, canActivate: [AuthGuardService] }, 
+
 
       // { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
       // { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes

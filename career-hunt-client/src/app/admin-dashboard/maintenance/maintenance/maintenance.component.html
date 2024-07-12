@@ -1,0 +1,107 @@
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+
+  
+    <!-- Main content -->
+    <main class="flex-1 p-6">
+      <header class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-semibold dark:text-gray-200">Maintenance</h1>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add Maintenance Task</button>
+      </header>
+  
+      <!-- Server Status -->
+      <section class="mb-6">
+        <h2 class="text-xl font-semibold mb-4 dark:text-gray-200">Server Status</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="p-4 bg-white dark:bg-gray-800 rounded shadow-md">
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200">Server 1</h3>
+            <p class="text-gray-600 dark:text-gray-400">Status: <span class="text-green-600 dark:text-green-400">Operational</span></p>
+            <p class="text-gray-600 dark:text-gray-400">Uptime: 99.99%</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded shadow-md">
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200">Server 2</h3>
+            <p class="text-gray-600 dark:text-gray-400">Status: <span class="text-yellow-600 dark:text-yellow-400">Maintenance</span></p>
+            <p class="text-gray-600 dark:text-gray-400">Uptime: 98.76%</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded shadow-md">
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200">Server 3</h3>
+            <p class="text-gray-600 dark:text-gray-400">Status: <span class="text-red-600 dark:text-red-400">Down</span></p>
+            <p class="text-gray-600 dark:text-gray-400">Uptime: 96.54%</p>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Scheduled Maintenance -->
+      <section class="mb-6">
+        <h2 class="text-xl font-semibold mb-4 dark:text-gray-200">Scheduled Maintenance</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+            <thead class="bg-gray-300 dark:bg-gray-700">
+              <tr>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">ID</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Task</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Server</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Scheduled Date</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Status</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">1</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Update Software</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Server 1</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2024-07-20</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Pending</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                  <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">Edit</button>
+                  <button class="text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                </td>
+              </tr>
+              <!-- Additional rows here -->
+              <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Backup Data</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Server 2</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2024-07-22</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">In Progress</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                  <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">Edit</button>
+                  <button class="text-red-600 dark:text-red-400 hover:underline">Delete</button>
+                </td>
+              </tr>
+              <!-- Additional rows here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+  
+      <!-- System Logs -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4 dark:text-gray-200">System Logs</h2>
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+            <thead class="bg-gray-300 dark:bg-gray-700">
+              <tr>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Timestamp</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Event</th>
+                <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2024-07-13 10:00:00</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Server Restart</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Server 1 was restarted.</td>
+              </tr>
+              <!-- Additional rows here -->
+              <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2024-07-12 14:00:00</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Security Patch</td>
+                <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Security patch applied to Server 2.</td>
+              </tr>
+              <!-- Additional rows here -->
+            </tbody>
+          </table>
+        </div>
+     
+  

@@ -1,0 +1,109 @@
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+ 
+  
+    <!-- Main content -->
+    <main class="flex-1 p-6">
+      <header class="flex justify-between items-center mb-4">
+        <h1 class="text-2xl font-semibold dark:text-gray-200">Support Queries</h1>
+        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Create New Query</button>
+      </header>
+  
+      <!-- Filters -->
+      <div class="flex space-x-4 mb-4">
+        <select class="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200">
+          <option>Status</option>
+          <option>Pending</option>
+          <option>Resolved</option>
+        </select>
+        <select class="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200">
+          <option>Priority</option>
+          <option>Low</option>
+          <option>Medium</option>
+          <option>High</option>
+        </select>
+        <input
+          type="date"
+          class="p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200"
+        />
+        <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Apply Filters</button>
+      </div>
+  
+      <!-- Search bar -->
+      <div class="mb-6">
+        <input
+          type="text"
+          class="w-full p-2 border border-gray-300 rounded dark:bg-gray-700 dark:text-gray-200"
+          placeholder="Search queries..."
+        />
+      </div>
+  
+      <!-- Queries table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700">
+          <thead class="bg-gray-300 dark:bg-gray-700">
+            <tr>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">ID</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Email</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Subject</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Message</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Status</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Priority</th>
+              <th class="px-4 py-2 border border-gray-300 dark:border-gray-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">1</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">userexample.com</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Login Issue</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">I cannot log in to my account...</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Pending</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">High</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">View</button>
+                <button class="text-green-600 dark:text-green-400 hover:underline mr-2">Reply</button>
+                <button class="text-red-600 dark:text-red-400 hover:underline">Resolve</button>
+              </td>
+            </tr>
+            <!-- Additional rows here -->
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">2</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">adminexample.com</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Password Reset</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">I need to reset my password...</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Resolved</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Medium</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">View</button>
+                <button class="text-green-600 dark:text-green-400 hover:underline mr-2">Reply</button>
+                <button class="text-red-600 dark:text-red-400 hover:underline">Resolve</button>
+              </td>
+            </tr>
+            <!-- Additional rows here -->
+            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">3</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">supportexample.com</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Feature Request</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Can we add a dark mode option...</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Pending</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">Low</td>
+              <td class="px-4 py-2 border border-gray-300 dark:border-gray-700">
+                <button class="text-blue-600 dark:text-blue-400 hover:underline mr-2">View</button>
+                <button class="text-green-600 dark:text-green-400 hover:underline mr-2">Reply</button>
+                <button class="text-red-600 dark:text-red-400 hover:underline">Resolve</button>
+              </td>
+            </tr>
+            <!-- Additional rows here -->
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Pagination -->
+      <div class="mt-4 flex justify-between items-center">
+        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200">Previous</button>
+        <span class="dark:text-gray-200">Page 1 of 10</span>
+        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 dark:bg-gray-700 dark:text-gray-200">Next</button>
+      </div>
+    </main>
+  </div>
+  
