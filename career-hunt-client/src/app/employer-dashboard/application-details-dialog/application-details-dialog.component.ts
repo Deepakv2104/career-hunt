@@ -33,8 +33,14 @@ export class ApplicationDetailsDialogComponent {
         if (this.selectedStatus === 'Shortlisted') {
           // Call sendEmailNotification when status is in-progress
           // this.sendEmailNotification(this.data.user.username, this.data.user.email);
-          this.asend()
-          alert("email sent")
+          this.sendShortlisted();
+          alert("Shortlisted Email Sent")
+        }else if (this.selectedStatus === 'ScheduleInterview'){
+          this.sendInterview();
+          alert("ScheduleInterview Email Sent")
+        }else if (this.selectedStatus === 'Selected'){
+          this.sendSelection();
+          alert("Selected Email Sent")
         }
       },
       error => {
@@ -45,16 +51,43 @@ export class ApplicationDetailsDialogComponent {
   }
   
 
-  asend(){
-emailjs.init('mUxPgkv6Rehc984Rf')
-emailjs.send("service_ci0g3a5","template_2l3o6oh",{
-  to_name: this.data.userProfile.user.username,
-  to_email:this.data.userProfile.user.email,
-  jobRole: this.data.job.role,
-  companyName: this.data.job.employer.companyName,
-  applicationID: this.data.applicationId,
-  reply_to: "no reply",
-  });
+  sendShortlisted(){
+      emailjs.init('mUxPgkv6Rehc984Rf')
+      emailjs.send("service_ci0g3a5","template_2l3o6oh",{
+      to_name: this.data.userProfile.user.username,
+      to_email: this.data.userProfile.user.email,
+      jobRole: this.data.job.role,
+      companyName: this.data.job.employer.companyName,
+      applicationID: this.data.applicationId,
+      reply_to: "no reply",
+    });
+  }
+
+
+  sendInterview(){
+    emailjs.init('wNgthbHuqilJq0j8y')
+    emailjs.send("service_9551kcp","template_lnqm92j",{
+      to_name: this.data.userProfile.user.username,
+      jobRole: this.data.job.role,
+      companyName: this.data.job.employer.companyName,
+      date: "bv",
+      time: "02:00 PM",
+      link: "https://meet.google.com/zes-ubej-gce",
+      to_email: this.data.userProfile.user.email,
+      reply_to: "no reply",
+      });
+  }
+
+  sendSelection(){
+    emailjs.init('wNgthbHuqilJq0j8y')
+    emailjs.send("service_9551kcp","template_7hqlx55",{
+      to_name: this.data.userProfile.user.username,
+      jobRole: this.data.job.role,
+      companyName: this.data.job.employer.companyName,
+      salary: this.data.job.salary,
+      to_email: this.data.userProfile.user.email,
+      reply_to: "no reply",
+      });
   }
  
   viewResume() {
