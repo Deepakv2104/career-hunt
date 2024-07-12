@@ -20,21 +20,22 @@ export class RegisterComponent implements OnInit {
         '', 
         [
           Validators.required,
-          Validators.pattern('^[a-zA-Z]+$') // Only letters
+          Validators.pattern('^[a-zA-Z ]+$')  // Only letters and spaces
         ]
       ],
       email: [
         '', 
         [
           Validators.required,
-          Validators.email
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') // Standard email pattern
         ]
       ],
       phoneNumber: [
         '', 
         [
           Validators.required,
-          Validators.pattern('^[0-9]{10}$') // Exactly 10 digits
+          Validators.pattern('^[6-9][0-9]{9}$')  // Must start with 6/7/8/9 and be 10 digits
         ]
       ],
       password: [
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
           Validators.minLength(6)
         ]
       ],
-      role: ['USER', Validators.required] // Default role is USER
+      role: ['USER', Validators.required]  // Default role is USER
     });
   }
 
@@ -59,10 +60,12 @@ export class RegisterComponent implements OnInit {
         },
         error => {
           console.error('Registration failed', error);
+          alert('Registration failed: ' + error.message); // Show error message
         }
       );
     } else {
       this.signupForm.markAllAsTouched();
+      alert('Please fill out the form correctly.');
     }
   }
 }

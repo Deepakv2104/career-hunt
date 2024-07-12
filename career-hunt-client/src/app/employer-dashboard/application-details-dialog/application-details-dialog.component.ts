@@ -56,8 +56,16 @@ export class ApplicationDetailsDialogComponent implements OnInit {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-    return tomorrow.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+  
+    // Extract the day, month, and year
+    const day = ("0" + tomorrow.getDate()).slice(-2);
+    const month = ("0" + (tomorrow.getMonth() + 1)).slice(-2);
+    const year = tomorrow.getFullYear();
+  
+    // Format as DD-MM-YYYY
+    return `${day}-${month}-${year}`;
   }
+  
   
 
   sendShortlisted(){

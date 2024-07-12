@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   isDarkMode = false;
   loginForm: FormGroup;
+  loginError: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loginError = null;
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authService.login(email, password).subscribe(
@@ -40,10 +42,9 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/user-dashboard']);
           } else if (userRole === 'EMPLOYER') {
             this.router.navigate(['/employer-dashboard']);
-
-          }  else if (userRole === 'ADMIN') {
-            this.router.navigate(['/admin-dashboard'])}
-            else {
+          } else if (userRole === 'ADMIN') {
+            this.router.navigate(['/admin-dashboard']);
+          } else {
             console.error('Unknown role:', userRole);
             // Handle unexpected roles or scenarios
             alert('Unknown role: ' + userRole);
@@ -51,8 +52,11 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.error('Login failed', error);
-          alert('Login failed: ' + error.message);
-          // Optionally handle error messages or form state here
+          if (error.status === 401) {
+            this.loginError = 'Incorrect email or password';
+          } else {
+            this.loginError = 'Login failed: ' + error.message;
+          }
         }
       );
     } else {

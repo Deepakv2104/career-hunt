@@ -12,6 +12,7 @@ export class CreateCompanyProfileComponent implements OnInit {
   companyProfileForm: FormGroup;
   isUpdateMode: boolean = false;
   currentEmployer: Employer | null = null;
+  formSubmitted: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,8 @@ export class CreateCompanyProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.formSubmitted = true;
+
     if (this.companyProfileForm.valid) {
       const employer: Employer = this.companyProfileForm.value;
 
@@ -63,6 +66,7 @@ export class CreateCompanyProfileComponent implements OnInit {
         console.log('Employer profile created successfully:', response);
         this.isUpdateMode = true;
         this.currentEmployer = response;
+        alert('Profile created successfully!');
       },
       (error) => {
         if (error.status === 401) {
@@ -79,6 +83,7 @@ export class CreateCompanyProfileComponent implements OnInit {
     this.employerService.updateProfile(employer).subscribe(
       (response) => {
         console.log('Employer profile updated successfully:', response);
+        alert('Profile updated successfully!');
       },
       (error) => {
         if (error.status === 401) {
