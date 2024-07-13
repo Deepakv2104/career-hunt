@@ -13,16 +13,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class FeedbackService {
-
+	// Autowire the FeedbackRepository to interact with the feedback database table
     @Autowired
     private FeedbackRepository feedbackRepository;
-
+ // Autowire the UserRepository to interact with the user database table
     @Autowired
     private UserRepository userRepository;
 
     @Transactional
     public Feedback postFeedback(String email, Feedback feedback) {
-        
+    	// Retrieve the user object from the database using the provided email
         User user = userRepository.findByEmail(email);
 
         // Set the user in the feedback object
