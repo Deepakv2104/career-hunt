@@ -110,12 +110,29 @@
           <div *ngIf="!loading && jobs.length > 0">
             <div *ngFor="let job of paginatedJobs" class="bg-white shadow-md rounded-lg p-6 mt-4 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 relative">
               <!-- Job Details -->
+              <div class="absolute top-2 right-2">
+                <button (click)="editJob(job)" class="text-gray-400 hover:text-gray-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M14.293 2.293a1 1 0 0 1 1.414 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.183-1.183l1-3a1 1 0 0 1 .242-.39l9-9zM13 5l2-2-1-1-2 2 1 1z"
+                          clip-rule="evenodd" />
+                  </svg>
+                </button>
+                <button (click)="deleteJob(job.jobId)" class="text-gray-400 hover:text-red-600 ml-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M5 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6zm2 10V8h2v8H7zm4 0V8h2v8h-2z"
+                          clip-rule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+  
               <h3 class="text-xl font-semibold text-indigo-600">{{ job.role }}</h3>
               <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.companyName }}</p>
               <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.type }} | {{ job.location }}</p>
               <div class="mt-4 flex items-center justify-between">
                 <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }} years</span>
-                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: INR {{ job.salary }}</span>
+                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: {{ job.salary }} LPA</span>
               </div>
               <p class="mt-2 text-sm text-gray-800 dark:text-gray-400 line-clamp-2">{{ job.jobDescription }}</p>
               <div class="mt-4">
