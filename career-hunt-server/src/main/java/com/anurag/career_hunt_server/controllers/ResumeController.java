@@ -38,13 +38,16 @@ public class ResumeController {
     @GetMapping("/view/{userId}")
     public ResponseEntity<Resource> viewResume(@PathVariable Long userId) {
         try {
+        	// Retrieve the user by user ID
             User user = userRepository.findByUserId(userId);
             if (user != null) {
+            	// Retrieve the user's profile
                 UserProfile userProfile = userProfileService.getUserProfile(userId);
                 if (userProfile.getResumeFilePath() != null) {
+                	// Get the file location of the resume
                     Path filePath = storageService.getFileLocation(userProfile.getResumeFilePath());
                     Resource resource = new UrlResource(filePath.toUri());
-
+                 // Check if the file exists and is readable
                     if (resource.exists() || resource.isReadable()) {
                         String contentType = "application/pdf";
                         return ResponseEntity.ok()
@@ -70,8 +73,9 @@ public class ResumeController {
     @GetMapping("/viewResume/{resumeFilePath}")
     public ResponseEntity<Resource> viewResume(@PathVariable String resumeFilePath) {
         try {
+        	// Load the file as a Resource
             Resource resource = storageService.loadFileAsResource(resumeFilePath);
-
+         // Check if the file exists and is readable
             if (resource.exists() || resource.isReadable()) {
                 String contentType = "application/pdf";
                 return ResponseEntity.ok()
