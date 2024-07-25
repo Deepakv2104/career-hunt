@@ -13,28 +13,39 @@
         />
 
         <select
-          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="locationFilter"
-          (change)="filterJobs()"
-        >
-          <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
-        </select>
+        class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="locationFilter"
+        (change)="filterJobs()"
+      >
+        <option *ngFor="let city of mainCitiesOfIndia" [value]="city">{{ city }}</option>
+      </select>
+      
+      
+        <select
+        class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="typeFilter"
+        (change)="filterJobs()"
+      >
+        <option value="All Types">All Types</option>
+        <option value="Full Time">Full-Time</option>
+        <option value="PartTime">Part-Time</option>
+        <option value="Internship">Internship</option>
+        <!-- <option value="Contract">Contract</option> -->
+      </select>
+      
 
         <select
-          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="typeFilter"
-          (change)="filterJobs()"
-        >
-          <option *ngFor="let type of types" [value]="type">{{ type }}</option>
-        </select>
-
-        <select
-          class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-          [(ngModel)]="experienceFilter"
-          (change)="filterJobs()"
-        >
-          <option *ngFor="let experience of experiences" [value]="experience">{{ experience }} years </option>
-        </select>
+        class="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        [(ngModel)]="experienceFilter"
+        (change)="filterJobs()"
+      >
+        <option value="All Experience Levels">All Experience Levels</option>
+        <option value="0-2">0-2 years</option>
+        <option value="3-5">3-5 years</option>
+        <option value="6-10">6-10 years</option>
+        <option value="10+">10+ years</option>
+      </select>
+      
 
       
       </div>

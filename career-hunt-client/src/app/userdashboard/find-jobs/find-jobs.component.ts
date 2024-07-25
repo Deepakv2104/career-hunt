@@ -36,6 +36,37 @@ export class FindJobsComponent implements OnInit {
     private jobApplicationService: JobApplicationService,
     public authService: AuthService
   ) { }
+  mainCitiesOfIndia: string[] = [
+    'All Locations',
+    'Mumbai',
+    'Delhi',
+    'Bangalore',
+    'Hyderabad',
+    'Ahmedabad',
+    'Chennai',
+    'Kolkata',
+    'Surat',
+    'Pune',
+    'Jaipur',
+    'Lucknow',
+    'Kanpur',
+    'Nagpur',
+    'Indore',
+    'Thane',
+    'Bhopal',
+    'Visakhapatnam',
+    'Pimpri-Chinchwad',
+    'Patna',
+    'Vadodara',
+    'Ghaziabad',
+    'Ludhiana',
+    'Agra',
+    'Nashik',
+    'Faridabad',
+    'Meerut',
+    'Rajkot',
+    'Kalyan-Dombivli'
+  ];
 
   ngOnInit(): void {
     this.fetchJobs();
@@ -93,15 +124,36 @@ export class FindJobsComponent implements OnInit {
 
   filterJobs(): void {
     this.filteredJobs = this.jobs.filter(job => {
-      return (
-        (this.locationFilter === 'All Locations' || job.location === this.locationFilter) &&
-        (this.typeFilter === 'All Types' || job.type === this.typeFilter) &&
-        (this.experienceFilter === 'All Experience Levels' || job.experience.toString() === this.experienceFilter) &&
-        (job.role.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-         job.companyName.toLowerCase().includes(this.searchTerm.toLowerCase()))
-      );
+      const matchesLocation = this.locationFilter === 'All Locations' || job.location === this.locationFilter;
+      const matchesType = this.typeFilter === 'All Types' || job.type === this.typeFilter;
+      const matchesSearchTerm = job.role.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        job.companyName.toLowerCase().includes(this.searchTerm.toLowerCase());
+  
+      let matchesExperience = true;
+      if (this.experienceFilter !== 'All Experience Levels') {
+        const experience = job.experience;
+        switch (this.experienceFilter) {
+          case '0-2':
+            matchesExperience = experience >= 0 && experience <= 2;
+            break;
+          case '3-5':
+            matchesExperience = experience >= 3 && experience <= 5;
+            break;
+          case '6-10':
+            matchesExperience = experience >= 6 && experience <= 10;
+            break;
+          case '10+':
+            matchesExperience = experience >= 10;
+            break;
+          default:
+            matchesExperience = true;
+        }
+      }
+  
+      return matchesLocation && matchesType && matchesExperience && matchesSearchTerm;
     });
   }
+  
 
   filterRecommendedJobs(): void {
     if (!this.user || !this.user.keySkills) {
