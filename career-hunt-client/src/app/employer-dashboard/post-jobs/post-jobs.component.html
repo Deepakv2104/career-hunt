@@ -9,91 +9,108 @@
             <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div>
                 <label for="role" class="block text-sm font-medium text-gray-800 dark:text-white">Job Role</label>
+
                 <select id="role" formControlName="role"
-                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
-                        [class.border-red-500]="jobForm.get('role')?.invalid && jobForm.get('role')?.touched">
-                  <option value="" disabled selected>Select Job Role</option>
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('role')?.invalid && jobForm.get('role')?.touched">
+                  <option value="" disabled>Select Job Role</option>
                   <option *ngFor="let role of jobRoles" [value]="role">{{ role }}</option>
                 </select>
+
                 <div *ngIf="jobForm.get('role')?.invalid && jobForm.get('role')?.touched"
-                     class="text-red-500 text-sm mt-1">Job Role is required</div>
+                  class="text-red-500 text-sm mt-1">Job Role is required</div>
               </div>
               <div>
                 <label for="type" class="block text-sm font-medium text-gray-800 dark:text-white">Job Type</label>
                 <select id="type" formControlName="type"
-                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
-                        [class.border-red-500]="jobForm.get('type')?.invalid && jobForm.get('type')?.touched">
-                  <option value="" disabled selected>Select Job Type</option>
-                  <option *ngFor="let type of jobTypes" [value]="type">{{ type }}</option>
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('type')?.invalid && jobForm.get('type')?.touched">
+                  <option value="" disabled>Select Job Type</option>
+                  <option value="Full Time">Full Time</option>
+                  <option value="Internship">Internship</option>
+                  <option value="PartTime">Part Time</option>
+
                 </select>
+
                 <div *ngIf="jobForm.get('type')?.invalid && jobForm.get('type')?.touched"
-                     class="text-red-500 text-sm mt-1">Job Type is required</div>
+                  class="text-red-500 text-sm mt-1">Job Type is required</div>
               </div>
               <div class="sm:col-span-2">
-                <label for="jobDescription" class="block text-sm font-medium text-gray-800 dark:text-white">Job Description</label>
+                <label for="jobDescription" class="block text-sm font-medium text-gray-800 dark:text-white">Job
+                  Description</label>
                 <textarea id="jobDescription" formControlName="jobDescription" rows="7"
-                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
-                          [class.border-red-500]="jobForm.get('jobDescription')?.invalid && jobForm.get('jobDescription')?.touched"></textarea>
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('jobDescription')?.invalid && jobForm.get('jobDescription')?.touched"></textarea>
                 <div *ngIf="jobForm.get('jobDescription')?.invalid && jobForm.get('jobDescription')?.touched"
-                     class="text-red-500 text-sm mt-1">Job Description is required</div>
+                  class="text-red-500 text-sm mt-1">Job Description is required</div>
               </div>
               <div>
-                <label for="eligibility" class="block text-sm font-medium text-gray-800 dark:text-white">Eligibility (years)</label>
-                <select id="eligibility" formControlName="eligibility"
-                        class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
-                        [class.border-red-500]="jobForm.get('eligibility')?.invalid && jobForm.get('eligibility')?.touched">
-                  <option value="" disabled selected>Select Eligibility</option>
-                  <option *ngFor="let eligibility of eligibilityOptions" [value]="eligibility">{{ eligibility }}</option>
-                </select>
+                <label for="eligibility"
+                  class="block text-sm font-medium text-gray-800 dark:text-white">Eligibility</label>
+                <textarea id="eligibility" formControlName="eligibility" rows="5"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('eligibility')?.invalid && jobForm.get('eligibility')?.touched"></textarea>
                 <div *ngIf="jobForm.get('eligibility')?.invalid && jobForm.get('eligibility')?.touched"
-                     class="text-red-500 text-sm mt-1">Eligibility is required</div>
+                  class="text-red-500 text-sm mt-1">Eligibility is required</div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="experience" class="block text-sm font-medium text-gray-800 dark:text-white">Experience
+                  (years)</label>
+                <input type="number" id="experience" formControlName="experience"
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('experience')?.invalid && jobForm.get('experience')?.touched">
+                <div *ngIf="jobForm.get('experience')?.invalid && jobForm.get('experience')?.touched"
+                  class="text-red-500 text-sm mt-1">Experience is required</div>
               </div>
               <div>
-                <label for="salary" class="block text-sm font-medium text-gray-800 dark:text-white">Salary (annual)</label>
+                <label for="salary" class="block text-sm font-medium text-gray-800 dark:text-white">Salary
+                  (annual)</label>
                 <input type="number" id="salary" formControlName="salary"
-                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
-                       [class.border-red-500]="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched">
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched">
                 <div *ngIf="jobForm.get('salary')?.invalid && jobForm.get('salary')?.touched"
-                     class="text-red-500 text-sm mt-1">Salary is required</div>
+                  class="text-red-500 text-sm mt-1">Salary is required</div>
               </div>
               <div class="sm:col-span-2">
                 <label for="location" class="block text-sm font-medium text-gray-800 dark:text-white">Location</label>
                 <input type="text" id="location" formControlName="location"
-                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
-                       [class.border-red-500]="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-10 dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('location')?.invalid && jobForm.get('location')?.touched">
                 <div *ngIf="jobForm.get('location')?.invalid && jobForm.get('location')?.touched"
-                     class="text-red-500 text-sm mt-1">Location is required</div>
+                  class="text-red-500 text-sm mt-1">Location is required</div>
               </div>
               <div class="sm:col-span-2">
-                <label for="responsibility" class="block text-sm font-medium text-gray-800 dark:text-white">Responsibilities</label>
+                <label for="responsibility"
+                  class="block text-sm font-medium text-gray-800 dark:text-white">Responsibilities</label>
                 <textarea id="responsibility" formControlName="responsibility" rows="6"
-                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
-                          [class.border-red-500]="jobForm.get('responsibility')?.invalid && jobForm.get('responsibility')?.touched"></textarea>
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('responsibility')?.invalid && jobForm.get('responsibility')?.touched"></textarea>
                 <div *ngIf="jobForm.get('responsibility')?.invalid && jobForm.get('responsibility')?.touched"
-                     class="text-red-500 text-sm mt-1">Responsibilities are required</div>
+                  class="text-red-500 text-sm mt-1">Responsibilities are required</div>
               </div>
               <div class="sm:col-span-2">
-                <label for="requirements" class="block text-sm font-medium text-gray-800 dark:text-white">Requirements</label>
+                <label for="requirements"
+                  class="block text-sm font-medium text-gray-800 dark:text-white">Requirements</label>
                 <textarea id="requirements" formControlName="requirements" rows="6"
-                          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
-                          [class.border-red-500]="jobForm.get('requirements')?.invalid && jobForm.get('requirements')?.touched"></textarea>
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('requirements')?.invalid && jobForm.get('requirements')?.touched"></textarea>
                 <div *ngIf="jobForm.get('requirements')?.invalid && jobForm.get('requirements')?.touched"
-                     class="text-red-500 text-sm mt-1">Requirements are required</div>
+                  class="text-red-500 text-sm mt-1">Requirements are required</div>
               </div>
               <div class="sm:col-span-2">
-                <label for="lastDateToApply" class="block text-sm font-medium text-gray-800 dark:text-white">Last Date to Apply</label>
+                <label for="lastDateToApply" class="block text-sm font-medium text-gray-800 dark:text-white">Last Date
+                  to Apply</label>
                 <input type="date" id="lastDateToApply" formControlName="lastDateToApply"
-                       class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
-                       [class.border-red-500]="jobForm.get('lastDateToApply')?.invalid && jobForm.get('lastDateToApply')?.touched"
-                       [min]="minDate">
+                  class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:text-gray-300"
+                  [class.border-red-500]="jobForm.get('lastDateToApply')?.invalid && jobForm.get('lastDateToApply')?.touched"
+                  [min]="minDate">
                 <div *ngIf="jobForm.get('lastDateToApply')?.invalid && jobForm.get('lastDateToApply')?.touched"
-                     class="text-red-500 text-sm mt-1">Last Date to Apply is required</div>
+                  class="text-red-500 text-sm mt-1">Last Date to Apply is required</div>
               </div>
             </div>
             <div>
-              <button type="submit"
-                      [disabled]="jobForm.invalid"
-                      class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+              <button type="submit" [disabled]="jobForm.invalid"
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                 {{ editMode ? 'Update Job' : 'Post Job' }}
               </button>
             </div>
@@ -102,65 +119,70 @@
 
         <div class="md:w-1/2 bg-gray-50 dark:bg-gray-700 p-8">
           <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">Posted Jobs</h2>
-        
+
           <!-- Show loading spinner or message when jobs are being fetched -->
           <div *ngIf="loading" class="text-center my-4">
             <p>Loading jobs...</p>
           </div>
-        
+
           <div *ngIf="!loading && jobs.length > 0">
-            <div *ngFor="let job of paginatedJobs" class="bg-white shadow-md rounded-lg p-6 mt-4 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 relative">
+            <div *ngFor="let job of paginatedJobs"
+              class="bg-white shadow-md rounded-lg p-6 mt-4 hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800 relative">
               <!-- Job Details -->
               <div class="absolute top-2 right-2">
                 <button (click)="editJob(job)" class="text-gray-400 hover:text-gray-600">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
-                          d="M14.293 2.293a1 1 0 0 1 1.414 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.183-1.183l1-3a1 1 0 0 1 .242-.39l9-9zM13 5l2-2-1-1-2 2 1 1z"
-                          clip-rule="evenodd" />
+                      d="M14.293 2.293a1 1 0 0 1 1.414 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.183-1.183l1-3a1 1 0 0 1 .242-.39l9-9zM13 5l2-2-1-1-2 2 1 1z"
+                      clip-rule="evenodd" />
                   </svg>
                 </button>
                 <button (click)="deleteJob(job.jobId)" class="text-gray-400 hover:text-red-600 ml-2">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd"
-                          d="M5 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6zm2 10V8h2v8H7zm4 0V8h2v8h-2z"
-                          clip-rule="evenodd" />
+                      d="M5 6a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6zm2 10V8h2v8H7zm4 0V8h2v8h-2z"
+                      clip-rule="evenodd" />
                   </svg>
                 </button>
               </div>
-  
+
               <h3 class="text-xl font-semibold text-indigo-600">{{ job.role }}</h3>
               <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.companyName }}</p>
               <p class="text-sm text-gray-800 dark:text-gray-400 mt-1">{{ job.type }} | {{ job.location }}</p>
               <div class="mt-4 flex items-center justify-between">
-                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }} years</span>
+                <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Experience: {{ job.experience }}
+                  years</span>
                 <span class="text-sm font-medium text-gray-800 dark:text-gray-400 ">Salary: {{ job.salary }} LPA</span>
               </div>
               <p class="mt-2 text-sm text-gray-800 dark:text-gray-400 line-clamp-2">{{ job.jobDescription }}</p>
               <div class="mt-4">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   {{ job.type }}
                 </span>
               </div>
             </div>
-        
+
             <!-- Pagination Controls -->
             <div class="mt-6 flex justify-center">
-              <button (click)="previousPage()" [disabled]="currentPage === 1" class="px-4 py-2 mx-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+              <button (click)="previousPage()" [disabled]="currentPage === 1"
+                class="px-4 py-2 mx-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
                 Previous
               </button>
-              <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= jobs.length" class="px-4 py-2 mx-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
+              <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= jobs.length"
+                class="px-4 py-2 mx-2 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white rounded hover:bg-gray-400 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed">
                 Next
               </button>
             </div>
           </div>
-        
+
           <!-- Show message when no jobs are available -->
           <div *ngIf="!loading && jobs.length === 0" class="text-center my-4">
             <p>No jobs found.</p>
           </div>
         </div>
-        
-        
+
+
       </div>
     </div>
   </div>
