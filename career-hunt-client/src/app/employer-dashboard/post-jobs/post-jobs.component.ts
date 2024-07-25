@@ -25,6 +25,10 @@ export class PostJobsComponent implements OnInit {
   itemsPerPage: number = 3;
   loading: boolean = true;
 
+  jobRoles: string[] = ['Software Developer', 'Software Engineer', 'Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Data Scientist'];
+  jobTypes: string[] = ['Full-time', 'Part-time', 'Contract', 'Internship'];
+  eligibilityOptions: any[] = [0, 1, 2, 3, 4, "5 +"];
+
   constructor(
     private fb: FormBuilder,
     private jobService: JobService,
