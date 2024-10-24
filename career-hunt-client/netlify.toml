@@ -1,4 +1,9 @@
 [build]
-  base    = "career-hunt-client"  # This is the Angular app folder where the source code is
-  publish = "career-hunt-client/dist/career-hunt-client"  # This is where the output is published after build
-  command = "ng build --configuration production"  # Correct build command for Angular 12+
+  base = "career-hunt-client"
+  publish = "dist"
+  command = "npm run build"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
