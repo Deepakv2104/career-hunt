@@ -1,7 +1,7 @@
 [build]
   base = "career-hunt-client"
-  publish = "dist"
-  command = "npm run build"
+  publish = "dist/career-hunt-client"
+  command = "ng build"
 
 [[redirects]]
   from = "/*"
