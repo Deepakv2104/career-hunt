@@ -1,0 +1,7 @@
+[build]
+  base    = "career-hunt-client"  # Your Angular project folder
+  publish = "career-hunt-client/dist/career-hunt-client"  # Where the build output will be
+  command = "ng build --prod"  # Build command for Angular production build
+
+[context.production.environment]
+  NODE_ENV = "production"
