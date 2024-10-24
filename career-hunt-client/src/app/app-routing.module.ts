@@ -21,6 +21,9 @@ import { SearchComponent } from './admin-dashboard/search/search.component';
 import { SupportPageComponent } from './admin-dashboard/support-page/support-page/support-page.component';
 import { HelpDeskComponent } from './userdashboard/help-desk/help-desk/help-desk.component';
 import { MaintenanceComponent } from './admin-dashboard/maintenance/maintenance/maintenance.component';
+import { UserGuardService } from './services/authGuard/user-guard/user-guard.service';
+import { EmployerGuardService } from './services/authGuard/employer-guard/employer-guard.service';
+import { AdminGuardService } from './services/authGuard/admin-guard/admin-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,48 +32,41 @@ const routes: Routes = [
   {
     path: 'user-dashboard',
     component: UserDashboardLayoutComponent,
-    canActivate: [AuthGuardService], // Protect the user-dashboard route
+    canActivate: [UserGuardService], // Protect the user-dashboard route
     children: [
       { path: '', redirectTo: 'search-jobs', pathMatch: 'full' },
-      { path: 'search-jobs', component: FindJobsComponent, canActivate: [AuthGuardService] }, 
-      { path: 'search-people', component: FindPeopleComponent, canActivate: [AuthGuardService] }, 
-      { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
-      { path: 'feedback', component: FeedbackComponent, canActivate: [AuthGuardService] },
-      { path: 'support', component: HelpDeskComponent , canActivate: [AuthGuardService] } // Protect child routes
-
+      { path: 'search-jobs', component: FindJobsComponent, canActivate: [UserGuardService] },
+      { path: 'search-people', component: FindPeopleComponent, canActivate: [UserGuardService] },
+      { path: 'user-profile', component: UserProfileComponent, canActivate: [UserGuardService] },
+      { path: 'my-applications', component: MyApplicationsComponent, canActivate: [UserGuardService] },
+      { path: 'feedback', component: FeedbackComponent, canActivate: [UserGuardService] },
+      { path: 'support', component: HelpDeskComponent, canActivate: [UserGuardService] }
     ]
   },
   {
     path: 'employer-dashboard',
     component: EmployerDashbaordLayoutComponent,
-    canActivate: [AuthGuardService], // Protect the employer-dashboard route
+    canActivate: [EmployerGuardService], // Protect the employer-dashboard route
     children: [
       { path: '', redirectTo: 'post-jobs', pathMatch: 'full' },
-      { path: 'post-jobs', component: PostJobsComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'search-people', component: FindPeopleComponent , canActivate: [AuthGuardService] }, // Protect child routes
-      { path: 'help', component: HelpDeskComponent , canActivate: [AuthGuardService] } // Protect child routes
-
+      { path: 'post-jobs', component: PostJobsComponent, canActivate: [EmployerGuardService] },
+      { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [EmployerGuardService] },
+      { path: 'applications', component: ApplicationsComponent, canActivate: [EmployerGuardService] },
+      { path: 'search-people', component: FindPeopleComponent, canActivate: [EmployerGuardService] },
+      { path: 'help', component: HelpDeskComponent, canActivate: [EmployerGuardService] }
     ]
   },
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
-    canActivate: [AuthGuardService], // Protect the employer-dashboard route
+    canActivate: [AdminGuardService], // Protect the admin-dashboard route
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      { path: 'overview', component: OverviewComponent, canActivate: [AuthGuardService] }, 
-      { path: 'feedbacks', component: FeedbacksComponent, canActivate: [AuthGuardService] }, 
-      { path: 'search', component: SearchComponent, canActivate: [AuthGuardService] }, 
-      { path: 'support', component: SupportPageComponent, canActivate: [AuthGuardService] }, 
-      { path: 'maintenance', component: MaintenanceComponent, canActivate: [AuthGuardService] }, 
-
-
-      // { path: 'create-company-profile', component: CreateCompanyProfileComponent, canActivate: [AuthGuardService] }, // Protect child routes
-      // { path: 'applications', component: ApplicationsComponent, canActivate: [AuthGuardService] } // Protect child routes
-
+      { path: 'overview', component: OverviewComponent, canActivate: [AdminGuardService] },
+      { path: 'feedbacks', component: FeedbacksComponent, canActivate: [AdminGuardService] },
+      { path: 'search', component: SearchComponent, canActivate: [AdminGuardService] },
+      { path: 'support', component: SupportPageComponent, canActivate: [AdminGuardService] },
+      { path: 'maintenance', component: MaintenanceComponent, canActivate: [AdminGuardService] }
     ]
   }
 ];
@@ -80,3 +76,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

@@ -8,13 +8,13 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080'; // Adjust this to your Spring Boot API URL
+  private apiUrl = 'http://localhost:8080'; 
   private loggedInSubject: BehaviorSubject<boolean>;
   private currentUser: { username: string, email: string, role: string , phoneNumber: string} | null = null;
 
   constructor(private http: HttpClient) {
     this.loggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
-    this.loadUser(); // Load user data from sessionStorage on service initialization
+    this.loadUser(); 
   }
 
   register(email: string, username: string, phoneNumber: string, password: string, role: string): Observable<any> {
